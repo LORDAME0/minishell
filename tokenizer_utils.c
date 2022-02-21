@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/21 19:44:52 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/21 23:29:32 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,23 @@ char	*return_token_type(int type)
 	else if (type == 3)
 		return ("in");
 	else if (type == 4)
-		return ("assignment");
-	else if (type == 5)
 		return ("word");
+	else if (type == 5)
+		return ("pip");
 	else if (type == 6)
-		return ("io_word");
-	else if (type == 7)
-		return ("delimiter");
-	else if (type == 8)
-		return ("pipe");
-	else if (type == 9)
 		return ("and_if");
-	else if (type == 10)
+	else if (type == 7)
 		return ("or_if");
+	else if (type == 8)
+		return ("space");
+	else if (type == 9)
+		return ("d_quote");
+	else if (type == 10)
+		return ("s_quote");
+	else if (type == 11)
+		return ("o_parenthesis");
+	else if (type == 12)
+		return ("c_parenthesis");
 	return (NULL);
 }
 
@@ -59,7 +63,7 @@ void	re_print_command(t_list	*tok_list)
 	while (tok_list)
 	{
 		token = tok_list->content;
-		printf ("%s ", token->elem);
+		printf ("%s", token->elem);
 		tok_list = tok_list->next;
 	}
 	printf("\n");

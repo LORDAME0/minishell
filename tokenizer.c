@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/21 19:48:45 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/21 23:29:26 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	and_or_state(t_list **head, char *line, int i)
 	}
 	return (i);
 }
+
 int	redirection_state(t_list **head, char *line, int i)
 {
 	if (line[i] == line[i + 1])
@@ -57,69 +58,120 @@ int	redirection_state(t_list **head, char *line, int i)
 	else
 	{
 		if (line[i] == '>')
-			ft_lstadd_back(head, ft_lstnew(create_token(ft_strdup(">"), out)));
+			ft_lstadd_back(head,
+				ft_lstnew(create_token(ft_strdup(">"), out)));
 		else
-			ft_lstadd_back(head, ft_lstnew(create_token(ft_strdup("<"), in)));
+			ft_lstadd_back(head,
+				ft_lstnew(create_token(ft_strdup("<"), in)));
 		i++;
 	}
 	return (i);
 }
 
-bool	crop(t_list **head, char *line, int i, bool prefix)
+
+int	quote_state(t_list **head, char *line, int i)
+{
+	if (line[i] == '\"')
+		ft_lstadd_back(head,
+			ft_lstnew(create_token(ft_strdup("\""), d_quote)));
+	else
+		ft_lstadd_back(head,
+			ft_lstnew(create_token(ft_strdup("\'"), s_quote)));
+	i++;
+	return (i);
+}
+
+int	parenthesis_state(t_list **head, char *line, int i)
+{
+	if (line[i] == '(')
+		ft_lstadd_back(head,
+			ft_lstnew(create_token(ft_strdup("("), o_parenthesis)));
+	else
+		ft_lstadd_back(head,
+			ft_lstnew(create_token(ft_strdup(")"), c_parenthesis)));
+	i++;
+	return (i);
+}
+
+int	space_state(t_list **head, int i)
+{
+	ft_lstadd_back(head,
+		ft_lstnew(create_token(ft_strdup(" "), space)));
+	i++;
+	return (i);
+}
+
+void	crop(t_list **head, char *line, int i)
 {
 	char		*tmp;
 
 	tmp = ft_substr(line, 0, i);
-	if (*head && ((t_token *)(ft_lstlast(*head)->content))->type < 4)
-		ft_lstadd_back(head,
-			ft_lstnew(create_token(ft_substr(line, 0, i), io_file)));
-	else
-	{
-		if (ft_strchr(tmp, '=') && tmp[0] != '=' && prefix)
-		{
-			ft_lstadd_back(head,
-				ft_lstnew(create_token(tmp, assignment)));
-		}
-		else
-		{
-			ft_lstadd_back(head,
-				ft_lstnew(create_token(tmp, word)));
-			prefix = false;
-		}
-	}
-	return (prefix);
+	ft_lstadd_back(head,
+		ft_lstnew(create_token(tmp, word)));
 }
 
 void	tokenizer(t_list **head, char *s)
 {
 	int		i;
 	int		j;
-	bool	prefix;
+	char	quote;
 
+	quote = -1;
 	init_indexs(2, 0, &i, &j);
-	prefix = true;
-	while (s[i])
+	i = j = 0;
+	while (1337)
 	{
-		if (s[i] == '>' || s[i] == '<')
-			i = redirection_state(head, s, i);
-		if ((s[i] == '&' && s[i + 1] == '&') || s[i] == '|')
+		if ((s[i] == '(' || s[i] == ')') && quote == -1)
 		{
-			i = and_or_state(head, s, i);
-			prefix = true;
-		}
-		else if (s[i] == ' ')
-			i++;
-		else if (s[i])
-		{
+			if (i != j)
+				crop(head, s + j, i - j);
+			i = parenthesis_state(head, s, i);
 			j = i;
-			while (s[i] != ' ' && s[i] != '>' && s[i] != '<' && s[i])
-			{
-				if (s[i] == '\'' || s[i] == '\"')
-					skip_until_char(s, &i, ++i - 1);
-				else
-					i++;
-			}
-			prefix = crop(head, s + j, i - j, prefix);
 		}
+		else if ((s[i] == '>' || s[i] == '<') && quote == -1)
+		{
+			if (i != j)
+				crop(head, s + j, i - j);
+			i = redirection_state(head, s, i);
+			j = i;
+		}
+		else if (((s[i] == '&' && s[i + 1] == '&') || s[i] == '|') && quote == -1)
+		{
+			if (i != j)
+				crop(head, s + j, i - j);
+			i = and_or_state(head, s, i);
+			j = i;
+		}
+		else if (s[i] == ' ' && quote == -1)
+		{
+			if (i != j)
+				crop(head, s + j, i - j);
+			i = space_state(head, i);
+			j = i;
+		}
+		else if ((s[i] == '\'' || s[i] == '\"') && quote == -1)
+		{
+			if (i != j)
+				crop(head, s + j, i - j);
+			quote = s[i];
+			i = quote_state(head, s, i);
+			j = i;
+		}
+		else if (s[i] == quote)
+		{
+			if (i != j)
+				crop(head, s + j, i - j);
+			quote = -1;
+			i = quote_state(head, s, i);
+			j = i;
+		}
+		else if (s[i] == 0) 
+		{
+			if (i != j)
+				crop(head, s + j, i - j);
+			return ;
+		}
+		else
+			i++;
 	}
 }
