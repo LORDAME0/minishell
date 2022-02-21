@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.h                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/20 23:05:23 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/21 19:44:01 by orahmoun         ###   ########.fr       */
+/*   Created: 2021/11/11 21:58:47 by orahmoun          #+#    #+#             */
+/*   Updated: 2021/11/11 22:12:04 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef TOKENIZER_H
-# define TOKENIZER_H
-# include "main.h"
 
-typedef struct s_token
+#include "libft.h"
+
+int	ft_lstsize(t_list *lst)
 {
-	char	*elem;
-	int		type;
-}	t_token;
+	int		n;
 
-enum e_token_types {d_in, d_out, out, in, assignment, word, io_file, delimiter
-	,pip, and_if, or_if};
-
-void	print_tokens(t_list *tok_list);
-void	re_print_command(t_list	*tok_list);
-void	tokenizer(t_list **head, char *line);
-#endif
+	n = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		n++;
+	}
+	return (n);
+}

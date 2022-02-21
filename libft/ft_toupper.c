@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.h                                        :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/20 23:05:23 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/21 19:44:01 by orahmoun         ###   ########.fr       */
+/*   Created: 2021/11/04 15:34:17 by orahmoun          #+#    #+#             */
+/*   Updated: 2021/11/19 14:42:47 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef TOKENIZER_H
-# define TOKENIZER_H
-# include "main.h"
+#include "libft.h"
 
-typedef struct s_token
+int	ft_toupper(int c)
 {
-	char	*elem;
-	int		type;
-}	t_token;
-
-enum e_token_types {d_in, d_out, out, in, assignment, word, io_file, delimiter
-	,pip, and_if, or_if};
-
-void	print_tokens(t_list *tok_list);
-void	re_print_command(t_list	*tok_list);
-void	tokenizer(t_list **head, char *line);
-#endif
+	if (c >= 97 && c <= 122)
+		return (c - 32);
+	return (c);
+}

@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.h                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/20 23:05:23 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/21 19:44:01 by orahmoun         ###   ########.fr       */
+/*   Created: 2021/11/05 11:25:53 by orahmoun          #+#    #+#             */
+/*   Updated: 2021/11/19 14:34:33 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef TOKENIZER_H
-# define TOKENIZER_H
-# include "main.h"
 
-typedef struct s_token
+#include "libft.h"
+
+void	ft_bzero(void *s, size_t n)
 {
-	char	*elem;
-	int		type;
-}	t_token;
+	int		i;
+	char	*str;
 
-enum e_token_types {d_in, d_out, out, in, assignment, word, io_file, delimiter
-	,pip, and_if, or_if};
-
-void	print_tokens(t_list *tok_list);
-void	re_print_command(t_list	*tok_list);
-void	tokenizer(t_list **head, char *line);
-#endif
+	str = (char *)s;
+	i = 0;
+	while (n > 0)
+	{
+		str[i] = '\0';
+		i++;
+		n--;
+	}
+}

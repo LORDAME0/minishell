@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.h                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/20 23:05:23 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/21 19:44:01 by orahmoun         ###   ########.fr       */
+/*   Created: 2021/11/05 12:11:07 by orahmoun          #+#    #+#             */
+/*   Updated: 2021/11/19 14:38:22 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef TOKENIZER_H
-# define TOKENIZER_H
-# include "main.h"
 
-typedef struct s_token
+#include "libft.h"
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	char	*elem;
-	int		type;
-}	t_token;
+	unsigned char	*bf1;
+	unsigned char	*bf2;
+	size_t			i;
 
-enum e_token_types {d_in, d_out, out, in, assignment, word, io_file, delimiter
-	,pip, and_if, or_if};
-
-void	print_tokens(t_list *tok_list);
-void	re_print_command(t_list	*tok_list);
-void	tokenizer(t_list **head, char *line);
-#endif
+	i = 0;
+	bf1 = dst;
+	bf2 = (unsigned char *)src;
+	if (!dst && !src)
+		return (NULL);
+	while (i < n)
+	{
+		bf1[i] = bf2[i];
+		i++;
+	}
+	return (dst);
+}

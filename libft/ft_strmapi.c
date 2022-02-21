@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.h                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/20 23:05:23 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/21 19:44:01 by orahmoun         ###   ########.fr       */
+/*   Created: 2021/11/09 19:38:01 by orahmoun          #+#    #+#             */
+/*   Updated: 2021/11/19 14:41:35 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef TOKENIZER_H
-# define TOKENIZER_H
-# include "main.h"
+#include "libft.h"
 
-typedef struct s_token
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	*elem;
-	int		type;
-}	t_token;
+	char			*str;
+	unsigned int	i;
 
-enum e_token_types {d_in, d_out, out, in, assignment, word, io_file, delimiter
-	,pip, and_if, or_if};
-
-void	print_tokens(t_list *tok_list);
-void	re_print_command(t_list	*tok_list);
-void	tokenizer(t_list **head, char *line);
-#endif
+	i = 0;
+	if (s == NULL)
+		return (0);
+	str = ft_strdup (s);
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		str[i] = f(i, str[i]);
+		i++;
+	}
+	return (str);
+}

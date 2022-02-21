@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.h                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/20 23:05:23 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/21 19:44:01 by orahmoun         ###   ########.fr       */
+/*   Created: 2021/11/05 17:45:17 by orahmoun          #+#    #+#             */
+/*   Updated: 2021/11/19 14:41:50 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef TOKENIZER_H
-# define TOKENIZER_H
-# include "main.h"
+#include"libft.h"
 
-typedef struct s_token
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	char	*elem;
-	int		type;
-}	t_token;
+	size_t	n;
+	size_t	i;
+	size_t	len2;
 
-enum e_token_types {d_in, d_out, out, in, assignment, word, io_file, delimiter
-	,pip, and_if, or_if};
-
-void	print_tokens(t_list *tok_list);
-void	re_print_command(t_list	*tok_list);
-void	tokenizer(t_list **head, char *line);
-#endif
+	len2 = len;
+	i = 0;
+	n = ft_strlen (needle);
+	if (needle[0] == '\0')
+		return ((char *)haystack);
+	while (haystack[i] != '\0' && i < len2)
+	{
+		if (ft_strncmp(&haystack[i], needle, n) == 0 && n <= len)
+			return ((char *)(haystack + i));
+		else
+			i++;
+		len--;
+	}
+	return (NULL);
+}

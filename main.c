@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.h                                        :+:      :+:    :+:   */
+/*   new_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/20 23:05:23 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/21 19:44:01 by orahmoun         ###   ########.fr       */
+/*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
+/*   Updated: 2022/02/21 17:10:10 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef TOKENIZER_H
-# define TOKENIZER_H
-# include "main.h"
 
-typedef struct s_token
+#include "main.h"
+
+int	main(void)
 {
-	char	*elem;
-	int		type;
-}	t_token;
+	t_list	*tok_list;
+	char	*line;
 
-enum e_token_types {d_in, d_out, out, in, assignment, word, io_file, delimiter
-	,pip, and_if, or_if};
-
-void	print_tokens(t_list *tok_list);
-void	re_print_command(t_list	*tok_list);
-void	tokenizer(t_list **head, char *line);
-#endif
+	tok_list = NULL;
+	while (1)
+	{
+		line = readline("> ");
+		add_history(line);
+		tokenizer(&tok_list, line);
+		print_tokens(tok_list);
+		re_print_command(tok_list);
+		line = NULL;
+		tok_list = NULL;
+	}
+}

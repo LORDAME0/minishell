@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/21 00:59:47 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/21 19:48:45 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,25 @@ t_token	*create_token(char *elem, int type)
 	return (token);
 }
 
+int	and_or_state(t_list **head, char *line, int i)
+{
+	if (line[i] == line[i + 1])
+	{
+		if (line[i] == '&')
+			ft_lstadd_back(head,
+				ft_lstnew(create_token(ft_strdup("&&"), and_if)));
+		else
+			ft_lstadd_back(head,
+				ft_lstnew(create_token(ft_strdup("||"), or_if)));
+		i += 2;
+	}
+	else if (line[i] == '|')
+	{
+		ft_lstadd_back(head, ft_lstnew(create_token(ft_strdup("|"), pip)));
+		i++;
+	}
+	return (i);
+}
 int	redirection_state(t_list **head, char *line, int i)
 {
 	if (line[i] == line[i + 1])
@@ -83,6 +102,11 @@ void	tokenizer(t_list **head, char *s)
 	{
 		if (s[i] == '>' || s[i] == '<')
 			i = redirection_state(head, s, i);
+		if ((s[i] == '&' && s[i + 1] == '&') || s[i] == '|')
+		{
+			i = and_or_state(head, s, i);
+			prefix = true;
+		}
 		else if (s[i] == ' ')
 			i++;
 		else if (s[i])

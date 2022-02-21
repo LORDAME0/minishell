@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.h                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/20 23:05:23 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/21 19:44:01 by orahmoun         ###   ########.fr       */
+/*   Created: 2021/11/04 17:03:52 by orahmoun          #+#    #+#             */
+/*   Updated: 2022/02/10 13:58:57 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef TOKENIZER_H
-# define TOKENIZER_H
-# include "main.h"
+#include "libft.h"
 
-typedef struct s_token
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	*elem;
-	int		type;
-}	t_token;
+	size_t	i;
 
-enum e_token_types {d_in, d_out, out, in, assignment, word, io_file, delimiter
-	,pip, and_if, or_if};
-
-void	print_tokens(t_list *tok_list);
-void	re_print_command(t_list	*tok_list);
-void	tokenizer(t_list **head, char *line);
-#endif
+	i = 0;
+	if (n == 0)
+		return (0);
+	while ((unsigned char)s1[i] == (unsigned char)s2[i]
+		&& i < n - 1 && s1[i] && s2[i])
+		i++;
+	if ((unsigned char)s1[i] - (unsigned char)s2[i] > 0)
+		return (1);
+	else if ((unsigned char)s1[i] - (unsigned char)s2[i] < 0)
+		return (-1);
+	return (0);
+}
