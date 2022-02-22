@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 15:08:52 by orahmoun          #+#    #+#              #
-#    Updated: 2022/02/22 20:16:31 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/02/22 21:01:49 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC = tokenizer.c \
 	  syntax_analysis.c \
 	  print_tokens.c \
 	  add_token.c \
+	  add_token_2.c \
 	  utils.c \
 
 
@@ -41,7 +42,7 @@ READLINE = -lreadline
 all : ${NAME}
 
 ${LIBFT} :
-	make -C ${MAKE_LIBFT}
+	make -C ${MAKE_LIBFT} 
 
 ${NAME} : ${NAME_OBJ} ${SRC_OBJ} ${LIBFT}
 	${CC} ${FLAGS} ${READLINE} $^ -o ${NAME}
