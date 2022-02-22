@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/21 17:00:19 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/22 00:46:42 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "libft/libft.h"
 
 #include "tokenizer.h"
+#include "parser.h"
 /* #include "get_next_line/get_next_line.h" */
 /* typedef t_vec t_sections; */
 char	**ENV;

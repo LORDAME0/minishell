@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 15:08:52 by orahmoun          #+#    #+#              #
-#    Updated: 2022/02/21 22:04:53 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/02/22 20:16:31 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ MAKE_LIBFT = libft/
 
 SRC = tokenizer.c \
 	  tokenizer_utils.c \
+	  syntax_analysis.c \
+	  print_tokens.c \
+	  add_token.c \
 	  utils.c \
 
 

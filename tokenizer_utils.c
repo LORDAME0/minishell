@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/21 23:29:32 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/22 20:46:26 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,44 @@ char	*return_token_type(int type)
 		return ("s_quote");
 	else if (type == 11)
 		return ("o_parenthesis");
-	else if (type == 12)
-		return ("c_parenthesis");
-	return (NULL);
+	return ("c_parenthesis");
 }
 
-void	print_tokens(t_list *tok_list)
+t_token	*create_token(char *elem, int type)
 {
 	t_token	*token;
 
-	while (tok_list)
-	{
-		token = tok_list->content;
-		printf ("[%s] type : [%s]\n",
-			token->elem, return_token_type(token->type));
-		tok_list = tok_list->next;
-	}
+	token = malloc (sizeof(token));
+	token->elem = elem;
+	token->type = type;
+	return (token);
 }
 
-void	re_print_command(t_list	*tok_list)
+bool	is_keyword(char c, char n)
 {
-	t_token	*token;
+	if ((c == '(' || c == ')')
+		|| (c == '>' || c == '<')
+		|| ((c == '&' && n == '&') || c == '|') || c == ' ')
+		return (true);
+	return (false);
+}
 
-	while (tok_list)
-	{
-		token = tok_list->content;
-		printf ("%s", token->elem);
-		tok_list = tok_list->next;
-	}
-	printf("\n");
+bool	is_quote(char c)
+{
+	if (c == '\'' || c == '\"')
+		return (true);
+	return (false);
+}
+
+int	add_keyword_token(t_list **head, char *s, int i)
+{
+	if ((s[i] == '(' || s[i] == ')'))
+		i = parenthesis_token(head, s, i);
+	else if ((s[i] == '>' || s[i] == '<'))
+		i = redirection_token(head, s, i);
+	else if (((s[i] == '&' && s[i + 1] == '&') || s[i] == '|'))
+		i = and_or_state_token(head, s, i);
+	else if (s[i] == ' ')
+		i = space_token(head, i);
+	return (i);
 }
