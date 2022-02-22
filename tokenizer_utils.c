@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/22 20:46:26 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/23 00:31:05 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,26 @@
 char	*return_token_type(int type)
 {
 	if (type == 0)
-		return ("d_in");
+		return ("redirection");
 	else if (type == 1)
-		return ("d_out");
-	else if (type == 2)
-		return ("out");
-	else if (type == 3)
-		return ("in");
-	else if (type == 4)
 		return ("word");
-	else if (type == 5)
+	else if (type == 2)
 		return ("pip");
-	else if (type == 6)
+	else if (type == 3)
 		return ("and_if");
-	else if (type == 7)
+	else if (type == 4)
 		return ("or_if");
-	else if (type == 8)
+	else if (type == 5)
 		return ("space");
-	else if (type == 9)
+	else if (type == 6)
 		return ("d_quote");
-	else if (type == 10)
+	else if (type == 7)
 		return ("s_quote");
-	else if (type == 11)
+	else if (type == 8)
 		return ("o_parenthesis");
-	return ("c_parenthesis");
+	else if (type == 9)
+		return ("c_parenthesis");
+	return (NULL);
 }
 
 t_token	*create_token(char *elem, int type)
@@ -76,6 +72,13 @@ int	add_keyword_token(t_list **head, char *s, int i)
 	else if (((s[i] == '&' && s[i + 1] == '&') || s[i] == '|'))
 		i = and_or_state_token(head, s, i);
 	else if (s[i] == ' ')
-		i = space_token(head, i);
+	{
+		while (s[i + 1] == ' ')
+			i++;
+		if (s[i + 1] != '\0')
+			i = space_token(head, i);
+		else
+			i++;
+	}
 	return (i);
 }

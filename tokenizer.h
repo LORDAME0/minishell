@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 23:05:23 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/22 20:35:13 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/22 23:28:41 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef TOKENIZER_H
@@ -19,8 +19,8 @@ typedef struct s_token
 	int		type;
 }	t_token;
 
-enum e_token_types {d_in, d_out, out, in, word,
-	pip, and_if, or_if, space, d_quote, s_quote,
+enum e_token_types {redirection, word, pip, and_if,
+	or_if, space, d_quote, s_quote,
 	o_parenthesis, c_parenthesis};
 
 t_token	*create_token(char *elem, int type);

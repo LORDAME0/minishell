@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:10:38 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/22 20:40:47 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/22 22:52:49 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,20 @@ int	redirection_token(t_list **head, char *line, int i)
 	{
 		if (line[i] == '>')
 			ft_lstadd_back(head,
-				ft_lstnew(create_token(ft_strdup(">>"), d_out)));
+				ft_lstnew(create_token(ft_strdup(">>"), redirection)));
 		else
 			ft_lstadd_back(head,
-				ft_lstnew(create_token(ft_strdup("<<"), d_in)));
+				ft_lstnew(create_token(ft_strdup("<<"), redirection)));
 		i += 2;
 	}
 	else
 	{
 		if (line[i] == '>')
 			ft_lstadd_back(head,
-				ft_lstnew(create_token(ft_strdup(">"), out)));
+				ft_lstnew(create_token(ft_strdup(">"), redirection)));
 		else
 			ft_lstadd_back(head,
-				ft_lstnew(create_token(ft_strdup("<"), in)));
+				ft_lstnew(create_token(ft_strdup("<"), redirection)));
 		i++;
 	}
 	return (i);
