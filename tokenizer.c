@@ -6,44 +6,65 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/23 00:31:07 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/23 18:06:47 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 #include "tokenizer.h"
+#define LINE_END 0
+#define RESET_STATIC 0
+
+bool	is_inside_quotes(char c)
+{
+	static char		open = -1;
+
+	if (c == RESET_STATIC)
+	{
+		open = -1;
+		return (false);
+	}
+	if (is_quote(c))
+	{
+		if (open == -1)
+		{
+			open = c;
+			return (false);
+		}
+		else if (c == open)
+		{
+			open = -1;
+			return (false);
+		}
+	}
+	else if (open == -1)
+		return (false);
+	return (true);
+}
 
 void	tokenizer(t_list **head, char *s)
 {
-	int		i;
-	int		j;
-	char	quote;
+	int		start;
+	int		current;
 
-	i = 0;
-	j = 0;
-	quote = -1;
-	init_indexs(2, 0, &i, &j);
-	while (s[i])
+	start = 0;
+	current = 0;
+	while (1337)
 	{
-		if (is_keyword(s[i], s[i + 1]) && quote == -1)
+		if (is_keyword(s[current], s[current + 1])
+			&& is_inside_quotes(s[current]) == false)
 		{
-			add_word_token(head, s + j, i - j);
-			i = add_keyword_token(head, s, i);
-			j = i;
+			add_word_token(head, s + start, current - start);
+			current = add_keyword_token(head, s, current);
+			start = current;
 		}
-		else if (is_quote(s[i]) && (quote == -1 || s[i] == quote))
+		else if (s[current] == LINE_END)
 		{
-			add_word_token(head, s + j, i - j);
-			if (quote == -1)
-				quote = s[i];
-			else
-				quote = -1;
-			i = quote_token(head, s, i);
-			j = i;
+			add_word_token(head, s + start, current - start);
+			break ;
 		}
-		else if (s[i + 1] == 0)
-			add_word_token(head, s + j, ++i - j);
 		else
-			i++;
+			current++;
 	}
+	is_inside_quotes(RESET_STATIC);
 }

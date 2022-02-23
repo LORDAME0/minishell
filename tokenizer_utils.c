@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/23 00:31:05 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/23 18:01:35 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ bool	is_keyword(char c, char n)
 {
 	if ((c == '(' || c == ')')
 		|| (c == '>' || c == '<')
-		|| ((c == '&' && n == '&') || c == '|') || c == ' ')
+		|| (c == '&' && n == '&')
+		|| c == '|'
+		|| c == ' '
+		|| (is_quote(c)))
 		return (true);
 	return (false);
 }
@@ -71,6 +74,8 @@ int	add_keyword_token(t_list **head, char *s, int i)
 		i = redirection_token(head, s, i);
 	else if (((s[i] == '&' && s[i + 1] == '&') || s[i] == '|'))
 		i = and_or_state_token(head, s, i);
+	else if (is_quote(s[i]))
+		i = quote_token(head, s, i);
 	else if (s[i] == ' ')
 	{
 		while (s[i + 1] == ' ')
