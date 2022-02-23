@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 00:42:53 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/22 13:18:59 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/23 01:26:20 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 #include "main.h"
 
 bool	syntax_analysis(t_list	*tokens);
-void	remove_redondant_space(t_list **head);
+void	expander(t_list *tokens);
 #endif

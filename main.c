@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/22 22:18:45 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/23 01:17:43 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(void)
 		/* remove_redondant_space(&tok_list); */
 		syntax_analysis(tok_list);
 		/* re_print_command(tok_list); */
+		expander(tok_list);
 		line = NULL;
 		tok_list = NULL;
 	}

@@ -6,35 +6,11 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 00:32:48 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/23 00:31:02 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/23 00:57:05 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-/* void	free_elem(void *content) */
-/* { */
-/*  	t_token	*token; */
-
-/* 	token = (t_token *)content; */
-/* 	free(token->elem); */
-/* 	free(content); */
-/* } */
-
-
-/* void	remove_redondant_space(t_list **head) */
-/* { */
-/*  	t_token	*current_token; */
-/*  	t_token	*previous_token; */
-/*  	t_token	*next_token; */
-
-/* 	if (ft_lstlast(*head)->content->type == space) */
-
-/* 	if (*head->next && *head->next) */
-/* 	{ */
-		
-/* 	} */
-/* } */
 
 bool	check_quotes_and_parens(t_list *tokens)
 {
@@ -72,7 +48,7 @@ bool	check_redirection(t_list *tokens)
 	{
 		current_token = (t_token *)tokens->content;
 		if (current_token->type == redirection && unfulfilled == false)
-			unfulfilled  = true;
+			unfulfilled = true;
 		else if (current_token->type == word)
 			unfulfilled = false;
 		else if (current_token->type != space && unfulfilled == true)
@@ -118,7 +94,7 @@ bool	check_pip_or_and(t_list *tokens)
 		else if (type == and_if || type == or_if
 			|| type == pip)
 		{
-			if (words == 0) 
+			if (words == 0)
 				return (true);
 			else if (words != 0)
 				words = 0;
