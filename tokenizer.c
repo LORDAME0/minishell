@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/25 20:03:16 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/25 20:27:58 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,7 @@ void	tokenizer(t_token **tokens, char *s)
 		if (is_keyword(*current, *(current + 1))
 			&& is_inside_quotes(*current) == false)
 		{
-			printf ("test == %c\n", *current);
 			current = add_keyword_token(tokens, current);
-			printf ("test == %c\n", *current);
 			start = current;
 		}
 		else
