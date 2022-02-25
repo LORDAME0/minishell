@@ -1,43 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_tokens.c                                     :+:      :+:    :+:   */
+/*   tokenizer_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/22 20:12:03 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/25 18:18:51 by orahmoun         ###   ########.fr       */
+/*   Created: 2022/02/25 17:58:08 by orahmoun          #+#    #+#             */
+/*   Updated: 2022/02/25 18:46:21 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-void	print_tokens(t_token *token)
+t_token	*create_token(char *elem, int type)
 {
-	while (token)
-	{
-		printf ("[%s] type : [%s]\n",
-			token->elem, return_token_type(token->type));
-		token = token->next;
-	}
+	t_token	*token;
+
+	token = malloc (sizeof(t_token));
+	token->elem = ft_strdup(elem);
+	token->type = type;
+	token->next = NULL;
+	return (token);
 }
 
-void	print_tokens_types(t_token *token)
+t_token	*get_last_token(t_token *token)
 {
-	while (token)
-	{
-		printf ("[%s]", return_token_type(token->type));
+	if (token == NULL)
+		return (NULL);
+	while (token->next != NULL)
 		token = token->next;
-	}
-	printf ("\n");
+	return (token);
 }
 
-void	re_print_command(t_token	*token)
+void	add_token_back(t_token **list, t_token *new_token)
 {
-	while (token)
-	{
-		printf ("%s", token->elem);
-		token = token->next;
-	}
-	printf("\n");
+
+	if (*list == NULL)
+		*list = new_token;
+	else
+		(get_last_token(*list))->next = new_token;
 }

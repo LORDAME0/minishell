@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/23 18:01:35 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/25 18:33:12 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,6 @@ char	*return_token_type(int type)
 	return (NULL);
 }
 
-t_token	*create_token(char *elem, int type)
-{
-	t_token	*token;
-
-	token = malloc (sizeof(token));
-	token->elem = elem;
-	token->type = type;
-	return (token);
-}
-
 bool	is_keyword(char c, char n)
 {
 	if ((c == '(' || c == ')')
@@ -66,7 +56,7 @@ bool	is_quote(char c)
 	return (false);
 }
 
-int	add_keyword_token(t_list **head, char *s, int i)
+int	add_keyword_token(t_token **head, char *s, int i)
 {
 	if ((s[i] == '(' || s[i] == ')'))
 		i = parenthesis_token(head, s, i);

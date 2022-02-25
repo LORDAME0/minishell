@@ -6,69 +6,63 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 00:32:48 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/23 00:57:05 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/25 19:01:02 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-bool	check_quotes_and_parens(t_list *tokens)
+bool	check_quotes_and_parens(t_token *token)
 {
 	bool		open_quotes;
-	t_token		*current_token;
 	int			matching_paren;
 
-	current_token = NULL;
 	open_quotes = false;
 	matching_paren = 0;
-	while (tokens)
+	while (token)
 	{
-		current_token = (t_token *)tokens->content;
-		if (current_token->type == d_quote || current_token->type == s_quote)
+		if (token->type == d_quote || token->type == s_quote)
 			open_quotes = !open_quotes;
-		if (current_token->type == o_parenthesis)
+		if (token->type == o_parenthesis)
 			matching_paren++;
-		if (current_token->type == c_parenthesis)
+		if (token->type == c_parenthesis)
 			matching_paren--;
-		tokens = tokens->next;
+		token = token->next;
 	}
 	if (matching_paren || open_quotes)
 		return (true);
 	return (false);
 }
 
-bool	check_redirection(t_list *tokens)
+bool	check_redirection(t_token *token)
 {
 	bool		unfulfilled;
-	t_token		*current_token;
 
-	current_token = NULL;
 	unfulfilled = false;
-	while (tokens)
+	while (token)
 	{
-		current_token = (t_token *)tokens->content;
-		if (current_token->type == redirection && unfulfilled == false)
+		if (token->type == redirection && unfulfilled == false)
 			unfulfilled = true;
-		else if (current_token->type == word)
+		else if (token->type == word)
 			unfulfilled = false;
-		else if (current_token->type != space && unfulfilled == true)
+		else if (token->type != space && unfulfilled == true)
 			return (true);
-		tokens = tokens->next;
+		token = token->next;
 	}
 	if (unfulfilled)
 		return (true);
 	return (false);
 }
 
-bool	check_first_and_last(t_list *tokens)
+bool	check_first_and_last(t_token *token)
 {
 	t_token	*last;
 	t_token	*first;
 
-	if (tokens == NULL)
+	if (token == NULL)
 		return (true);
-	first = ((t_token *)tokens->content);
-	last = ((t_token *)ft_lstlast(tokens)->content);
+	first = token;
+	last = get_last_token(token);
 	if (first->type == and_if || first->type == or_if
 		|| first->type == pip)
 		return (true);
@@ -78,17 +72,17 @@ bool	check_first_and_last(t_list *tokens)
 	return (false);
 }
 
-bool	check_pip_or_and(t_list *tokens)
+bool	check_pip_or_and(t_token *token)
 {
 	size_t	words;
 	size_t	type;
 
 	words = 0;
-	if (tokens == NULL)
+	if (token == NULL)
 		return (true);
-	while (tokens)
+	while (token)
 	{
-		type = ((t_token *)tokens->content)->type;
+		type = token->type;
 		if (type == word)
 			words++;
 		else if (type == and_if || type == or_if
@@ -99,12 +93,12 @@ bool	check_pip_or_and(t_list *tokens)
 			else if (words != 0)
 				words = 0;
 		}
-		tokens = tokens->next;
+		token = token->next;
 	}
 	return (false);
 }
 
-bool	syntax_analysis(t_list *tokens)
+bool	syntax_analysis(t_token *tokens)
 {
 	if (check_quotes_and_parens(tokens)
 		|| check_redirection(tokens)

@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/23 18:06:47 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/25 18:29:30 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	is_inside_quotes(char c)
 	return (true);
 }
 
-void	tokenizer(t_list **head, char *s)
+void	tokenizer(t_token **head, char *s)
 {
 	int		start;
 	int		current;

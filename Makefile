@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 15:08:52 by orahmoun          #+#    #+#              #
-#    Updated: 2022/02/23 01:18:07 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/02/25 19:00:57 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,13 @@ MAKE_LIBFT = libft/
 
 SRC = tokenizer.c \
 	  tokenizer_utils.c \
-	  expander.c \
-	  syntax_analysis.c \
+	  tokenizer_utils_2.c \
 	  print_tokens.c \
 	  add_token.c \
 	  add_token_2.c \
 	  utils.c \
+	  syntax_analysis.c \
+	  # expander.c \
 
 
 SRC_OBJ = ${SRC:%c=%o} 

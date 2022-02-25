@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/23 01:31:36 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/25 19:10:39 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@
 # include "libft/libft.h"
 # include "tokenizer.h"
 # include "parser.h"
-typedef struct s_info
-{
-	t_list	*env;
-}	t_info;
+/* typedef struct s_info */
+/* { */
+/* 	t_list	*env; */
+/* }	t_info; */
 
-t_info	g_info;
-typedef struct s_section
-{
-	char	*command;
-	char 	**args;
-	char 	*infile;
-	char 	*outfile;
-}				t_section;
+/* t_info	g_info; */
+/* typedef struct s_section */
+/* { */
+/* 	char	*command; */
+/* 	char 	**args; */
+/* 	char 	*infile; */
+/* 	char 	*outfile; */
+/* }				t_section; */
 /******* UTILS ********/
 
 int		skip_char(char *str, int *i, char c);

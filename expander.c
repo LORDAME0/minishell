@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 01:10:24 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/23 01:26:18 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/25 19:02:05 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,13 @@
 
 #include "main.h"
 
-void expander(t_list *tokens)
+void expander(t_token *token)
 {
-	t_token	*token;
 	int		quote;
 
 	quote = -1;
-	while (tokens)
+	while (token)
 	{
-		token = ((t_token *)tokens->content);
 		if (quote == -1
 				&& (token->type == d_quote || token->type == s_quote))
 			quote = token->type; 
@@ -43,6 +41,6 @@ void expander(t_list *tokens)
 			if ((quote == -1 || quote == d_quote) && ft_strchr(token->elem, '$'))
 				printf ("%s\n", token->elem);
 		}
-		tokens = tokens->next;
+		token = token->next;
 	}
 }
