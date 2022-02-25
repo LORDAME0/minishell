@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 23:05:23 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/25 19:11:36 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/25 19:43:15 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef TOKENIZER_H
@@ -33,14 +33,14 @@ char	*return_token_type(int type);
 void	print_tokens_types(t_token *tok_list);
 void	print_tokens(t_token *tok_list);
 void	re_print_command(t_token	*tok_list);
-int		and_or_state_token(t_token **head, char *line, int i);
-int		redirection_token(t_token **head, char *line, int i);
-int		quote_token(t_token **head, char *line, int i);
-int		parenthesis_token(t_token **head, char *line, int i);
-int		space_token(t_token **head, int i);
+void	and_or_pip_token(t_token **head, char *line);
+void	redirection_token(t_token **head, char *line);
+void	quote_token(t_token **head, char *line);
+void	parenthesis_token(t_token **head, char *line);
+void	space_token(t_token **head);
 bool	is_keyword(char c, char n);
 bool	is_quote(char c);
-int		add_keyword_token(t_token **head, char *s, int i);
-void	add_word_token(t_token **head, char *line, int i);
+char	*add_keyword_token(t_token **head, char *current);
+void	add_word_token(t_token **head, char *start, char *end);
 void	tokenizer(t_token **head, char *line);
 #endif

@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/25 18:33:12 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/25 20:03:18 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,27 @@ bool	is_quote(char c)
 	return (false);
 }
 
-int	add_keyword_token(t_token **head, char *s, int i)
+char	*add_keyword_token(t_token **head, char *current)
 {
-	if ((s[i] == '(' || s[i] == ')'))
-		i = parenthesis_token(head, s, i);
-	else if ((s[i] == '>' || s[i] == '<'))
-		i = redirection_token(head, s, i);
-	else if (((s[i] == '&' && s[i + 1] == '&') || s[i] == '|'))
-		i = and_or_state_token(head, s, i);
-	else if (is_quote(s[i]))
-		i = quote_token(head, s, i);
-	else if (s[i] == ' ')
+	if ((*current == '(' || *current == ')'))
+		parenthesis_token(head, current);
+	else if ((*current == '>' || *current == '<'))
+		redirection_token(head, current);
+	else if (((*current == '&' && *(current + 1) == '&') || *current == '|'))
+		and_or_pip_token(head, current);
+	else if (is_quote(*current))
+		quote_token(head, current);
+	else if (*current == ' ')
 	{
-		while (s[i + 1] == ' ')
-			i++;
-		if (s[i + 1] != '\0')
-			i = space_token(head, i);
-		else
-			i++;
+		while (*(current + 1) == ' ')
+			current++;
+		if (*(current + 1) != '\0')
+			space_token(head);
 	}
-	return (i);
+	if (*current == *(current + 1)
+			&& (*current == '|' || *current == '&')) 
+		current += 2;
+	else
+		current++;
+	return (current);
 }

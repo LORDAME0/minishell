@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/25 18:29:30 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/25 20:03:16 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,41 @@ bool	is_inside_quotes(char c)
 	return (true);
 }
 
-void	tokenizer(t_token **head, char *s)
+char	*chop_word(t_token **tokens, char *current)
 {
-	int		start;
-	int		current;
+	char *start;
 
-	start = 0;
-	current = 0;
-	while (1337)
+	start = current;
+	while (*current)
 	{
-		if (is_keyword(s[current], s[current + 1])
-			&& is_inside_quotes(s[current]) == false)
+		if (is_inside_quotes(*current) == false
+		&& is_keyword(*current, *(current + 1)) == true)
+			break ;
+		current++;
+	}
+	add_word_token(tokens, start, current);
+	return  (current);
+}
+
+void	tokenizer(t_token **tokens, char *s)
+{
+	char		*start;
+	char		*current;
+
+	start = s;
+	current = start;
+	while (*current)
+	{
+		if (is_keyword(*current, *(current + 1))
+			&& is_inside_quotes(*current) == false)
 		{
-			add_word_token(head, s + start, current - start);
-			current = add_keyword_token(head, s, current);
+			printf ("test == %c\n", *current);
+			current = add_keyword_token(tokens, current);
+			printf ("test == %c\n", *current);
 			start = current;
 		}
-		else if (s[current] == LINE_END)
-		{
-			add_word_token(head, s + start, current - start);
-			break ;
-		}
 		else
-			current++;
+			current = chop_word(tokens, current);
 	}
 	is_inside_quotes(RESET_STATIC);
 }
