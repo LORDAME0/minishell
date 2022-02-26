@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/25 20:27:58 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:27:35 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,30 @@ bool	is_inside_quotes(char c)
 
 char	*chop_word(t_token **tokens, char *current)
 {
-	char *start;
+	char	*start;
+	t_token	*last_token;
+	char	quote;
 
+	quote = -1;
 	start = current;
+	if (*tokens)
+	{
+		last_token = get_last_token(*tokens);
+		if (last_token->type == s_quote)
+			quote = '\'';
+		if (last_token->type == d_quote)
+			quote = '\"';
+	}
 	while (*current)
 	{
-		if (is_inside_quotes(*current) == false
-		&& is_keyword(*current, *(current + 1)) == true)
+		if (is_keyword(*current, *(current + 1)) == true && quote == -1)
+			break ;
+		if (quote == *current)
 			break ;
 		current++;
 	}
 	add_word_token(tokens, start, current);
-	return  (current);
+	return (current);
 }
 
 void	tokenizer(t_token **tokens, char *s)

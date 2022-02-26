@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/25 19:10:39 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:30:46 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int		skip_until_char(char *str, int *i, char c);
 void	init_indexs(int amount, int value, ...);
 
 /******* PARSING TOOLS *****/
-
 
 /******* BUILTINS ********/
 

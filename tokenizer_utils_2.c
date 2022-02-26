@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 17:58:08 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/25 18:46:21 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:15:50 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_token	*get_last_token(t_token *token)
 
 void	add_token_back(t_token **list, t_token *new_token)
 {
-
 	if (*list == NULL)
 		*list = new_token;
 	else

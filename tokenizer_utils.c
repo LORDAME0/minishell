@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/25 20:03:18 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:30:21 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ char	*add_keyword_token(t_token **head, char *current)
 			space_token(head);
 	}
 	if (*current == *(current + 1)
-			&& (*current == '|' || *current == '&')) 
+		&& ((*current == '|' || *current == '&')
+			|| (*current == '>' || *current == '<')))
 		current += 2;
 	else
 		current++;
