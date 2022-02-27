@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/26 17:34:12 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/26 19:36:07 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "libft/libft.h"
 # include "tokenizer.h"
 # include "parser.h"
+char **ENV;
 /* typedef struct s_info */
 /* { */
 /* 	t_list	*env; */

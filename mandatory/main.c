@@ -6,17 +6,22 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/25 19:05:01 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/27 15:05:21 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	main(void)
+int	main(int n, char **args, char **env)
 {
 	t_token	*list;
+	t_pipseq *seq;
 	char	*line;
+	(void)n;
+	(void)args;
 
+	ENV = env;
+	seq = NULL;
 	list = NULL;
 	while (1)
 	{
@@ -28,8 +33,12 @@ int	main(void)
 		/* print_tokens_types(tok_list); */
 		/* remove_redondant_space(&tok_list); */
 		syntax_analysis(list);
+		/* parser(&seq, list); */
+		/* print_seq(seq); */
+		/* ft_eval_seq(seq); */
 		/* re_print_command(tok_list); */
 		line = NULL;
 		list = NULL;
+		seq = NULL;
 	}
 }

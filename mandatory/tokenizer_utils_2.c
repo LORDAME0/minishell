@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 17:58:08 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/26 17:33:19 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/26 18:34:10 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,16 @@ void	add_token_back(t_token **list, t_token *new_token)
 		*list = new_token;
 	else
 		(get_last_token(*list))->next = new_token;
+}
+
+void	delete_first_token(t_token **list)
+{
+	t_token *tmp;
+	t_token *current;
+
+	current = *list;
+	tmp = (*list)->next;
+	free(current->elem);
+	free(current);
+	*list = tmp;
 }

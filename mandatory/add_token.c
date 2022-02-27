@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:10:38 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/26 17:11:01 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/27 15:47:31 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,17 @@ void	add_word_token(t_token **head, char *start, char *end)
 		tmp = ft_substr(start, 0, end - start);
 		add_token_back(head,
 			create_token(tmp, word));
+	}
+}
+
+void	add_key_token(t_token **head, char *start, char *end)
+{
+	char		*tmp;
+
+	if (start != end)
+	{
+		tmp = ft_substr(start, 0, end - start);
+		add_token_back(head,
+			create_token(tmp, key));
 	}
 }

@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 15:08:52 by orahmoun          #+#    #+#              #
-#    Updated: 2022/02/26 16:36:51 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/02/26 19:21:37 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,10 @@ SRC = tokenizer.c \
 	  add_token.c \
 	  utils.c \
 	  syntax_analysis.c \
+	  2d_array_utils.c \
+	  2d_array_utils_2.c \
+	  2d_array_utils_3.c \
+	  parser.c
 	  # expander.c \
 
 

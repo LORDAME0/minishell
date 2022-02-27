@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/26 17:32:47 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/27 15:11:26 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	*return_token_type(int type)
 		return ("d_quote");
 	else if (type == 5)
 		return ("s_quote");
+	else if (type == 6)
+		return ("key");
 	return (NULL);
 }
 
@@ -57,12 +59,10 @@ char	*add_keyword_token(t_token **head, char *current)
 		quote_token(head, current);
 	else if (*current == ' ')
 	{
-		printf ("test\n");
 		while (*(current + 1) == ' ')
 			current++;
 		if (*(current + 1) != '\0')
 			space_token(head);
-		printf ("test\n");
 	}
 	if (*current == *(current + 1)
 		&& (*current == '>' || *current == '<'))

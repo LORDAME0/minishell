@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/26 17:32:09 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/27 15:49:39 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,42 @@ bool	is_inside_quotes(char c)
 	return (true);
 }
 
+char	*chop_key(t_token **tokens, char *current)
+{
+	char	*start;
+
+	start = current;
+	while (ft_isalnum(*current))
+		current++;
+	if (start != current)
+		add_key_token(tokens, start, current);
+	return (current);
+}
+
 char	*chop_word(t_token **tokens, char *current)
 {
 	char	*start;
-	t_token	*last_token;
 	char	quote;
 
 	quote = -1;
 	start = current;
-	if (*tokens)
-	{
-		last_token = get_last_token(*tokens);
-		if (last_token->type == s_quote)
-			quote = '\'';
-		if (last_token->type == d_quote)
-			quote = '\"';
-	}
+	if (*tokens && get_last_token(*tokens)->type == s_quote)
+		quote = '\'';
+	if (*tokens && get_last_token(*tokens)->type == d_quote)
+		quote = '\"';
 	while (*current)
 	{
-		if (is_keyword(*current) == true && quote == -1)
+		if (*current == '$' && quote != '\'')
+		{
+			add_word_token(tokens, start, current);
+			current = chop_key(tokens, ++current);
+			start = current;
+		}
+		else if ((is_keyword(*current) == true && quote == -1)
+			|| quote == *current)
 			break ;
-		if (quote == *current)
-			break ;
-		current++;
+		else
+			current++;
 	}
 	add_word_token(tokens, start, current);
 	return (current);
