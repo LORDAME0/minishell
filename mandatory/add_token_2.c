@@ -6,11 +6,11 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:10:38 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/04 12:37:25 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:32:35 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "main.h"
 
 void	add_word_token(t_token **head, char *start, char *end)
 {

@@ -6,12 +6,11 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/27 15:49:39 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:32:13 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-#include "tokenizer.h"
 #define LINE_END 0
 #define RESET_STATIC 0
 
@@ -47,7 +46,7 @@ char	*chop_key(t_token **tokens, char *current)
 	char	*start;
 
 	start = current;
-	while (ft_isalnum(*current))
+	while (ft_isalnum(*current) || *current == '_')
 		current++;
 	if (start != current)
 		add_key_token(tokens, start, current);

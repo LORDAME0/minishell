@@ -6,10 +6,10 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 15:15:40 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/26 19:21:00 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:23:12 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "2d_array.h"
+#include "array_2d.h"
 
 /* char	**join_2d_array(char **dst, char **source) */
 /* { */

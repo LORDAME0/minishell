@@ -6,11 +6,11 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 17:58:08 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/26 18:34:10 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:32:16 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "main.h"
 
 t_token	*create_token(char *elem, int type)
 {

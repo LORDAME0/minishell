@@ -6,27 +6,27 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/27 15:11:26 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:32:15 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "main.h"
 
 char	*return_token_type(int type)
 {
-	if (type == 0)
+	if (type == redirection)
 		return ("redirection");
-	else if (type == 1)
+	else if (type == word)
 		return ("word");
-	else if (type == 2)
-		return ("pip");
-	else if (type == 3)
+	else if (type == pip)
+		return ("pipe");
+	else if (type == space)
 		return ("space");
-	else if (type == 4)
+	else if (type == d_quote)
 		return ("d_quote");
-	else if (type == 5)
+	else if (type == s_quote)
 		return ("s_quote");
-	else if (type == 6)
+	else if (type == key)
 		return ("key");
 	return (NULL);
 }

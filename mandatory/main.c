@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/27 15:05:21 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:30:30 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 int	main(int n, char **args, char **env)
 {
-	t_token	*list;
-	t_pipseq *seq;
-	char	*line;
+	t_token		*list;
+	char		*line;
 	(void)n;
 	(void)args;
+	(void)env;
 
-	ENV = env;
-	seq = NULL;
 	list = NULL;
 	while (1)
 	{
@@ -39,6 +37,5 @@ int	main(int n, char **args, char **env)
 		/* re_print_command(tok_list); */
 		line = NULL;
 		list = NULL;
-		seq = NULL;
 	}
 }
