@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/04 13:40:42 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:25:17 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "libft.h"
-# include "array_2d.h"
+# include "../libft/libft.h"
 
 /* typedef struct s_info */
 /* { */
@@ -39,7 +38,19 @@
 
 int		skip_char(char *str, int *i, char c);
 int		skip_until_char(char *str, int *i, char c);
+void	ft_assert(bool con, char *msg, const char *func);
 void	init_indexs(int amount, int value, ...);
+
+/******* SHELL UTILS ********/
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
+t_env	*dup_env(char **env);
 
 /******* TOKENIZER *****/
 
@@ -73,6 +84,7 @@ void	tokenizer(t_token **head, char *line);
 
 /******* PARSER	*****/
 
+t_token	*expander(t_token *token, t_env *env);
 bool	syntax_analysis(t_token *tokens);
 
 /******* BUILTINS ********/

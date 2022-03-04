@@ -6,13 +6,22 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:01:57 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/23 01:27:44 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/04 15:12:52 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 #include <stdarg.h>
 
+void	ft_assert(bool con, char *msg, const char *func)
+{
+	if (con == true)
+	{
+		printf ("assert :: %s\n", msg);
+		printf ("error :: %s\n", func);
+		exit (1);
+	}
+}
 int	skip_char(char *str, int *i, char c)
 {
 	while (str[*i] && str[*i] == c)

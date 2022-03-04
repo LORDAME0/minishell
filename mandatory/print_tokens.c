@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:12:03 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/04 13:32:56 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:55:48 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,22 @@ void	print_tokens(t_token *token)
 	}
 }
 
-void	print_tokens_types(t_token *token)
-{
-	while (token)
-	{
-		printf ("[%s]", return_token_type(token->type));
-		token = token->next;
-	}
-	printf ("\n");
-}
+/* void	print_tokens_types(t_token *token) */
+/* { */
+/* 	while (token) */
+/* 	{ */
+/* 		printf ("[%s]", return_token_type(token->type)); */
+/* 		token = token->next; */
+/* 	} */
+/* 	printf ("\n"); */
+/* } */
 
-void	re_print_command(t_token	*token)
-{
-	while (token)
-	{
-		printf ("%s", token->elem);
-		token = token->next;
-	}
-	printf("\n");
-}
+/* void	re_print_command(t_token	*token) */
+/* { */
+/* 	while (token) */
+/* 	{ */
+/* 		printf ("%s", token->elem); */
+/* 		token = token->next; */
+/* 	} */
+/* 	printf("\n"); */
+/* } */

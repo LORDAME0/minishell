@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 17:52:43 by orahmoun          #+#    #+#              #
-#    Updated: 2022/03/04 12:55:31 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/03/04 19:48:20 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror -I libft
+FLAGS = -Wall -Wextra -I libft
 
 READLINE = -lreadline
 
@@ -35,6 +35,9 @@ SRC =	mandatory/main.c \
 		mandatory/add_token_2.c \
 		mandatory/utils.c \
 		mandatory/syntax_analysis.c \
+		mandatory/dup_env.c \
+		mandatory/expander.c \
+		# mandatory/parser_utils.c \
 
 B_SRC =		bonus/ \
 
