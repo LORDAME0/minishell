@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   dup_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/07 11:56:42 by orahmoun          #+#    #+#             */
-/*   Updated: 2021/11/19 14:40:33 by orahmoun         ###   ########.fr       */
+/*   Created: 2022/02/23 01:28:05 by orahmoun          #+#    #+#             */
+/*   Updated: 2022/02/23 01:31:39 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-char	*ft_strdup(const char *s)
+#include "main.h"
+
+void	dup_env(char **env)
 {
-	char	*temp;
-	int		i;
-	int		l;
+	t_list	*head;
+	size_t	i;
 
-	l = 0;
 	i = 0;
-	while (s[l])
-		l++;
-	temp = ft_calloc(l + 1, sizeof(char));
-	if (!temp)
-		return (0);
-	while (i < l)
+	head = NULL;
+	if (env == NULL)
 	{
-		temp[i] = s[i];
+		printf ("MiniSHELL :: env error\n");
+		exit (1);
+	}
+	while (env[i])
+	{
+		ft_lstadd_back(&head, ft_lstnew(ft_strdup(env[i])));
 		i++;
 	}
-	temp[i] = '\0';
-	return (temp);
+	g_info.env = head;
 }

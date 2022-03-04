@@ -5,64 +5,68 @@
 #                                                     +:+ +:+         +:+      #
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/09 15:08:52 by orahmoun          #+#    #+#              #
-#    Updated: 2022/02/25 19:00:57 by orahmoun         ###   ########.fr        #
+#    Created: 2022/01/03 17:52:43 by orahmoun          #+#    #+#              #
+#    Updated: 2022/03/04 12:41:57 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-NAME_SRC = main.c
+CC = cc
 
-NAME_OBJ = main.o
+FLAGS = -Wall -Wextra -Werror -Ilibft
 
-HEADER = main.h
+READLINE = -lreadline
+
+HEADER = mandatory/main.h
+
+# B_HEADER = bonus/main_bonus.h
 
 LIBFT = libft/libft.a
 
 MAKE_LIBFT = libft/
 
-SRC = tokenizer.c \
-	  tokenizer_utils.c \
-	  tokenizer_utils_2.c \
-	  print_tokens.c \
-	  add_token.c \
-	  add_token_2.c \
-	  utils.c \
-	  syntax_analysis.c \
-	  # expander.c \
+SRC =	mandatory/main.c \
+		mandatory/tokenizer.c \
+		mandatory/tokenizer_utils.c \
+		mandatory/tokenizer_utils_2.c \
+		mandatory/print_tokens.c \
+		mandatory/add_token.c \
+		mandatory/add_token_2.c \
+		mandatory/utils.c \
+		mandatory/syntax_analysis.c \
 
+B_SRC =		bonus/ \
 
-SRC_OBJ = ${SRC:%c=%o} 
+OBJDIR = obj
 
-CC = cc
+OBJ = $(addprefix ${OBJDIR}/, ${SRC:%.c=%.o})
 
-FLAGS = -Wall -Wextra -Werror
-
-READLINE = -lreadline
+# B_OBJ = $(addprefix ${OBJDIR}/, ${B_SRC:%.c=%.o})
 
 all : ${NAME}
 
-${LIBFT} :
-	make -C ${MAKE_LIBFT} 
+# bonus : bonus_binary ${B_HEADER}
 
-${NAME} : ${NAME_OBJ} ${SRC_OBJ} ${LIBFT}
+# bonus_binary : ${B_NAME_OBJ} ${B_OBJ} ${B_G_OBJ}
+# 	${CC} ${FLAGS} ${READLINE} $^ -o ${NAME}
+
+${LIBFT} :
+	make -C ${MAKE_LIBFT}
+
+${NAME} : ${OBJ} ${LIBFT}
 	${CC} ${FLAGS} ${READLINE} $^ -o ${NAME}
 
-debug : ${NAME_SRC} ${SRC} 
-	${CC} ${FLAGS} -g $^ libft/*.c -o ${NAME}
+$(OBJDIR)/%.o : %.c ${HEADER}
+	@mkdir -p $(dir $@)
+	${CC} ${FLAGS} -c $< -o $@
 
-%.o : %.c ${HEADER}
-	${CC} ${FLAGS} -c $<
-
-clean :
-	rm -f ${SRC_OBJ} ${NAME_OBJ}
-	@make clean -C ${MAKE_LIBFT}
+clean : 
+	rm -rf ${OBJDIR}
 
 fclean : clean
 	rm -f ${NAME}
-	@make fclean -C ${MAKE_LIBFT}
 
 re : fclean all
 
-.PHONY : clean fclean all re
+.PHONY : bonus clean fclean all

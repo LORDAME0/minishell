@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   add_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/07 14:33:32 by orahmoun          #+#    #+#             */
-/*   Updated: 2021/11/19 14:39:50 by orahmoun         ###   ########.fr       */
+/*   Created: 2022/02/22 20:10:38 by orahmoun          #+#    #+#             */
+/*   Updated: 2022/03/04 12:37:25 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+#include "tokenizer.h"
+
+void	add_word_token(t_token **head, char *start, char *end)
 {
-	int	i;
+	char		*tmp;
 
-	i = 0;
-	if (s != NULL)
+	if (start != end)
 	{
-		while (s[i])
-			i++;
-		write (fd, s, i);
+		tmp = ft_substr(start, 0, end - start);
+		add_token_back(head,
+			create_token(tmp, word));
+	}
+}
+
+void	add_key_token(t_token **head, char *start, char *end)
+{
+	char		*tmp;
+
+	if (start != end)
+	{
+		tmp = ft_substr(start, 0, end - start);
+		add_token_back(head,
+			create_token(tmp, key));
 	}
 }

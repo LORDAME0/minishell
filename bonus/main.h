@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/04 12:34:48 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:30:46 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "libft/libft.h"
 # include "tokenizer.h"
 # include "parser.h"
-# include "libft.h"
-char **ENV;
 /* typedef struct s_info */
 /* { */
 /* 	t_list	*env; */

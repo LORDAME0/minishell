@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/04 15:29:21 by orahmoun          #+#    #+#             */
-/*   Updated: 2021/11/19 09:52:56 by orahmoun         ###   ########.fr       */
+/*   Created: 2022/02/22 00:42:53 by orahmoun          #+#    #+#             */
+/*   Updated: 2022/02/26 17:30:33 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
+#ifndef PARSER_H
+# define PARSER_H
+# include "tokenizer.h"
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
+bool	syntax_analysis(t_token	*tokens);
+void	expander(t_token *tokens);
+#endif

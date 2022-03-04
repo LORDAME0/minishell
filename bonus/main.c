@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   new_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 11:18:05 by orahmoun          #+#    #+#             */
-/*   Updated: 2021/11/17 19:24:46 by orahmoun         ###   ########.fr       */
+/*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
+/*   Updated: 2022/02/25 19:05:01 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+#include "main.h"
+
+int	main(void)
 {
-	char	ch;
-	int		i;
+	t_token	*list;
+	char	*line;
 
-	i = 0;
-	ch = c;
-	while (s[i])
-		i++;
-	while (i >= 0)
+	list = NULL;
+	while (1)
 	{
-		if (s[i] == ch)
-			return ((char *)&s[i]);
-		i--;
+		line = readline("> ");
+		add_history(line);
+		tokenizer(&list, line);
+		print_tokens(list);
+		/* re_print_command(tok_list); */
+		/* print_tokens_types(tok_list); */
+		/* remove_redondant_space(&tok_list); */
+		syntax_analysis(list);
+		/* re_print_command(tok_list); */
+		line = NULL;
+		list = NULL;
 	}
-	return (0);
 }

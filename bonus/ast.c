@@ -1,26 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/04 16:41:30 by orahmoun          #+#    #+#             */
-/*   Updated: 2021/11/19 14:39:02 by orahmoun         ###   ########.fr       */
+/*   Created: 2022/02/23 18:11:39 by orahmoun          #+#    #+#             */
+/*   Updated: 2022/02/23 18:18:41 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
-{
-	unsigned char	ch;
-	unsigned char	*str;
-	size_t			i;
+#include "main.h"
 
-	i = 0;
-	ch = c;
-	str = b;
-	while (i < len)
-		str[i++] = c;
-	return (str);
-}
+
