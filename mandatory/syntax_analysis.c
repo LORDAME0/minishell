@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 00:32:48 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/04 13:31:43 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:39:29 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ bool	check_redirection(t_token *token)
 	{
 		if (token->type == redirection && unfulfilled == false)
 			unfulfilled = true;
-		else if (token->type == word)
+		else if (token->type == word || token->type == key
+			|| token->type == d_quote || token->type == s_quote)
 			unfulfilled = false;
 		else if (token->type != space && unfulfilled == true)
 			return (true);
