@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/04 13:32:13 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/05 04:39:41 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,26 @@ char	*chop_key(t_token **tokens, char *current)
 	return (current);
 }
 
-char	*chop_word(t_token **tokens, char *current)
+char	*chop_word(t_token **tokens, char *current, bool open)
 {
 	char	*start;
 	char	quote;
 
 	quote = -1;
 	start = current;
-	if (*tokens && get_last_token(*tokens)->type == s_quote)
+	if (open && *tokens && get_last_token(*tokens)->type == s_quote)
 		quote = '\'';
-	if (*tokens && get_last_token(*tokens)->type == d_quote)
+	else if (open && *tokens && get_last_token(*tokens)->type == d_quote)
 		quote = '\"';
 	while (*current)
 	{
-		if (*current == '$' && quote != '\'')
+		if (*current == '$' && (quote != '\'' || open == false))
 		{
 			add_word_token(tokens, start, current);
 			current = chop_key(tokens, ++current);
 			start = current;
 		}
-		else if ((is_keyword(*current) == true && quote == -1)
+		else if ((is_keyword(*current) == true && open == false)
 			|| quote == *current)
 			break ;
 		else
@@ -84,18 +84,22 @@ char	*chop_word(t_token **tokens, char *current)
 
 void	tokenizer(t_token **tokens, char *s)
 {
+	bool		open_quote;
 	char		*start;
 	char		*current;
 
 	start = s;
 	current = start;
+	open_quote = false;
 	while (*current)
 	{
+		if (is_quote(*current))
+			open_quote = !open_quote;
 		if (is_keyword(*current)
 			&& is_inside_quotes(*current) == false)
 			current = add_keyword_token(tokens, current);
 		else
-			current = chop_word(tokens, current);
+			current = chop_word(tokens, current, open_quote);
 		start = current;
 	}
 	is_inside_quotes(RESET_STATIC);
