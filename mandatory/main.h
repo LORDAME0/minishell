@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/04 19:25:17 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/05 06:26:27 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+void	free_env(t_env *env);
 t_env	*dup_env(char **env);
 
 /******* TOKENIZER *****/
@@ -63,6 +64,7 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+void	free_tokens(t_token *token);
 t_token	*create_token(char *elem, int type);
 t_token	*get_last_token(t_token *token);
 void	add_token_back(t_token **list, t_token *elem);
@@ -84,6 +86,7 @@ void	tokenizer(t_token **head, char *line);
 
 /******* PARSER	*****/
 
+t_token	*corrector(t_token *token);
 t_token	*expander(t_token *token, t_env *env);
 bool	syntax_analysis(t_token *tokens);
 

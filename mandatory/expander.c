@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:21:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/04 21:44:36 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/05 06:37:41 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ t_token	*split_into_word_tokens(char *value)
 	while (sp[i])
 	{
 		add_token_back(&tokens, create_token(sp[i], word));
+		if (sp[i + 1] != NULL)
+			add_token_back(&tokens, create_token(" ", space));
+		free(sp[i]);
 		i++;
 	}
 	return (tokens);
@@ -46,20 +49,26 @@ t_token	*split_into_word_tokens(char *value)
 t_token	*expander(t_token *token, t_env *env)
 {
 	char	*value;
+	t_token	*tmp;
 	t_token	*new_list;
 
 	new_list = NULL;
 	while (token)
 	{
+		tmp = token->next;
+		token->next = NULL;
 		if (token->type == key)
 		{
 			value = find_in_env(env, token->elem);
+			free (token->elem);
+			free (token);
 			if (value)
 				add_token_back(&new_list, split_into_word_tokens(value));
+			free(value);
 		}
 		else
-			add_token_back(&new_list, create_token(token->elem, token->type));
-		token = token->next;
+			add_token_back(&new_list, token);
+		token = tmp;
 	}
 	return (new_list);
 }

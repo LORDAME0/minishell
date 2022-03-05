@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 17:58:08 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/04 19:56:14 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/05 06:25:53 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,17 @@ void	delete_first_token(t_token **list)
 	free(current->elem);
 	free(current);
 	*list = tmp;
+}
+
+void	free_tokens(t_token *token)
+{
+	t_token	*tmp;
+
+	while (token)
+	{
+		tmp = token->next;
+		free(token->elem);
+		free(token);
+		token = tmp;
+	}
 }

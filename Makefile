@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 17:52:43 by orahmoun          #+#    #+#              #
-#    Updated: 2022/03/04 19:48:20 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/03/05 03:36:09 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC =	mandatory/main.c \
 		mandatory/syntax_analysis.c \
 		mandatory/dup_env.c \
 		mandatory/expander.c \
+		mandatory/corrector.c \
 		# mandatory/parser_utils.c \
 
 B_SRC =		bonus/ \
