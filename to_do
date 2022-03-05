@@ -1,2 +1,2 @@
 ! fix syntax_analysis bugs in bonus {> ""} and {> key}
-!! i need to stoop fn duplicating the shit in expander function
+!! make the parser

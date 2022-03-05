@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/04 18:21:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/05 06:37:41 by orahmoun         ###   ########.fr       */
+/*   Created: 2022/03/05 18:45:31 by orahmoun          #+#    #+#             */
+/*   Updated: 2022/03/05 18:47:01 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-char *find_in_env(t_env *env, char *key)
+char	*find_value(t_env *env, char *key)
 {
 	while (env)
 	{
 		if (ft_strncmp(env->key, key, ft_strlen(key)) == 0
 			&& (ft_strlen(key) == ft_strlen(env->key)))
-				return (ft_strdup(env->value));
+			return (env->value);
 		env = env->next;
 	}
 	return (NULL);
 }
 
-t_token	*split_into_word_tokens(char *value)
+t_token	*split_value(char *value)
 {
-	int 	i;
+	int		i;
 	char	**sp;
 	t_token	*tokens;
 
@@ -48,27 +48,29 @@ t_token	*split_into_word_tokens(char *value)
 
 t_token	*expander(t_token *token, t_env *env)
 {
-	char	*value;
+	bool	open;
 	t_token	*tmp;
-	t_token	*new_list;
+	t_token	*new;
 
-	new_list = NULL;
+	open = false;
+	new = NULL;
 	while (token)
 	{
 		tmp = token->next;
 		token->next = NULL;
+		if (token->type == d_quote)
+			open = !open;
 		if (token->type == key)
 		{
-			value = find_in_env(env, token->elem);
-			free (token->elem);
-			free (token);
-			if (value)
-				add_token_back(&new_list, split_into_word_tokens(value));
-			free(value);
+			if (find_value(env, token->elem))
+				add_token_back(&new, split_value(find_value(env, token->elem)));
+			else if (open)
+				add_token_back(&new, create_token("", word));
+			free_token(token);
 		}
 		else
-			add_token_back(&new_list, token);
+			add_token_back(&new, token);
 		token = tmp;
 	}
-	return (new_list);
+	return (new);
 }

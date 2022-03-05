@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/05 06:26:27 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/05 18:37:02 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+void	free_token(t_token *token);
 void	free_tokens(t_token *token);
 t_token	*create_token(char *elem, int type);
 t_token	*get_last_token(t_token *token);

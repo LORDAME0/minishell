@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 00:32:48 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/04 13:39:29 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:00:24 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ bool	check_pip(t_token *token)
 	while (token)
 	{
 		type = token->type;
-		if (type == word)
+		if (type == word || type == key)
 			words++;
 		else if (type == pip)
 		{
