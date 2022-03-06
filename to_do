@@ -1,2 +1,3 @@
 ! fix syntax_analysis bugs in bonus {> ""} and {> key}
 !! make the parser
+!!! heredoc delimiter should not expand
