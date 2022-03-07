@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:39:59 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/07 15:37:45 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/07 20:17:37 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_seq(t_seq *seq)
 		free(seq);
 		if (seq->in != 0)
 			close (seq->in);
-		if (seq->in != 0)
+		if (seq->out != 1)
 			close (seq->out);
 		seq = tmp;
 	}
@@ -99,9 +99,9 @@ int	eval_out_redirection(char *rederiction_type, char *file)
 	int	fd;
 	ft_assert(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
 
-	/* if (rederiction_type[1]) */
-	/* 	fd = open (file, O_APPEND | O_WRONLY | O_CREAT); */
-	/* else */
+	if (rederiction_type[1])
+		fd = open (file, O_APPEND | O_WRONLY | O_CREAT, 0777);
+	else
 		fd = open (file, O_WRONLY | O_CREAT,  0777);
 	if (fd == -1)
 		perror("Error :");
@@ -172,7 +172,7 @@ t_seq	*parser(t_token *list)
 		if (list && list->type == pip)
 			list = list->next;
 	}
-	if (seq)
-		print_seq(seq);
+	/* if (seq) */
+	/* 	print_seq(seq); */
 	return (seq);
 }

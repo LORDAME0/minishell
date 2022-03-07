@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/07 11:28:48 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/07 19:24:07 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*chop_word(t_token **tokens, char *current, bool open, bool heredoc)
 	char	*start;
 	char	quote;
 
+	ft_assert(tokens == NULL, "NULL PARAM", __func__);
 	quote = -1;
 	start = current;
 	if (open && *tokens && get_last_token(*tokens)->type == s_quote)
@@ -88,7 +89,8 @@ void	tokenizer(t_token **tokens, char *s)
 	char		*current;
 	bool		open_quote;
 	bool		heredoc;
-
+	
+	ft_assert(s == NULL, "PARAM IS NULL", __func__);
 	start = s;
 	current = start;
 	open_quote = false;

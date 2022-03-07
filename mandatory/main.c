@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/07 16:35:51 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/07 19:38:52 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,57 +15,44 @@
 int	main(int n, char **args, char **env)
 {
 	t_token		*list;
-	/* t_token		*list2 = NULL; */
 	t_env		*denv;
+	t_seq		*seq;
 	char		*line;
 	(void)n;
 	(void)args;
 	denv = dup_env(env); 
-	t_seq *seq;
 
 	seq = NULL;
 	line = NULL;
 	list = NULL;
+	int Stdin = dup(0);
+	int Stdout = dup(1);
 	while (1)
 	{
 		line = readline("$> ");
 		if (line == NULL || *line == '\0')
 			continue ;
-		add_history(line);
 		tokenizer(&list, line);
-		print_tokens(list);
-				printf ("********************\n");
+		if (list && syntax_analysis(list) == false)
+		{
 			list = expander(list, denv);
-		print_tokens(list);
-				printf ("********************\n");
+			if (list)
 				list = corrector(list);
-		print_tokens(list);
-		/* if (list && syntax_analysis(list) == false) */
-		/* { */
-		/* 	list = expander(list, denv); */
-		/* 	if (list) */
-		/* 	{ */
-		/* 		list = corrector(list); */
-		/* 		print_tokens(list); */
-		/* 	} */
-		/* 	if (list) */
-		/* 	{ */
-		/* 		printf ("********************\n"); */
-		/* 		seq = parser(list); */
-		/* 		if (seq == NULL) */
-		/* 		{ */
-		/* 			seq = NULL; */
-		/* 			line = NULL; */
-		/* 			list = NULL; */
-		/* 			continue ; */
-		/* 		} */
-		/* 		eval_seq(seq, env); */
-		/* 		seq = NULL; */
-		/* 	} */
-		free(line);
-		free_tokens(list);
-		list = NULL;
-		line = NULL;
+			if (list)
+			{
+				seq = parser(list);
+				if (seq == NULL)
+					exit (1);
+				eval_seq(seq, env);
+			}
+			list = NULL;
+			seq = NULL;
+			line = NULL;
+		}
+		dup2(Stdout, 1);
+		dup2(Stdin, 0);
+		/* dup2(1, Stdout); */
+		/* dup2(0, Stdin); */
 	}
 		/* free_tokens(list2); */
 		/* free_env(denv); */
