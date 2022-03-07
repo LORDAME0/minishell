@@ -6,13 +6,15 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/05 18:37:02 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/07 14:23:35 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_H
 # define MAIN_H
+# include <errno.h>
 # include <stdio.h>
+# include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
@@ -40,6 +42,21 @@ int		skip_char(char *str, int *i, char c);
 int		skip_until_char(char *str, int *i, char c);
 void	ft_assert(bool con, char *msg, const char *func);
 void	init_indexs(int amount, int value, ...);
+
+/******* 2D_ARRAY *******/
+
+void	print_2d_array(char **array, int fd);
+size_t	size_of_2d_array(char **array);
+char	**dup_2d_array(char **array);
+char	**delete_element_2d_array(char **array, size_t index);
+int		find_in_2d_array(char **array, char *str);
+char	**init_2d_array(void);
+void	free_2d_array(char **array);
+char	**add_element_2d_array(char **array, char *elem, size_t index);
+char	**join_2d_array(char **dst, char **source);
+char	**add_element_2d_array_last(char **array, char *elem);
+char	*join_2d_array_into_str(char **array);
+char	**split_and_join(char **array, char *line, char c);
 
 /******* SHELL UTILS ********/
 
@@ -76,20 +93,33 @@ void	print_tokens(t_token *tok_list);
 void	re_print_command(t_token	*tok_list);
 void	pip_token(t_token **head);
 void	redirection_token(t_token **head, char *line);
-void	quote_token(t_token **head, char *current);
+void	quote_token(t_token **head, char *current, bool open);
 void	space_token(t_token **head);
 bool	is_keyword(char c);
 bool	is_quote(char c);
-char	*add_keyword_token(t_token **head, char *current);
+char	*add_keyword_token(t_token **head, char *current, bool open);
 void	add_word_token(t_token **head, char *start, char *end);
 void	add_key_token(t_token **head, char *start, char *end);
 void	tokenizer(t_token **head, char *line);
 
 /******* PARSER	*****/
 
+typedef struct s_seq
+{
+	char			**args;
+	int				in;
+	int				out;
+	struct s_seq	*next;
+}	t_seq;
+
+void	free_seq(t_seq *seq);
 t_token	*corrector(t_token *token);
 t_token	*expander(t_token *token, t_env *env);
 bool	syntax_analysis(t_token *tokens);
+t_seq	*parser(t_token *list);
+
+// EVAL
+void	eval_seq(t_seq *list, char **env);
 
 /******* BUILTINS ********/
 

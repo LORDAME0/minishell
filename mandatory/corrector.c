@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 01:42:37 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/05 18:23:25 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/07 12:21:11 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ t_token	*joiner(t_token *token)
 			add_token_back(&new, create_token(str, word));
 			free (str);
 		}
-		if (token != NULL && token->type != space)
+		if (token && token->type != space)
 		{
+			tmp = token->next;
 			token->next = NULL;
 			add_token_back(&new, token);
 		}
@@ -79,6 +80,7 @@ t_token	*remove_space(t_token *token)
 	}
 	return (new);
 }
+
 t_token	*remove_quotes(t_token *token)
 {
 	t_token	*new;
@@ -108,7 +110,7 @@ t_token	*corrector(t_token *token)
 {
 	ft_assert(token == NULL, "NULL PARAM", __func__);
 	token = remove_quotes(token);
-	/* token = remove_space(token); */
 	token = joiner(token);
+	/* token = remove_space(token); */
 	return (token);
 }

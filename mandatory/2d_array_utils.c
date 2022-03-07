@@ -6,11 +6,11 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 19:40:26 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/04 13:22:51 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/07 10:47:37 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "array_2d.h"
+#include "main.h"
 
 void	print_2d_array(char **array, int fd)
 {

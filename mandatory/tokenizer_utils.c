@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/04 19:47:12 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:21:58 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ bool	is_quote(char c)
 	return (false);
 }
 
-char	*add_keyword_token(t_token **head, char *current)
+char	*add_keyword_token(t_token **head, char *current, bool open)
 {
 	if ((*current == '>' || *current == '<'))
 		redirection_token(head, current);
 	else if (*current == '|')
 		pip_token(head);
 	else if (is_quote(*current))
-		quote_token(head, current);
+		quote_token(head, current, open);
 	else if (*current == ' ')
 	{
 		while (*(current + 1) == ' ')

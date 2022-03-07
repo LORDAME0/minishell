@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/05 15:14:41 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:35:51 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,51 @@ int	main(int n, char **args, char **env)
 	(void)n;
 	(void)args;
 	denv = dup_env(env); 
+	t_seq *seq;
 
+	seq = NULL;
+	line = NULL;
 	list = NULL;
 	while (1)
 	{
-		line = readline("> ");
+		line = readline("$> ");
+		if (line == NULL || *line == '\0')
+			continue ;
 		add_history(line);
 		tokenizer(&list, line);
 		print_tokens(list);
-		syntax_analysis(list);
-		printf ("***************\n");
-		list = expander(list, denv);
+				printf ("********************\n");
+			list = expander(list, denv);
 		print_tokens(list);
-		printf ("***************\n");
-		list = corrector(list);
+				printf ("********************\n");
+				list = corrector(list);
 		print_tokens(list);
-		printf ("***************\n");
+		/* if (list && syntax_analysis(list) == false) */
+		/* { */
+		/* 	list = expander(list, denv); */
+		/* 	if (list) */
+		/* 	{ */
+		/* 		list = corrector(list); */
+		/* 		print_tokens(list); */
+		/* 	} */
+		/* 	if (list) */
+		/* 	{ */
+		/* 		printf ("********************\n"); */
+		/* 		seq = parser(list); */
+		/* 		if (seq == NULL) */
+		/* 		{ */
+		/* 			seq = NULL; */
+		/* 			line = NULL; */
+		/* 			list = NULL; */
+		/* 			continue ; */
+		/* 		} */
+		/* 		eval_seq(seq, env); */
+		/* 		seq = NULL; */
+		/* 	} */
 		free(line);
 		free_tokens(list);
-		line = NULL;
 		list = NULL;
+		line = NULL;
 	}
 		/* free_tokens(list2); */
 		/* free_env(denv); */
