@@ -1,2 +1,5 @@
 ! fix syntax_analysis bugs in bonus {> ""} and {> key}
-!! make the parser
+!! CLEAN THIS TRASH
+!! parse --> eval redirection --> override with pipes -> exec
+!!!! t_env * to char ** env 
+!!!! Default ENV 
