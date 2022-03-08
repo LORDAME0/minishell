@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/08 21:28:07 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/08 23:04:10 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+void	ft_add_history(char *cmd);
 void	free_env(t_env *env);
 t_env	*dup_env(char **env);
 

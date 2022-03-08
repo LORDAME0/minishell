@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:13:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/08 21:29:44 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/08 23:06:27 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,17 @@ char *find_in_path(char *cmd, char **env)
 
 	ft_assert(env == NULL, "NULL ENV", __func__);
 	ft_assert(env == NULL, "NULL CMD", __func__);
-	/* printf ("***************\n"); */
-	/* print_2d_array(paths, 1); */
-	/* printf ("***************\n"); */
 	i = 0;
 	if (paths == NULL)
 		return (cmd);
 	cmd = ft_strjoin("/", cmd);
 	while (paths[i])
 	{
-		/* printf (" ****** %s\n", ft_strjoin(paths[i], cmd)); */
 		if (access(ft_strjoin(paths[i], cmd), X_OK) == 0)
-		{
-			/* printf ("string :: %s\n", ft_strjoin(paths[i], cmd)); */
 			return (ft_strjoin(paths[i], cmd));
-		}
 		i++;
 	}
 	cmd = ft_strjoin(ft_split(env[find_in_2d_array(env, "PWD=")], '=')[1], cmd);
-	printf ("cmd :: %s\n", cmd);
 	return (cmd); 
 }
 

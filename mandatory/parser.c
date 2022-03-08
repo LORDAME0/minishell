@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:39:59 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/08 21:29:27 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/08 23:20:37 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,15 +134,14 @@ int	heredoc(char *delimiter)
 int	eval_in_redirection(char *rederiction_type, char *file)
 {
 	int	fd;
-	ft_assert(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
 
+	ft_assert(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
 	if (rederiction_type[1])
 		fd = heredoc(file);
 	else
 		fd = open (file, O_RDONLY);
 	if (fd == -1)
 		perror("Error :");
-	printf ("hello\n");
 	return (fd);
 }
 
@@ -186,9 +185,16 @@ t_seq	*parser(t_token *list)
 				{
 					while (list && list->type != pip)
 						list = list->next;
+					if (list && list->type == pip)
+					{
+						pipe(fd);
+						close (fd[1]);
+						in = fd[0];
+						list = list->next;
+					}
 					rederiction_type =  NULL;
 					args = NULL;
-					break ;
+					continue ;
 				}
 				rederiction_type = NULL;
 			}

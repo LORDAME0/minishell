@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/08 21:12:29 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/08 23:11:00 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int n, char **args, char **env)
 		line = readline("$> ");
 		if (line == NULL || *line == '\0')
 			continue ;
+		ft_add_history(line);
 		tokenizer(&list, line);
 		if (list && syntax_analysis(list) == false)
 		{
@@ -58,7 +59,11 @@ int	main(int n, char **args, char **env)
 			{
 				seq = parser(list);
 				if (seq == NULL)
+				{
+					list = NULL;
+					line = NULL;
 					continue ;
+				}
 				eval_seq(seq, env);
 				free_seq(seq);
 			}
