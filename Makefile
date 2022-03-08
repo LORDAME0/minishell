@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 17:52:43 by orahmoun          #+#    #+#              #
-#    Updated: 2022/03/07 14:07:50 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/03/08 21:07:15 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,13 @@ SRC =	mandatory/main.c \
 		mandatory/corrector.c \
 		mandatory/parser.c \
 		mandatory/eval.c \
+		mandatory/echo.c \
+		mandatory/cd.c \
 		mandatory/2d_array_utils.c \
 		mandatory/2d_array_utils_2.c \
 		mandatory/2d_array_utils_3.c \
 
-B_SRC =		bonus/ \
+# B_SRC =		bonus/ \
 
 OBJDIR = obj
 

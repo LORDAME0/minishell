@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 18:45:31 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/06 17:01:39 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/08 21:24:50 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 char	*find_value(t_env *env, char *key)
 {
+	if (*key == '?')
+		return (ft_itoa(g_global.last_return));
 	while (env)
 	{
 		if (ft_strncmp(env->key, key, ft_strlen(key)) == 0
@@ -63,7 +65,9 @@ t_token	*expander(t_token *token, t_env *env)
 		if (token->type == key)
 		{
 			if (find_value(env, token->elem))
+			{
 				add_token_back(&new, split_value(find_value(env, token->elem)));
+			}
 			else if (open)
 				add_token_back(&new, create_token("", word));
 			free_token(token);

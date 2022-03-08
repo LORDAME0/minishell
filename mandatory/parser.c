@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:39:59 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/07 20:17:37 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/08 21:29:27 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_seq(t_seq *seq)
 	}
 }
 
-t_seq	*create_seq(char **args, int in, int out)
+t_seq	*create_seq(char **args, int in, int out, int num)
 {
 	t_seq	*seq;
 
@@ -44,6 +44,7 @@ t_seq	*create_seq(char **args, int in, int out)
 	seq->args = args;
 	seq->in = in;
 	seq->out = out;
+	seq->num = num;
 	seq->next = NULL;
 	return (seq);
 }
@@ -102,16 +103,47 @@ int	eval_out_redirection(char *rederiction_type, char *file)
 	if (rederiction_type[1])
 		fd = open (file, O_APPEND | O_WRONLY | O_CREAT, 0777);
 	else
-		fd = open (file, O_WRONLY | O_CREAT,  0777);
+		fd = open (file, O_WRONLY | O_TRUNC | O_CREAT,  0777);
 	if (fd == -1)
 		perror("Error :");
 	return (fd);
 }
 
+int	heredoc(char *delimiter)
+{
+	char	*total;
+	char	*line;
+	int		fd[2];
+
+	pipe (fd);
+	total = ft_strdup("");
+	while (1)
+	{
+		line = readline("heredoc> ");
+		if ((ft_strncmp(line, delimiter, ft_strlen (delimiter))  == 0
+			&&  ft_strlen(delimiter) == ft_strlen(line)))
+			break ;
+		total = ft_strjoin(total, line);
+		total = ft_strjoin(total, "\n");
+	}
+	write (fd[1], total, ft_strlen(total));	
+	close (fd[1]);
+	return (fd[0]);
+}
+
 int	eval_in_redirection(char *rederiction_type, char *file)
 {
-	ft_assert(true, "TO_DO", __func__);
-	return (0);
+	int	fd;
+	ft_assert(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
+
+	if (rederiction_type[1])
+		fd = heredoc(file);
+	else
+		fd = open (file, O_RDONLY);
+	if (fd == -1)
+		perror("Error :");
+	printf ("hello\n");
+	return (fd);
 }
 
 t_seq	*parser(t_token *list)
@@ -122,7 +154,9 @@ t_seq	*parser(t_token *list)
 	t_seq	*seq;
 	char	*rederiction_type;
 	char	**args;
+	int		num;
 
+	num = 0;
 	out = 1;
 	in = 0;
 	seq = NULL;
@@ -145,25 +179,35 @@ t_seq	*parser(t_token *list)
 			}
 			else if (rederiction_type && rederiction_type[0] == '<')
 			{
-				ft_assert(true, "IN not implemented yet", __func__);
-				/* in = eval_in_redirection(rederiction_type, list->elem); */
+				if (in != 0)
+					close (in);
+				in = eval_in_redirection(rederiction_type, list->elem);
+				if (in < 0)
+				{
+					while (list && list->type != pip)
+						list = list->next;
+					rederiction_type =  NULL;
+					args = NULL;
+					break ;
+				}
 				rederiction_type = NULL;
 			}
 			else if (list->type != redirection && rederiction_type == NULL)
 				args = add_element_2d_array_last(args, list->elem);
 			list = list->next;
 		}
-		if (seq && in == 0)
+		num++;
+		if ((seq && in == 0) || in < 0)
 			in = fd[0];
 		else
 			close(fd[0]);
-		if (list && out == 1)
+		if ((list && out == 1) || out < 0)
 		{
 			pipe(fd);
 			out = fd[1];
 		}
 		if (args && args[0])
-			add_seq_back(&seq, create_seq(args, in, out));
+			add_seq_back(&seq, create_seq(args, in, out, num));
 		else
 			free (args);
 		out = 1;

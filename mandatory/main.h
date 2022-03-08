@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/07 14:23:35 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/08 21:28:07 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-/* typedef struct s_info */
-/* { */
-/* 	t_list	*env; */
-/* }	t_info; */
+typedef struct s_info
+{
+	/* t_list	*env; */
+	int	last_return;
+}	t_info;
 
-/* t_info	g_info; */
+t_info	g_global;
 /* typedef struct s_section */
 /* { */
 /* 	char	*command; */
@@ -106,6 +107,7 @@ void	tokenizer(t_token **head, char *line);
 
 typedef struct s_seq
 {
+	int				num;
 	char			**args;
 	int				in;
 	int				out;
@@ -122,5 +124,8 @@ t_seq	*parser(t_token *list);
 void	eval_seq(t_seq *list, char **env);
 
 /******* BUILTINS ********/
+
+void	echo(char **args, int fd);
+int		cd(char *path, t_env *env);
 
 #endif

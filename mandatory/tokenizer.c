@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/07 19:24:07 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/08 21:24:19 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,17 @@ char	*chop_key(t_token **tokens, char *current)
 	char	*start;
 
 	start = current;
-	while (ft_isalnum(*current) || *current == '_')
+	if (*current == '?')
 		current++;
+	else
+	{
+		while (ft_isalnum(*current) || *current == '_')
+			current++;
+	}
 	if (start != current)
 		add_key_token(tokens, start, current);
+	else
+		add_word_token(tokens, start - 1, current);
 	return (current);
 }
 
