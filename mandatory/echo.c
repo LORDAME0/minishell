@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 12:33:42 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/08 22:48:47 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/09 16:05:02 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 static int	is_flag(char *str)
 {
+	BEGIN
 	int		i;
 
 	i = 0;
-	if(str[0] != '-')
+	ft_assert(str == NULL, "NULL PARAM", __func__);
+	END
+	if(str[0] != '-' || str[1] != 'n')
 		return (0);
 	++i;
 	while (str[i] && str[i] == 'n')
@@ -29,12 +32,13 @@ static int	is_flag(char *str)
 
 void	echo(char **args, int fd)
 {
+	BEGIN
 	int	i;
 
 	i = 0;
-	if (args != NULL && *args != NULL)
+	if (fd != -1 && args != NULL && *args != NULL)
 	{
-		while (is_flag(args[i]))
+		while (args[i] && is_flag(args[i]))
 			++i;
 		while (args[i])
 		{
@@ -48,4 +52,5 @@ void	echo(char **args, int fd)
 	}
 	else
 		ft_putstr_fd("\n", fd);
+	END
 }

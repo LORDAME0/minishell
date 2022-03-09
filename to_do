@@ -3,3 +3,6 @@
 !! parse --> eval redirection --> override with pipes -> exec
 !!!! t_env * to char ** env 
 !!!! Default ENV 
+
+
+// absolute path cmd :: fixed

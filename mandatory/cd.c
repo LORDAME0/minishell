@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 12:40:34 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/08 20:58:56 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:49:00 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static	int	cd_home(t_env	*env)
 	char	*user;
 	char	*home_path;
 
+	(void)env;
 	user = getenv("USER");
 	home_path = ft_strjoin("/Users/", user);
 	if (chdir(home_path))

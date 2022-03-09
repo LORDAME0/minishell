@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/08 23:04:10 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:48:19 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
+#include <fcntl.h>
+# ifdef DEBUG
+#define BEGIN printf ("begin %s\n", __func__);
+#define END printf ("end %s\n", __func__);
+# else 
+#define BEGIN
+#define END
+# endif
 
 typedef struct s_info
 {

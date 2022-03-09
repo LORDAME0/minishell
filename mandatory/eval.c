@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:13:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/08 23:06:27 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:14:08 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char *find_in_path(char *cmd, char **env)
 	char **paths = ft_split(ft_split(env[find_in_2d_array(env, "PATH=")], '=')[1], ':');
 	int		i;
 
+	if (access(cmd, X_OK) == 0)
+		return cmd;
 	ft_assert(env == NULL, "NULL ENV", __func__);
 	ft_assert(env == NULL, "NULL CMD", __func__);
 	i = 0;
@@ -54,12 +56,14 @@ pid_t	ft_exec(char *cmd, t_seq *seq, char **env)
 	return (pid);
 }
 
-enum builtins {becho, benv, bexport, bunset, bcd, bpwd, bexit};
+enum e_builtins {becho, benv, bexport, bunset, bcd, bpwd, bexit};
 
 int	is_builtin(char *cmd)
 {
+	BEGIN
 	ft_assert (cmd == NULL, "PARAM IS NULL", __func__);
-	if (ft_strncmp(cmd, "echo", ft_strlen(cmd)) == 0)
+	END
+	if (ft_strncmp(cmd, "echo", 4) == 0)
 		return (becho);
 	if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
 		return (benv);
@@ -92,19 +96,31 @@ void	exec_builtin(t_seq *seq, int builtin)
 
 void	eval_seq(t_seq *list, char **env)
 {
+	BEGIN
 	t_seq	*tmp;
 	int		builtin;
 
 	tmp = list;
 	while (list)
 	{
-		builtin = is_builtin(list->args[0]);
-		if (builtin != -1)
-			exec_builtin(list, builtin);
+		if (list->args == NULL)
+		{
+			if (list->in != 0)
+				close (list->in);
+			if (list->out != 1)
+				close (list->out);
+		}
 		else
-			waitpid(ft_exec(find_in_path(list->args[0], env), list, env),
-					&g_global.last_return, 0);
+		{
+			builtin = is_builtin(list->args[0]);
+			if (builtin != -1)
+				exec_builtin(list, builtin);
+			else
+				waitpid(ft_exec(find_in_path(list->args[0], env), list, env),
+						&g_global.last_return, 0);
+		}
 		list = list->next;
 	}
 	/* free_seq(tmp); */
+	END
 }

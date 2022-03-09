@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 17:52:43 by orahmoun          #+#    #+#              #
-#    Updated: 2022/03/08 21:07:15 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/03/09 21:03:38 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-FLAGS = -Wall -Wextra -I libft
+FLAGS = -Wall -Wextra -I libft -O3 -Wshadow
 
 READLINE = -lreadline
 
@@ -42,6 +42,7 @@ SRC =	mandatory/main.c \
 		mandatory/eval.c \
 		mandatory/echo.c \
 		mandatory/cd.c \
+		mandatory/add_history.c \
 		mandatory/2d_array_utils.c \
 		mandatory/2d_array_utils_2.c \
 		mandatory/2d_array_utils_3.c \
@@ -55,6 +56,9 @@ OBJ = $(addprefix ${OBJDIR}/, ${SRC:%.c=%.o})
 # B_OBJ = $(addprefix ${OBJDIR}/, ${B_SRC:%.c=%.o})
 
 all : ${NAME}
+
+debug : ${SRC} ${LIBFT}
+	${CC} ${FLAGS} ${READLINE} -D DEBUG $^ -o ${NAME} -g
 
 # bonus : bonus_binary ${B_HEADER}
 

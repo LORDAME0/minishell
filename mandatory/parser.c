@@ -6,12 +6,11 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:39:59 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/08 23:20:37 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/09 15:25:43 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-#include <fcntl.h>
 
 void	free_seq(t_seq *seq)
 {
@@ -88,25 +87,34 @@ void	print_seq(t_seq *seq)
 				}
 				i = 0;
 			}
-			printf ("IN :: %d\n", seq->in);
-			printf ("OUT :: %d\n", seq->out);
 		}
+		else
+			printf ("CMD :: %s\n", NULL);
+		printf ("IN :: %d\n", seq->in);
+		printf ("OUT :: %d\n", seq->out);
 		seq = seq->next;
 	}
 }
 
-int	eval_out_redirection(char *rederiction_type, char *file)
+void	eval_out_redirection(t_seq *seq, char *rederiction_type, char *file)
 {
+	BEGIN
 	int	fd;
 	ft_assert(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
 
-	if (rederiction_type[1])
-		fd = open (file, O_APPEND | O_WRONLY | O_CREAT, 0777);
-	else
-		fd = open (file, O_WRONLY | O_TRUNC | O_CREAT,  0777);
-	if (fd == -1)
-		perror("Error :");
-	return (fd);
+	if (rederiction_type[0] == '>')
+	{
+		if (seq->out != 1)
+			close (seq->out);
+		if (rederiction_type[1])
+			fd = open (file, O_APPEND | O_WRONLY | O_CREAT, 0777);
+		else
+			fd = open (file, O_WRONLY | O_TRUNC | O_CREAT,  0777);
+		if (fd == -1)
+			perror("Error :");
+		seq->out = fd;
+	}
+	END
 }
 
 int	heredoc(char *delimiter)
@@ -131,98 +139,111 @@ int	heredoc(char *delimiter)
 	return (fd[0]);
 }
 
-int	eval_in_redirection(char *rederiction_type, char *file)
+void	eval_in_redirection(t_seq *seq, char *rederiction_type, char *file)
 {
+	BEGIN
 	int	fd;
 
 	ft_assert(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
-	if (rederiction_type[1])
-		fd = heredoc(file);
-	else
-		fd = open (file, O_RDONLY);
-	if (fd == -1)
-		perror("Error :");
-	return (fd);
+	if (rederiction_type[0] == '<')
+	{
+		if (seq->in != 0)
+			close (seq->in);
+		if (rederiction_type[1])
+			fd = heredoc(file);
+		else
+			fd = open (file, O_RDONLY);
+		if (fd == -1)
+			perror("Error :");
+		seq->in = fd;
+	}
+	END
+}
+
+t_token	*eval_redirection(t_seq *seq, t_token *token)
+{
+	BEGIN
+	char	*rederiction_type;
+	
+	rederiction_type = token->elem;
+	token = token->next;
+	eval_out_redirection(seq, rederiction_type, token->elem);
+	eval_in_redirection(seq, rederiction_type, token->elem);
+	if (seq->in < 0 || seq->out < 0)
+	{
+		while (token && token->type != pip)
+			token = token->next;
+		free_2d_array(seq->args);
+		seq->args = NULL;
+	}
+	END
+	return (token);
+}
+
+void	eval_pipes(t_seq *seq)
+{
+	int		fd[2];
+	bool	first;
+	bool	last;
+
+	first = true;
+	last = false;
+	ft_assert(seq == NULL, "NULL PARAM", __func__);
+	if (seq->next)
+	{
+		while (seq)
+		{
+			if (first == false)
+			{
+				if (seq->in != 0)
+					close (seq->in);
+				seq->in = fd[0];
+			}
+			if (last == false)
+			{
+				if (seq->out != 1)
+					close(seq->out);
+				pipe(fd);
+				seq->out = fd[1];
+				first = false;
+			}
+			seq = seq->next;
+			if (seq && seq->next == NULL)
+				last = true;
+		}
+	}
 }
 
 t_seq	*parser(t_token *list)
 {
-	int		fd[2];
-	int		in;
-	int		out;
-	t_seq	*seq;
-	char	*rederiction_type;
-	char	**args;
-	int		num;
+	BEGIN
+	size_t	num;
+	t_seq	*head;
+	t_seq	*tmp;
 
 	num = 0;
-	out = 1;
-	in = 0;
-	seq = NULL;
-	args = NULL;
-	rederiction_type = NULL;
-	ft_assert(list == NULL, "NULL PARAM", __func__);	
+	head = NULL;
 	while (list)
 	{
-		args = init_2d_array();
+		tmp = create_seq(init_2d_array(), 0, 1, num);
 		while (list && list->type != pip)
 		{
 			if (list->type == redirection)
-				rederiction_type = list->elem;
-			else if (rederiction_type && rederiction_type[0] == '>')
-			{
-				if (out != 1)
-					close (out);
-				out = eval_out_redirection(rederiction_type, list->elem);
-				rederiction_type = NULL;
-			}
-			else if (rederiction_type && rederiction_type[0] == '<')
-			{
-				if (in != 0)
-					close (in);
-				in = eval_in_redirection(rederiction_type, list->elem);
-				if (in < 0)
-				{
-					while (list && list->type != pip)
-						list = list->next;
-					if (list && list->type == pip)
-					{
-						pipe(fd);
-						close (fd[1]);
-						in = fd[0];
-						list = list->next;
-					}
-					rederiction_type =  NULL;
-					args = NULL;
-					continue ;
-				}
-				rederiction_type = NULL;
-			}
-			else if (list->type != redirection && rederiction_type == NULL)
-				args = add_element_2d_array_last(args, list->elem);
-			list = list->next;
+				list = eval_redirection(tmp, list);
+			else
+				tmp->args = add_element_2d_array_last(tmp->args, list->elem);
+			if (list)
+				list = list->next;
 		}
-		num++;
-		if ((seq && in == 0) || in < 0)
-			in = fd[0];
-		else
-			close(fd[0]);
-		if ((list && out == 1) || out < 0)
-		{
-			pipe(fd);
-			out = fd[1];
-		}
-		if (args && args[0])
-			add_seq_back(&seq, create_seq(args, in, out, num));
-		else
-			free (args);
-		out = 1;
-		in = 0;
-		args = NULL;
 		if (list && list->type == pip)
 			list = list->next;
+		add_seq_back(&head, tmp);
+		num++;
 	}
-	/* if (seq) */
-	/* 	print_seq(seq); */
-	return (seq);
+	eval_pipes(head);
+#ifdef DEBUG
+	print_seq(head);
+#endif
+	END
+	return (head);
 }
