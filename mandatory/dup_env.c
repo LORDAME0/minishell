@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 01:28:05 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/05 06:22:30 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/09 21:52:44 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,24 @@ t_env	*dup_env(char **env)
 	return (head);
 }
 
+char	**t_env_to_char_pp(t_env *denv)
+{
+	BEGIN
+	char	**env;
+	char	*tmp;
+
+	if (denv == NULL)
+		printf("MINIShell : set environment\n");
+	env = init_2d_array();
+	while (denv)
+	{
+		tmp = ft_strjoin_free(ft_strjoin(denv->key, "="), denv->value);
+		env = add_element_2d_array_last(env, tmp);
+		denv = denv->next;
+	}
+	END
+	return (env);
+}
 /* int main(int n, char **args, char **env) */
 /* { */
 /* 	t_env *head = dup_env(env); */

@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_main.c                                         :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 22:55:40 by orahmoun         ###   ########.fr       */
+/*   Created: 2022/03/09 22:22:16 by orahmoun          #+#    #+#             */
+/*   Updated: 2022/03/09 22:53:19 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	main(int n, char **args, char **env)
+t_seq	*parsing(char *line, t_env *denv)
 {
-	t_env		*denv;
+	BEGIN
+	t_token	*list;
+	t_seq	*seq;
 
-	(void)n;
-	(void)args;
-	denv = dup_env(env); 
-	g_global.last_return = 0;
-	signal(SIGINT, SIG_IGN);
-	shell_loop(denv);
-	free_env(denv);
-	system("leaks minishell");
+	list = NULL;
+	seq = NULL;
+	if (line)
+		tokenizer(&list, line);
+	if (list && syntax_analysis(list) == false)
+	{
+		list = expander(list, denv);
+		if (list)
+			list = corrector(list);
+		if (list)
+			seq = parser(list);
+	}
+	free_tokens(list);
+	END
+	return (seq);
 }

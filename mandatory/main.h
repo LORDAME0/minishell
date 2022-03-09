@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 14:48:19 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/09 23:00:10 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 
 typedef struct s_info
 {
-	/* t_list	*env; */
 	int	last_return;
 }	t_info;
 
@@ -47,6 +46,7 @@ t_info	g_global;
 /* }				t_section; */
 /******* UTILS ********/
 
+char	*ft_strjoin_free(char *s1, char *s2);
 int		skip_char(char *str, int *i, char c);
 int		skip_until_char(char *str, int *i, char c);
 void	ft_assert(bool con, char *msg, const char *func);
@@ -76,9 +76,11 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+void	print_logo();
 void	ft_add_history(char *cmd);
 void	free_env(t_env *env);
 t_env	*dup_env(char **env);
+char	**t_env_to_char_pp(t_env *denv);
 
 /******* TOKENIZER *****/
 
@@ -128,9 +130,12 @@ t_token	*corrector(t_token *token);
 t_token	*expander(t_token *token, t_env *env);
 bool	syntax_analysis(t_token *tokens);
 t_seq	*parser(t_token *list);
+t_seq	*parsing(char *line, t_env *denv);
 
-// EVAL
-void	eval_seq(t_seq *list, char **env);
+/******* EVAL ********/
+
+void	eval_seq(t_seq *list, t_env *env);
+void	shell_loop(t_env *denv);
 
 /******* BUILTINS ********/
 

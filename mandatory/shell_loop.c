@@ -1,27 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_main.c                                         :+:      :+:    :+:   */
+/*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 22:55:40 by orahmoun         ###   ########.fr       */
+/*   Created: 2022/03/09 22:37:11 by orahmoun          #+#    #+#             */
+/*   Updated: 2022/03/09 22:53:53 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	main(int n, char **args, char **env)
+void	shell_loop(t_env *denv)
 {
-	t_env		*denv;
+	BEGIN
+	t_seq	*seq;
+	char	*line;
 
-	(void)n;
-	(void)args;
-	denv = dup_env(env); 
-	g_global.last_return = 0;
-	signal(SIGINT, SIG_IGN);
-	shell_loop(denv);
-	free_env(denv);
-	system("leaks minishell");
+	while (1337)
+	{
+		line = readline("$> ");
+		if (line == NULL)
+			exit (0);
+		if (*line == '\0')
+			continue ;
+		if (ft_strncmp("exit", line, ft_strlen(line)) == 0)
+		{
+			free (line);
+			return ;
+		}
+		ft_add_history(line);
+		seq = parsing(line, denv);
+		eval_seq(seq, denv);
+		free(line);
+		free_seq(seq);
+		seq = NULL;
+		line = NULL;
+	}
+	END
 }

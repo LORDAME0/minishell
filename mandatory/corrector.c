@@ -6,20 +6,12 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 01:42:37 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/07 19:10:06 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/09 21:32:24 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-char	*ft_strjoin_free(char *s1, char *s2)
-{
-	char *tmp;
-
-	tmp = ft_strjoin(s1, s2);
-	free(s1);
-	return (tmp);
-}
 
 t_token	*joiner(t_token *token)
 {

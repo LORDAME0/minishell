@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 17:52:43 by orahmoun          #+#    #+#              #
-#    Updated: 2022/03/09 21:03:38 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/03/09 22:55:31 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-FLAGS = -Wall -Wextra -I libft -O3 -Wshadow
+FLAGS = -Wall -Wextra -I libft
 
 READLINE = -lreadline
 
@@ -28,6 +28,7 @@ MAKE_LIBFT = libft/
 
 SRC =	mandatory/main.c \
 		mandatory/tokenizer.c \
+		mandatory/print_logo.c \
 		mandatory/tokenizer_utils.c \
 		mandatory/tokenizer_utils_2.c \
 		mandatory/print_tokens.c \
@@ -39,7 +40,10 @@ SRC =	mandatory/main.c \
 		mandatory/expander.c \
 		mandatory/corrector.c \
 		mandatory/parser.c \
+		mandatory/parsing.c \
 		mandatory/eval.c \
+		mandatory/shell_loop.c \
+		mandatory/exec.c \
 		mandatory/echo.c \
 		mandatory/cd.c \
 		mandatory/add_history.c \

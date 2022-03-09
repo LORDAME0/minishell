@@ -6,44 +6,89 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:13:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 17:14:08 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/09 23:03:06 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 #include <unistd.h>
 
+/* char	*pwd_value(char **env) */
+/* { */
+/* 	char	**key_value; */
+
+/* 	key_value = ft_split(env[find_in_2d_array(env, "PWD=")], '='); */
+/* 	free(key_value[0]); */
+/* 	return (key_value[1]); */
+/* } */
+
+char	**ft_split_paths(char **env)
+{
+	BEGIN
+	char	**paths;
+	char	**path_key_value;
+	
+	if (env == NULL)
+	{
+		printf ("MINIShell :: set environment\n");
+		exit(1);
+	}
+	path_key_value = ft_split(env[find_in_2d_array(env, "PATH=")], '=');
+	paths = ft_split(path_key_value[1], ':');
+	free(path_key_value[0]);
+	free(path_key_value[1]);
+	END
+	return (paths);
+}
+
+
 char *find_in_path(char *cmd, char **env)
 {
-	char **paths = ft_split(ft_split(env[find_in_2d_array(env, "PATH=")], '=')[1], ':');
+	BEGIN
 	int		i;
+	char	*tmp;
+	char	*tmp2;
+	char	**paths;
 
+	i = 0;
+	ft_assert(env == NULL, "NULL CMD", __func__);
 	if (access(cmd, X_OK) == 0)
 		return cmd;
 	ft_assert(env == NULL, "NULL ENV", __func__);
-	ft_assert(env == NULL, "NULL CMD", __func__);
-	i = 0;
+	paths = ft_split_paths(env);
 	if (paths == NULL)
 		return (cmd);
-	cmd = ft_strjoin("/", cmd);
+	tmp = ft_strjoin("/", cmd);
 	while (paths[i])
 	{
-		if (access(ft_strjoin(paths[i], cmd), X_OK) == 0)
-			return (ft_strjoin(paths[i], cmd));
+		tmp2 = ft_strjoin(paths[i], tmp);
+		if (access(tmp2, X_OK) == 0)
+		{
+			free(tmp);
+			free_2d_array(paths);
+			END
+			return (tmp2);
+		}
+		else
+			free(tmp2);
 		i++;
 	}
-	cmd = ft_strjoin(ft_split(env[find_in_2d_array(env, "PWD=")], '=')[1], cmd);
+	free(tmp);
+	free_2d_array(paths);
+	END
 	return (cmd); 
 }
 
 pid_t	ft_exec(char *cmd, t_seq *seq, char **env)
 {
+	BEGIN
 	pid_t	pid;
 
 	errno = 0;
 	pid = fork();
 	if (pid == 0)
 	{
+		cmd = find_in_path(cmd, env);
 		dup2(seq->in, 0);
 		dup2(seq->out, 1);
 		if (execve(cmd, seq->args, env) == -1)
@@ -53,6 +98,7 @@ pid_t	ft_exec(char *cmd, t_seq *seq, char **env)
 		close (seq->in);
 	if (seq->out != 1)
 		close (seq->out);
+	END
 	return (pid);
 }
 
@@ -82,6 +128,7 @@ int	is_builtin(char *cmd)
 
 void	exec_builtin(t_seq *seq, int builtin)
 {
+	BEGIN
 	if (builtin == becho)
 		echo(seq->args + 1, seq->out);
 	if (builtin == bcd)
@@ -92,15 +139,23 @@ void	exec_builtin(t_seq *seq, int builtin)
 		close (seq->in);
 	if (seq->out != 1)
 		close (seq->out);
+	END
 }
 
-void	eval_seq(t_seq *list, char **env)
+void	eval_seq(t_seq *list, t_env	*denv)
 {
 	BEGIN
 	t_seq	*tmp;
+	char	**env;
 	int		builtin;
 
+	if (denv == NULL)
+	{
+		printf ("MINIShell :: set environment\n");
+		exit(1);
+	}
 	tmp = list;
+	env = t_env_to_char_pp(denv);
 	while (list)
 	{
 		if (list->args == NULL)
@@ -116,11 +171,16 @@ void	eval_seq(t_seq *list, char **env)
 			if (builtin != -1)
 				exec_builtin(list, builtin);
 			else
-				waitpid(ft_exec(find_in_path(list->args[0], env), list, env),
+			{
+				printf ("RETURN ::: %d\n", g_global.last_return);
+				waitpid(ft_exec(list->args[0], list, env),
 						&g_global.last_return, 0);
+				g_global.last_return = WEXITSTATUS(g_global.last_return);
+				printf ("RETURN ::: %d\n", g_global.last_return);
+			}
 		}
 		list = list->next;
 	}
-	/* free_seq(tmp); */
+	free_2d_array(env);
 	END
 }

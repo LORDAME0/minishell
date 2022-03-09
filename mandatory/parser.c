@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:39:59 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 15:25:43 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/09 22:53:16 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_seq(t_seq *seq)
 	while (seq)
 	{
 		tmp = seq->next;
-		/* free_2d_array(seq->args); */
+		free_2d_array(seq->args);
 		free(seq);
 		if (seq->in != 0)
 			close (seq->in);
@@ -29,7 +29,7 @@ void	free_seq(t_seq *seq)
 	}
 }
 
-t_seq	*create_seq(char **args, int in, int out, int num)
+static t_seq	*create_seq(char **args, int in, int out, int num)
 {
 	t_seq	*seq;
 
@@ -48,7 +48,7 @@ t_seq	*create_seq(char **args, int in, int out, int num)
 	return (seq);
 }
 
-t_seq	*get_last_seq(t_seq *seq)
+static t_seq	*get_last_seq(t_seq *seq)
 {
 	if (seq == NULL)
 		return (NULL);
@@ -57,7 +57,7 @@ t_seq	*get_last_seq(t_seq *seq)
 	return (seq);
 }
 
-void	add_seq_back(t_seq **list, t_seq *new_seq)
+static void	add_seq_back(t_seq **list, t_seq *new_seq)
 {
 	ft_assert(new_seq == NULL, "NULL PARAM", __func__);	
 	if (*list == NULL)
@@ -96,7 +96,7 @@ void	print_seq(t_seq *seq)
 	}
 }
 
-void	eval_out_redirection(t_seq *seq, char *rederiction_type, char *file)
+static void	eval_out_redirection(t_seq *seq, char *rederiction_type, char *file)
 {
 	BEGIN
 	int	fd;
@@ -117,7 +117,7 @@ void	eval_out_redirection(t_seq *seq, char *rederiction_type, char *file)
 	END
 }
 
-int	heredoc(char *delimiter)
+static int	heredoc(char *delimiter)
 {
 	char	*total;
 	char	*line;
@@ -131,15 +131,17 @@ int	heredoc(char *delimiter)
 		if ((ft_strncmp(line, delimiter, ft_strlen (delimiter))  == 0
 			&&  ft_strlen(delimiter) == ft_strlen(line)))
 			break ;
-		total = ft_strjoin(total, line);
-		total = ft_strjoin(total, "\n");
+		total = ft_strjoin_free(total, line);
+		total = ft_strjoin_free(total, "\n");
+		free(line);
 	}
 	write (fd[1], total, ft_strlen(total));	
+	free(total);
 	close (fd[1]);
 	return (fd[0]);
 }
 
-void	eval_in_redirection(t_seq *seq, char *rederiction_type, char *file)
+static void	eval_in_redirection(t_seq *seq, char *rederiction_type, char *file)
 {
 	BEGIN
 	int	fd;
@@ -160,7 +162,7 @@ void	eval_in_redirection(t_seq *seq, char *rederiction_type, char *file)
 	END
 }
 
-t_token	*eval_redirection(t_seq *seq, t_token *token)
+static t_token	*eval_redirection(t_seq *seq, t_token *token)
 {
 	BEGIN
 	char	*rederiction_type;
@@ -180,7 +182,7 @@ t_token	*eval_redirection(t_seq *seq, t_token *token)
 	return (token);
 }
 
-void	eval_pipes(t_seq *seq)
+static void	eval_pipes(t_seq *seq)
 {
 	int		fd[2];
 	bool	first;
@@ -231,7 +233,8 @@ t_seq	*parser(t_token *list)
 			if (list->type == redirection)
 				list = eval_redirection(tmp, list);
 			else
-				tmp->args = add_element_2d_array_last(tmp->args, list->elem);
+				tmp->args = add_element_2d_array_last(tmp->args,
+							ft_strdup(list->elem));
 			if (list)
 				list = list->next;
 		}
