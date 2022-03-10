@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 12:33:42 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 16:05:02 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:35:56 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	is_flag(char *str)
 	int		i;
 
 	i = 0;
-	ft_assert(str == NULL, "NULL PARAM", __func__);
+	panic(str == NULL, "NULL PARAM", __func__);
 	END
 	if(str[0] != '-' || str[1] != 'n')
 		return (0);

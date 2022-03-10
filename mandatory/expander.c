@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 18:45:31 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/08 21:24:50 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:39:24 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_token	*split_value(char *value)
 	tokens = NULL;
 	sp = ft_split(value, ' ');
 	if (sp == NULL)
-		ft_assert(sp == NULL, "split returned NULL", __func__);
+		panic(sp == NULL, "split returned NULL", __func__);
 	while (sp[i])
 	{
 		add_token_back(&tokens, create_token(sp[i], word));

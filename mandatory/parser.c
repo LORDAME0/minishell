@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:39:59 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 22:53:16 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:40:03 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_seq	*create_seq(char **args, int in, int out, int num)
 {
 	t_seq	*seq;
 
-	ft_assert(args == NULL, "NULL PARAM", __func__);	
+	panic(args == NULL, "NULL PARAM", __func__);	
 	seq = malloc (sizeof(t_seq));
 	if (seq == NULL)
 	{
@@ -59,7 +59,7 @@ static t_seq	*get_last_seq(t_seq *seq)
 
 static void	add_seq_back(t_seq **list, t_seq *new_seq)
 {
-	ft_assert(new_seq == NULL, "NULL PARAM", __func__);	
+	panic(new_seq == NULL, "NULL PARAM", __func__);	
 	if (*list == NULL)
 		*list = new_seq;
 	else
@@ -100,7 +100,7 @@ static void	eval_out_redirection(t_seq *seq, char *rederiction_type, char *file)
 {
 	BEGIN
 	int	fd;
-	ft_assert(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
+	panic(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
 
 	if (rederiction_type[0] == '>')
 	{
@@ -146,7 +146,7 @@ static void	eval_in_redirection(t_seq *seq, char *rederiction_type, char *file)
 	BEGIN
 	int	fd;
 
-	ft_assert(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
+	panic(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
 	if (rederiction_type[0] == '<')
 	{
 		if (seq->in != 0)
@@ -190,7 +190,7 @@ static void	eval_pipes(t_seq *seq)
 
 	first = true;
 	last = false;
-	ft_assert(seq == NULL, "NULL PARAM", __func__);
+	panic(seq == NULL, "NULL PARAM", __func__);
 	if (seq->next)
 	{
 		while (seq)

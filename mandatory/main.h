@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 23:00:10 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/11 00:15:50 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 # include <signal.h>
 # include <stdbool.h>
 # include <readline/readline.h>
+# include <limits.h>
 # include <readline/history.h>
+# include <fcntl.h>
 # include "../libft/libft.h"
-#include <fcntl.h>
 # ifdef DEBUG
 #define BEGIN printf ("begin %s\n", __func__);
 #define END printf ("end %s\n", __func__);
@@ -49,7 +50,7 @@ t_info	g_global;
 char	*ft_strjoin_free(char *s1, char *s2);
 int		skip_char(char *str, int *i, char c);
 int		skip_until_char(char *str, int *i, char c);
-void	ft_assert(bool con, char *msg, const char *func);
+void	panic(bool con, char *msg, const char *func);
 void	init_indexs(int amount, int value, ...);
 
 /******* 2D_ARRAY *******/
@@ -77,9 +78,12 @@ typedef struct s_env
 }	t_env;
 
 void	print_logo();
+char	*find_value(t_env *env, char *key);
 void	ft_add_history(char *cmd);
 void	free_env(t_env *env);
 t_env	*dup_env(char **env);
+void	add_variable_back(t_env **list, t_env *new_var);
+t_env	*create_variable(char *key, char *value);
 char	**t_env_to_char_pp(t_env *denv);
 
 /******* TOKENIZER *****/

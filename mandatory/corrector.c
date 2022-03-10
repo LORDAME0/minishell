@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 01:42:37 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 21:32:24 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:35:02 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_token	*joiner(t_token *token)
 	char	*str;
 
 	new = NULL;
-	ft_assert(token == NULL, "NULL PARAM", __func__);
+	panic(token == NULL, "NULL PARAM", __func__);
 	while (token)
 	{
 		tmp = token->next;
@@ -55,7 +55,7 @@ t_token	*remove_space(t_token *token)
 	t_token	*tmp;
 
 	new = NULL;
-	ft_assert(token == NULL, "NULL PARAM", __func__);
+	panic(token == NULL, "NULL PARAM", __func__);
 	while (token)
 	{
 		tmp = token->next;
@@ -79,7 +79,7 @@ t_token	*remove_quotes(t_token *token)
 	t_token	*tmp;
 
 	new = NULL;
-	ft_assert(token == NULL, "NULL PARAM", __func__);
+	panic(token == NULL, "NULL PARAM", __func__);
 	while (token)
 	{
 		tmp = token->next;
@@ -100,7 +100,7 @@ t_token	*remove_quotes(t_token *token)
 
 t_token	*corrector(t_token *token)
 {
-	ft_assert(token == NULL, "NULL PARAM", __func__);
+	panic(token == NULL, "NULL PARAM", __func__);
 	token = remove_quotes(token);
 	token = joiner(token);
 	/* token = remove_space(token); */

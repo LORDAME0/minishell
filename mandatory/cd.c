@@ -6,51 +6,69 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 12:40:34 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 14:49:00 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/11 00:31:32 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-/* static	void	update_paths_env(char **env) */
-/* { */
-/* 	int		old_index; */
-/* 	int		current_index; */
-/* 	char	*current_dir; */
+t_env *find_key(t_env *env, char *key)
+{
+	while (env)
+	{
+		if (ft_strncmp(env->key, key, ft_strlen(key)) == 0
+			&& (ft_strlen(key) == ft_strlen(env->key)))
+			return (env);
+		env = env->next;
+	}
+	return (NULL);
+}
 
-/* 	old_index = find_in_2d_array(env, "OLDPWD"); */
-/* 	current_index = find_in_2d_array(env, "PWD"); */
-/* 	if (old_index == -1 || current_index == -1) */
-/* 		printf ("Error : env is corrupt\n"); */
-/* 	free(env[old_index]); */
-/* 	env[old_index] = ft_strjoin("OLD", env[current_index]); */
-/* 	free(env[current_index]); */
-/* 	current_dir = return_current_dir(); */
-/* 	env[current_index] = ft_strjoin("PWD=", current_dir); */
-/* 	free(current_dir); */
-/* } */
+void	update_paths_env(t_env *env)
+{
+  t_env *pwd;
+  t_env *oldpwd;
+  char  cwd[PATH_MAX];
+
+  pwd = find_key(env, "PWD");
+  if (pwd == NULL)
+    add_variable_back(&env,
+        create_variable("PWD", ft_strdup(getcwd(cwd, sizeof(cwd))))); 
+  else
+  {
+    oldpwd = find_key(env, "OLDPWD");
+    if (oldpwd == NULL)
+      add_variable_back(&env, create_variable("OLDPWD", pwd->value)); 
+    else
+    {
+      free(oldpwd->value);
+      oldpwd->value = pwd->value;
+    }
+    pwd->value = ft_strdup(getcwd(cwd, sizeof(cwd)));
+  }
+}
 
 static	int	cd_home(t_env	*env)
 {
 	char	*user;
 	char	*home_path;
 
-	(void)env;
-	user = getenv("USER");
+	user = find_value(env, "USER");
 	home_path = ft_strjoin("/Users/", user);
 	if (chdir(home_path))
-	{
-		perror("Error ");
-		return (1);
-	}
-	/* else */
-	/* 	update_paths_env(env); */
+    goto error;
+  else
+    update_paths_env(env);
+  free(home_path);
 	return (0);
+error:
+  free(home_path);
+  perror("Error ");
+  return (1);
 }
 
 int	cd(char *path, t_env *env)
 {
-	(void)env;
 	if (path == NULL)
 		return (cd_home(env));
 	else
@@ -60,8 +78,8 @@ int	cd(char *path, t_env *env)
 			perror("Error ");
 			return (1);
 		}
-		/* else */
-		/* 	update_paths_env(env); */
+    else
+      update_paths_env(env);
 	}
 	return (0);
 }

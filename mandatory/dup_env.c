@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 01:28:05 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 21:52:44 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:35:14 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_env	*dup_env(char **env)
 
 	i = 0;
 	head = NULL;
-	ft_assert(env == NULL, "NULL pointer as param", __func__);
+	panic(env == NULL, "NULL pointer as param", __func__);
 	while (env[i])
 	{
 		key = ft_substr(env[i], 0, ft_strchr(env[i], '=') - env[i]);

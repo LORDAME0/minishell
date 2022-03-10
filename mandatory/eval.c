@@ -6,12 +6,13 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:13:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 23:03:06 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/11 00:05:16 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 #include <unistd.h>
+#define PID_BUFFER_SIZE 1024
 
 /* char	*pwd_value(char **env) */
 /* { */
@@ -51,10 +52,10 @@ char *find_in_path(char *cmd, char **env)
 	char	**paths;
 
 	i = 0;
-	ft_assert(env == NULL, "NULL CMD", __func__);
+	panic(env == NULL, "NULL CMD", __func__);
 	if (access(cmd, X_OK) == 0)
 		return cmd;
-	ft_assert(env == NULL, "NULL ENV", __func__);
+	panic(env == NULL, "NULL ENV", __func__);
 	paths = ft_split_paths(env);
 	if (paths == NULL)
 		return (cmd);
@@ -92,7 +93,10 @@ pid_t	ft_exec(char *cmd, t_seq *seq, char **env)
 		dup2(seq->in, 0);
 		dup2(seq->out, 1);
 		if (execve(cmd, seq->args, env) == -1)
+    {
 			printf ("MINIShell : command not found\n");
+      g_global.last_return = 127;
+    }
 	}
 	if (seq->in != 0)
 		close (seq->in);
@@ -107,32 +111,32 @@ enum e_builtins {becho, benv, bexport, bunset, bcd, bpwd, bexit};
 int	is_builtin(char *cmd)
 {
 	BEGIN
-	ft_assert (cmd == NULL, "PARAM IS NULL", __func__);
+	panic(cmd == NULL, "PARAM IS NULL", __func__);
 	END
 	if (ft_strncmp(cmd, "echo", 4) == 0)
 		return (becho);
-	if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
-		return (benv);
-	if (ft_strncmp(cmd, "export", ft_strlen(cmd)) == 0)
-		return (bexport);
-	if (ft_strncmp(cmd, "unset", ft_strlen(cmd)) == 0)
-		return (bunset);
-	if (ft_strncmp(cmd, "cd", ft_strlen(cmd)) == 0)
-		return (bcd);
-	if (ft_strncmp(cmd, "pwq", ft_strlen(cmd)) == 0)
-		return (bpwd);
-	if (ft_strncmp(cmd, "exit", ft_strlen(cmd)) == 0)
+	else if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
+	  return (benv);
+	else if (ft_strncmp(cmd, "export", ft_strlen(cmd)) == 0)
+	  return (bexport);
+	else if (ft_strncmp(cmd, "unset", ft_strlen(cmd)) == 0)
+	  return (bunset);
+	else if (ft_strncmp(cmd, "cd", ft_strlen(cmd)) == 0)
+	  return (bcd);
+	else if (ft_strncmp(cmd, "pwq", ft_strlen(cmd)) == 0)
+	  return (bpwd);
+	else if (ft_strncmp(cmd, "exit", ft_strlen(cmd)) == 0)
 		return (bexit);
 	return (-1);
 }
 
-void	exec_builtin(t_seq *seq, int builtin)
+void	exec_builtin(t_env *env, t_seq *seq, int builtin)
 {
 	BEGIN
 	if (builtin == becho)
 		echo(seq->args + 1, seq->out);
 	if (builtin == bcd)
-		cd(seq->args[1], NULL);
+		cd(seq->args[1], env);
 	if (builtin == bexit && seq->next == NULL && seq->num == 1)
 		exit (0);
 	if (seq->in != 0)
@@ -145,42 +149,37 @@ void	exec_builtin(t_seq *seq, int builtin)
 void	eval_seq(t_seq *list, t_env	*denv)
 {
 	BEGIN
-	t_seq	*tmp;
+  int   i;
+  int   j;
+  pid_t pid[PID_BUFFER_SIZE];
 	char	**env;
 	int		builtin;
 
+  i = 0;
+  j = 0;
+  g_global.last_return = 0;
 	if (denv == NULL)
 	{
 		printf ("MINIShell :: set environment\n");
 		exit(1);
 	}
-	tmp = list;
 	env = t_env_to_char_pp(denv);
 	while (list)
 	{
-		if (list->args == NULL)
-		{
-			if (list->in != 0)
-				close (list->in);
-			if (list->out != 1)
-				close (list->out);
-		}
-		else
+		if (list->args != NULL)
 		{
 			builtin = is_builtin(list->args[0]);
 			if (builtin != -1)
-				exec_builtin(list, builtin);
+				exec_builtin(denv, list, builtin);
 			else
-			{
-				printf ("RETURN ::: %d\n", g_global.last_return);
-				waitpid(ft_exec(list->args[0], list, env),
-						&g_global.last_return, 0);
-				g_global.last_return = WEXITSTATUS(g_global.last_return);
-				printf ("RETURN ::: %d\n", g_global.last_return);
-			}
+        pid[i++] = ft_exec(list->args[0], list, env);
 		}
 		list = list->next;
 	}
+  while (j < i)
+    waitpid(pid[j++], &g_global.last_return, 0);
+  if (g_global.last_return != 127)
+	  g_global.last_return = WEXITSTATUS(g_global.last_return);
 	free_2d_array(env);
 	END
 }

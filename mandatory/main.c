@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 22:55:40 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:23:07 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	main(int n, char **args, char **env)
 {
-	t_env		*denv;
+  t_env		*denv;
 
-	(void)n;
+  (void)n;
 	(void)args;
 	denv = dup_env(env); 
 	g_global.last_return = 0;
