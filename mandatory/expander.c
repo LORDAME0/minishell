@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 18:45:31 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/10 22:39:24 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 10:59:35 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,27 @@ t_token	*split_value(char *value)
 	return (tokens);
 }
 
+void	expand_key(t_token **token, t_token *key, t_env *env)
+{
+	char	*value;
+
+	value = find_value(env, key->elem);
+	if (get_last_token(*token)->type != d_quote)
+		add_token_back(token,
+			split_value(value));
+	else
+		add_token_back(token,
+			create_token(value, word));
+}
+
 t_token	*expander(t_token *token, t_env *env)
 {
-	bool	open;
+	bool		open;
 	t_token	*tmp;
 	t_token	*new;
 
-	open = false;
 	new = NULL;
+	open = false;
 	while (token)
 	{
 		tmp = token->next;
@@ -65,9 +78,7 @@ t_token	*expander(t_token *token, t_env *env)
 		if (token->type == key)
 		{
 			if (find_value(env, token->elem))
-			{
-				add_token_back(&new, split_value(find_value(env, token->elem)));
-			}
+				expand_key(&new, token, env);
 			else if (open)
 				add_token_back(&new, create_token("", word));
 			free_token(token);

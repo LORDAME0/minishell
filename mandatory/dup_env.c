@@ -6,11 +6,23 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 01:28:05 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/10 22:35:14 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/11 22:32:44 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+void  benv(t_env *env, int fd)
+{
+  while (env)
+  {
+    ft_putstr_fd (env->key, fd);
+    ft_putstr_fd ("=", fd);
+    ft_putstr_fd (env->value, fd);
+    ft_putstr_fd ("\n", fd);
+    env = env->next;
+  }
+}
 
 void	free_env(t_env *env)
 {

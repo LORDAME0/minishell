@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/11 00:15:50 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 12:04:58 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <fcntl.h>
 # include "../libft/libft.h"
 # ifdef DEBUG
-#define BEGIN printf ("begin %s\n", __func__);
-#define END printf ("end %s\n", __func__);
+#define BEGIN dprintf (2, "begin func :: %s\n", __func__);
+#define END dprintf (2, "end func :: %s\n", __func__);
 # else 
 #define BEGIN
 #define END
@@ -48,10 +48,11 @@ t_info	g_global;
 /******* UTILS ********/
 
 char	*ft_strjoin_free(char *s1, char *s2);
-int		skip_char(char *str, int *i, char c);
-int		skip_until_char(char *str, int *i, char c);
+int	skip_char(char *str, int *i, char c);
+int	skip_until_char(char *str, int *i, char c);
 void	panic(bool con, char *msg, const char *func);
 void	init_indexs(int amount, int value, ...);
+bool	is_equal_str(const char *s1, const char *s2);
 
 /******* 2D_ARRAY *******/
 
@@ -85,6 +86,7 @@ t_env	*dup_env(char **env);
 void	add_variable_back(t_env **list, t_env *new_var);
 t_env	*create_variable(char *key, char *value);
 char	**t_env_to_char_pp(t_env *denv);
+t_env *find_key(t_env *env, char *key);
 
 /******* TOKENIZER *****/
 
@@ -138,12 +140,17 @@ t_seq	*parsing(char *line, t_env *denv);
 
 /******* EVAL ********/
 
-void	eval_seq(t_seq *list, t_env *env);
-void	shell_loop(t_env *denv);
+void	eval_seq(t_seq *list, t_env **env);
+void	shell_loop(t_env **denv);
 
 /******* BUILTINS ********/
 
-void	echo(char **args, int fd);
-int		cd(char *path, t_env *env);
+void	becho(char **args, int fd);
+int		bcd(char *path, t_env **env);
+int   bexport(char **args, t_env **env, int fd);
+int   bunset(char **args, t_env **env);
+void  benv(t_env *env, int fd);
+void  bpwd(int fd);
+void  bexit(t_seq *seq, t_env *denv);
 
 #endif

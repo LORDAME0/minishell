@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:13:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/11 00:05:16 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 12:02:57 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,51 @@
 #include <unistd.h>
 #define PID_BUFFER_SIZE 1024
 
-/* char	*pwd_value(char **env) */
-/* { */
-/* 	char	**key_value; */
+enum e_builtins {e_echo, e_env, e_export, e_unset, e_cd, e_pwd, e_exit};
 
-/* 	key_value = ft_split(env[find_in_2d_array(env, "PWD=")], '='); */
-/* 	free(key_value[0]); */
-/* 	return (key_value[1]); */
-/* } */
+int	is_builtin(char *cmd)
+{
+	panic(cmd == NULL, "PARAM IS NULL", __func__);
+	if (is_equal_str(cmd, "echo"))
+		return (e_echo);
+	else if (is_equal_str(cmd, "env"))
+	  return (e_env);
+	else if (is_equal_str(cmd, "export"))
+	  return (e_export);
+	else if (is_equal_str(cmd, "unset"))
+	  return (e_unset);
+	else if (is_equal_str(cmd, "cd"))
+	  return (e_cd);
+	else if (is_equal_str(cmd, "pwq"))
+	  return (e_pwd);
+	else if (is_equal_str(cmd, "exit"))
+		return (e_exit);
+	return (-1);
+}
+
+void	exec_builtin(t_env **env, t_seq *seq, int builtin)
+{
+	BEGIN
+	if (builtin == e_echo)
+		becho(seq->args + 1, seq->out);
+	else if (builtin == e_cd)
+	 	bcd(seq->args[1], env);
+	else if (builtin == e_export)
+	 	bexport(seq->args + 1, env, seq->out);
+	else if (builtin == e_unset)
+	 	bunset(seq->args + 1, env);
+	else if (builtin == e_exit && seq->next == NULL && seq->num == 1)
+		bexit (seq, *env);
+	else if (builtin == e_env)
+    benv(*env, seq->out);
+	else if (builtin == e_pwd)
+    bpwd(seq->out);
+	if (seq->in != 0)
+		close (seq->in);
+	if (seq->out != 1)
+		close (seq->out);
+	END
+}
 
 char	**ft_split_paths(char **env)
 {
@@ -74,29 +111,38 @@ char *find_in_path(char *cmd, char **env)
 			free(tmp2);
 		i++;
 	}
+	printf ("MINIShell : command not found\n");
 	free(tmp);
 	free_2d_array(paths);
 	END
 	return (cmd); 
 }
 
-pid_t	ft_exec(char *cmd, t_seq *seq, char **env)
+pid_t	ft_exec(char *cmd, t_seq *seq, char **env, t_env **denv)
 {
 	BEGIN
 	pid_t	pid;
+	int	builtin;
 
 	errno = 0;
 	pid = fork();
 	if (pid == 0)
 	{
-		cmd = find_in_path(cmd, env);
-		dup2(seq->in, 0);
-		dup2(seq->out, 1);
-		if (execve(cmd, seq->args, env) == -1)
+    dup2(seq->in, 0);
+    dup2(seq->out, 1);
+    builtin = is_builtin(seq->args[0]);
+    if (builtin != -1)
+      exec_builtin(denv, seq, builtin);
+    else
     {
-			printf ("MINIShell : command not found\n");
-      g_global.last_return = 127;
+      cmd = find_in_path(cmd, env);
+      if (execve(cmd, seq->args, env) == -1)
+      {
+        printf ("MINIShell : command not found\n");
+        g_global.last_return = 127;
+      }
     }
+	 exit (0);
 	}
 	if (seq->in != 0)
 		close (seq->in);
@@ -106,80 +152,47 @@ pid_t	ft_exec(char *cmd, t_seq *seq, char **env)
 	return (pid);
 }
 
-enum e_builtins {becho, benv, bexport, bunset, bcd, bpwd, bexit};
-
-int	is_builtin(char *cmd)
+void complex_cmd(t_seq *list, t_env **denv)
 {
-	BEGIN
-	panic(cmd == NULL, "PARAM IS NULL", __func__);
-	END
-	if (ft_strncmp(cmd, "echo", 4) == 0)
-		return (becho);
-	else if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
-	  return (benv);
-	else if (ft_strncmp(cmd, "export", ft_strlen(cmd)) == 0)
-	  return (bexport);
-	else if (ft_strncmp(cmd, "unset", ft_strlen(cmd)) == 0)
-	  return (bunset);
-	else if (ft_strncmp(cmd, "cd", ft_strlen(cmd)) == 0)
-	  return (bcd);
-	else if (ft_strncmp(cmd, "pwq", ft_strlen(cmd)) == 0)
-	  return (bpwd);
-	else if (ft_strncmp(cmd, "exit", ft_strlen(cmd)) == 0)
-		return (bexit);
-	return (-1);
-}
-
-void	exec_builtin(t_env *env, t_seq *seq, int builtin)
-{
-	BEGIN
-	if (builtin == becho)
-		echo(seq->args + 1, seq->out);
-	if (builtin == bcd)
-		cd(seq->args[1], env);
-	if (builtin == bexit && seq->next == NULL && seq->num == 1)
-		exit (0);
-	if (seq->in != 0)
-		close (seq->in);
-	if (seq->out != 1)
-		close (seq->out);
-	END
-}
-
-void	eval_seq(t_seq *list, t_env	*denv)
-{
-	BEGIN
-  int   i;
-  int   j;
-  pid_t pid[PID_BUFFER_SIZE];
+	int	i;
+	int	j;
 	char	**env;
-	int		builtin;
+	pid_t	pid[PID_BUFFER_SIZE];
 
-  i = 0;
-  j = 0;
+	i = 0;
+	j = 0;
+	env = t_env_to_char_pp(*denv);
+	while (list)
+	{
+		if (list->args != NULL)
+			pid[i++] = ft_exec(list->args[0], list, env, denv);
+		list = list->next;
+	}
+	while (j < i)
+		waitpid(pid[j++], &g_global.last_return, 0);
+	if (g_global.last_return != 127)
+		g_global.last_return = WEXITSTATUS(g_global.last_return);
+	free_2d_array(env);
+}
+
+void	eval_seq(t_seq *list, t_env	**denv)
+{
+	BEGIN
   g_global.last_return = 0;
 	if (denv == NULL)
 	{
 		printf ("MINIShell :: set environment\n");
 		exit(1);
 	}
-	env = t_env_to_char_pp(denv);
-	while (list)
-	{
-		if (list->args != NULL)
-		{
-			builtin = is_builtin(list->args[0]);
-			if (builtin != -1)
-				exec_builtin(denv, list, builtin);
-			else
-        pid[i++] = ft_exec(list->args[0], list, env);
-		}
-		list = list->next;
-	}
-  while (j < i)
-    waitpid(pid[j++], &g_global.last_return, 0);
-  if (g_global.last_return != 127)
-	  g_global.last_return = WEXITSTATUS(g_global.last_return);
-	free_2d_array(env);
+  if (list == NULL)
+    return ;
+  if (list && list->next == NULL
+      && is_builtin(list->args[0]) != -1)
+    exec_builtin(denv, list, is_builtin(list->args[0]));
+  else if (list)
+    complex_cmd(list, denv);
 	END
+	#ifdef DEBUG
+	dprintf(2, "************************************\n");
+	#endif
 }

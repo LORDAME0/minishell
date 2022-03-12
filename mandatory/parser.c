@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:39:59 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/10 22:40:03 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 11:30:41 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ static void	eval_out_redirection(t_seq *seq, char *rederiction_type, char *file)
 {
 	BEGIN
 	int	fd;
-	panic(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
 
+	panic(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
 	if (rederiction_type[0] == '>')
 	{
 		if (seq->out != 1)

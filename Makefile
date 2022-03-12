@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 17:52:43 by orahmoun          #+#    #+#              #
-#    Updated: 2022/03/09 22:55:31 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/03/12 12:21:50 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,11 @@ SRC =	mandatory/main.c \
 		mandatory/shell_loop.c \
 		mandatory/exec.c \
 		mandatory/echo.c \
+		mandatory/pwd.c \
 		mandatory/cd.c \
+		mandatory/export.c \
+		mandatory/exit.c \
+		mandatory/unset.c \
 		mandatory/add_history.c \
 		mandatory/2d_array_utils.c \
 		mandatory/2d_array_utils_2.c \
@@ -62,7 +66,8 @@ OBJ = $(addprefix ${OBJDIR}/, ${SRC:%.c=%.o})
 all : ${NAME}
 
 debug : ${SRC} ${LIBFT}
-	${CC} ${FLAGS} ${READLINE} -D DEBUG $^ -o ${NAME} -g
+	@echo "[DEBUG MODE]"
+	@${CC} ${FLAGS} ${READLINE} -D DEBUG $^ -o ${NAME} -g
 
 # bonus : bonus_binary ${B_HEADER}
 
@@ -70,23 +75,38 @@ debug : ${SRC} ${LIBFT}
 # 	${CC} ${FLAGS} ${READLINE} $^ -o ${NAME}
 
 ${LIBFT} :
-	make -C ${MAKE_LIBFT}
+	@echo "${YEL}MAKING LIBFT ...${NC}"
+	@make -C ${MAKE_LIBFT}
 
 ${NAME} : ${OBJ} ${LIBFT}
-	${CC} ${FLAGS} ${READLINE} $^ -o ${NAME}
+	@echo "${YEL}LINKING PROCESS ...${NC}"
+	@echo "${GRN}COMPILATION COMPLETE${NC}"
+	@${CC} ${FLAGS} ${READLINE} $^ -o ${NAME}
 
 $(OBJDIR)/%.o : %.c ${HEADER}
 	@mkdir -p $(dir $@)
-	${CC} ${FLAGS} -c $< -o $@
+	@${CC} ${FLAGS} -c $< -o $@
+	@echo "${BLU}MAKING ::\t$@${NC}"
 
 clean : 
-	rm -rf ${OBJDIR}
+	@rm -rf ${OBJDIR}
 	@make clean -C ${MAKE_LIBFT}
 
 fclean : clean
-	rm -f ${NAME}
+	@rm -f ${NAME}
 	@make fclean -C ${MAKE_LIBFT}
 
 re : fclean all
 
 .PHONY : bonus clean fclean all
+
+# --------------------------- Terminal Color Codes --------------------------- #
+NC := \033[31;0m
+RED := \033[0;31;1m
+YEL := \033[0;33;1m
+GRA := \033[0;37;1m
+CYN := \033[0;36;1m
+GRN := \033[0;32;1m
+MGN := \033[0;35;1m
+BLU := \033[0;34;1m
+# ---------------------------------------------------------------------------- #

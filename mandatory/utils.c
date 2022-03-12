@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:01:57 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/10 22:42:02 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 11:08:45 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,16 @@ void	init_indexs(int amount, int value, ...)
 		*tmp = value;
 	}
 	va_end(args);
+}
+
+bool	is_equal_str(const char *s1, const char *s2)
+{
+	size_t	s1_len;
+	size_t	s2_len;
+
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	if (s1_len != s2_len)
+		return (false);
+	return (ft_strncmp(s1, s2, s1_len) == 0);
 }

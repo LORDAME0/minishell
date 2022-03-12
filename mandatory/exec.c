@@ -6,15 +6,15 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 22:31:52 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 22:37:26 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/11 20:58:34 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	exec_seq(t_seq *seq, t_env *denv)
+void	exec_seq(t_seq *seq, t_env **denv)
 {
-	if (seq && denv)
+	if (seq && denv && *denv)
 		eval_seq(seq, denv);
 	free_seq(seq);
 	seq = NULL;
