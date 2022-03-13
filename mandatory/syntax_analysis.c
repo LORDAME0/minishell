@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 00:32:48 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 15:33:29 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 18:13:05 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 bool	check_quotes(t_token *token)
 {
-	BEGIN
 	bool		open_quotes;
 
 	open_quotes = false;
@@ -26,13 +25,11 @@ bool	check_quotes(t_token *token)
 	}
 	if (open_quotes)
 		return (true);
-	END
 	return (false);
 }
 
 bool	check_redirection(t_token *token)
 {
-	BEGIN
 	bool		unfulfilled;
 
 	unfulfilled = false;
@@ -47,7 +44,6 @@ bool	check_redirection(t_token *token)
 			return (true);
 		token = token->next;
 	}
-	END
 	if (unfulfilled)
 		return (true);
 	return (false);
@@ -55,7 +51,6 @@ bool	check_redirection(t_token *token)
 
 bool	check_first_and_last(t_token *token)
 {
-	BEGIN
 	t_token	*last;
 	t_token	*first;
 
@@ -63,7 +58,6 @@ bool	check_first_and_last(t_token *token)
 		return (true);
 	first = token;
 	last = get_last_token(token);
-	END
 	if (first->type == pip)
 		return (true);
 	if (last->type == pip)
@@ -73,7 +67,6 @@ bool	check_first_and_last(t_token *token)
 
 bool	check_pip(t_token *token)
 {
-	BEGIN
 	size_t	words;
 	size_t	type;
 
@@ -94,13 +87,11 @@ bool	check_pip(t_token *token)
 		}
 		token = token->next;
 	}
-	END
 	return (false);
 }
 
 bool	syntax_analysis(t_token *tokens)
 {
-	BEGIN
 	if (check_quotes(tokens)
 		|| check_redirection(tokens)
 		|| check_first_and_last(tokens)
@@ -109,6 +100,5 @@ bool	syntax_analysis(t_token *tokens)
 		printf ("MiniSHELL :: syntax error\n");
 		return (true);
 	}
-	END
 	return (false);
 }

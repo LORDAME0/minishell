@@ -6,12 +6,14 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/12 12:04:58 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/13 08:47:07 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_H
 # define MAIN_H
+# include "../libft/libft.h"
+
 # include <errno.h>
 # include <stdio.h>
 # include <string.h>
@@ -19,33 +21,13 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdbool.h>
-# include <readline/readline.h>
 # include <limits.h>
-# include <readline/history.h>
 # include <fcntl.h>
-# include "../libft/libft.h"
-# ifdef DEBUG
-#define BEGIN dprintf (2, "begin func :: %s\n", __func__);
-#define END dprintf (2, "end func :: %s\n", __func__);
-# else 
-#define BEGIN
-#define END
-# endif
+# include <readline/readline.h>
+# include <readline/history.h>
 
-typedef struct s_info
-{
-	int	last_return;
-}	t_info;
 
-t_info	g_global;
-/* typedef struct s_section */
-/* { */
-/* 	char	*command; */
-/* 	char 	**args; */
-/* 	char 	*infile; */
-/* 	char 	*outfile; */
-/* }				t_section; */
-/******* UTILS ********/
+/******* GENERAL  UTILS ********/
 
 char	*ft_strjoin_free(char *s1, char *s2);
 int	skip_char(char *str, int *i, char c);
@@ -56,18 +38,18 @@ bool	is_equal_str(const char *s1, const char *s2);
 
 /******* 2D_ARRAY *******/
 
-void	print_2d_array(char **array, int fd);
+// void	print_2d_array(char **array, int fd);
 size_t	size_of_2d_array(char **array);
-char	**dup_2d_array(char **array);
-char	**delete_element_2d_array(char **array, size_t index);
+// char	**dup_2d_array(char **array);
+// char	**delete_element_2d_array(char **array, size_t index);
 int		find_in_2d_array(char **array, char *str);
 char	**init_2d_array(void);
 void	free_2d_array(char **array);
 char	**add_element_2d_array(char **array, char *elem, size_t index);
-char	**join_2d_array(char **dst, char **source);
+// char	**join_2d_array(char **dst, char **source);
 char	**add_element_2d_array_last(char **array, char *elem);
-char	*join_2d_array_into_str(char **array);
-char	**split_and_join(char **array, char *line, char c);
+// char	*join_2d_array_into_str(char **array);
+// char	**split_and_join(char **array, char *line, char c);
 
 /******* SHELL UTILS ********/
 
@@ -77,6 +59,14 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }	t_env;
+
+typedef struct s_info
+{
+	int	last_return;
+	t_env	*env;
+}	t_info;
+
+t_info	g_global;
 
 void	print_logo();
 char	*find_value(t_env *env, char *key);

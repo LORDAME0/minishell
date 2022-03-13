@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:13:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/12 12:02:57 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 21:10:35 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	is_builtin(char *cmd)
 
 void	exec_builtin(t_env **env, t_seq *seq, int builtin)
 {
-	BEGIN
 	if (builtin == e_echo)
 		becho(seq->args + 1, seq->out);
 	else if (builtin == e_cd)
@@ -57,12 +56,10 @@ void	exec_builtin(t_env **env, t_seq *seq, int builtin)
 		close (seq->in);
 	if (seq->out != 1)
 		close (seq->out);
-	END
 }
 
 char	**ft_split_paths(char **env)
 {
-	BEGIN
 	char	**paths;
 	char	**path_key_value;
 	
@@ -75,14 +72,12 @@ char	**ft_split_paths(char **env)
 	paths = ft_split(path_key_value[1], ':');
 	free(path_key_value[0]);
 	free(path_key_value[1]);
-	END
 	return (paths);
 }
 
 
 char *find_in_path(char *cmd, char **env)
 {
-	BEGIN
 	int		i;
 	char	*tmp;
 	char	*tmp2;
@@ -104,23 +99,21 @@ char *find_in_path(char *cmd, char **env)
 		{
 			free(tmp);
 			free_2d_array(paths);
-			END
 			return (tmp2);
 		}
 		else
 			free(tmp2);
 		i++;
 	}
+	g_global.last_return = 127;
 	printf ("MINIShell : command not found\n");
 	free(tmp);
 	free_2d_array(paths);
-	END
 	return (cmd); 
 }
 
 pid_t	ft_exec(char *cmd, t_seq *seq, char **env, t_env **denv)
 {
-	BEGIN
 	pid_t	pid;
 	int	builtin;
 
@@ -130,25 +123,24 @@ pid_t	ft_exec(char *cmd, t_seq *seq, char **env, t_env **denv)
 	{
     dup2(seq->in, 0);
     dup2(seq->out, 1);
-    builtin = is_builtin(seq->args[0]);
-    if (builtin != -1)
-      exec_builtin(denv, seq, builtin);
-    else
-    {
-      cmd = find_in_path(cmd, env);
-      if (execve(cmd, seq->args, env) == -1)
-      {
-        printf ("MINIShell : command not found\n");
-        g_global.last_return = 127;
-      }
-    }
+	 if (seq && seq->args && seq->args[0])
+	 {
+		 builtin = is_builtin(seq->args[0]);
+		 if (builtin != -1)
+			exec_builtin(denv, seq, builtin);
+		 else
+		 {
+			cmd = find_in_path(cmd, env);
+			if (execve(cmd, seq->args, env) == -1)
+				exit (127);
+		 }
+	 }
 	 exit (0);
 	}
 	if (seq->in != 0)
 		close (seq->in);
 	if (seq->out != 1)
 		close (seq->out);
-	END
 	return (pid);
 }
 
@@ -177,8 +169,7 @@ void complex_cmd(t_seq *list, t_env **denv)
 
 void	eval_seq(t_seq *list, t_env	**denv)
 {
-	BEGIN
-  g_global.last_return = 0;
+	g_global.last_return = 0;
 	if (denv == NULL)
 	{
 		printf ("MINIShell :: set environment\n");
@@ -186,13 +177,10 @@ void	eval_seq(t_seq *list, t_env	**denv)
 	}
   if (list == NULL)
     return ;
-  if (list && list->next == NULL
-      && is_builtin(list->args[0]) != -1)
-    exec_builtin(denv, list, is_builtin(list->args[0]));
+  if (list && list->args && list->args[0]
+			&& list->next == NULL
+			&& is_builtin(list->args[0]) != -1)
+		exec_builtin(denv, list, is_builtin(list->args[0]));
   else if (list)
     complex_cmd(list, denv);
-	END
-	#ifdef DEBUG
-	dprintf(2, "************************************\n");
-	#endif
 }

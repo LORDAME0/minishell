@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 01:28:05 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/11 22:32:44 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 18:11:08 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ t_env	*dup_env(char **env)
 
 char	**t_env_to_char_pp(t_env *denv)
 {
-	BEGIN
 	char	**env;
 	char	*tmp;
 
@@ -106,7 +105,6 @@ char	**t_env_to_char_pp(t_env *denv)
 		env = add_element_2d_array_last(env, tmp);
 		denv = denv->next;
 	}
-	END
 	return (env);
 }
 /* int main(int n, char **args, char **env) */

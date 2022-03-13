@@ -6,32 +6,10 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 15:15:40 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/09 22:22:47 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/13 08:51:27 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "main.h"
-
-char	**init_2d_array(void)
-{
-	char	**init;
-
-	init = malloc(sizeof(char *));
-	*init = NULL;
-	return (init);
-}
-
-void	free_2d_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	if (array != NULL)
-	{
-		while (array[i])
-			free(array[i++]);
-		free(array);
-	}
-}
 
 static char	**add_element_to_last_2d_array(char **array, char *elem,
 			size_t index, size_t size)
@@ -98,24 +76,3 @@ char	**add_element_2d_array(char **array, char *elem, size_t index)
 	else
 		return (add_element_not_last_2d_array(array, elem, index, size));
 }
-
-/* int main(int n, char **args, char **env) */
-/* { */
-/* 	char **dup = dup_2d_array(env); */
-/* 	int		i = 0; */
-
-/* 	while(dup[i]) */
-/* 		i++; */
-/* 	printf("%d\n", i); */
-/* 	print_2d_array(dup); */
-/* 	dup = add_element_2d_array(dup, ft_strdup("X=10"), i); */
-/* 	if (dup == NULL) */
-/* 		exit(1); */
-/* 	dup = add_element_2d_array(dup, ft_strdup("X=10"), 0); */
-/* 	dup = add_element_2d_array(dup, ft_strdup("X=10"), 5); */
-/* 	printf("\n"); */
-/* 	print_2d_array(dup); */
-/* 	free_2d_array(dup); */
-/* 	while(1); */
-/* 	return 0; */
-/* } */

@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/10 22:40:16 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 20:17:01 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	tokenizer(t_token **tokens, char *s)
 			open_quote = !open_quote;
 		if (*current == '<' && *(current + 1) == '<')
 			heredoc = true;
-		else if (heredoc == true && get_last_token(*tokens)->type == word)
+		else if (heredoc == true && *tokens
+				&& get_last_token(*tokens)->type == word)
 			heredoc = false;
 		if (is_keyword(*current)
 			&& is_inside_quotes(*current) == false)

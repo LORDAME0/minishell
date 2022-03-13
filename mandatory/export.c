@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:45:05 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/12 11:15:20 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 20:39:03 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,7 @@ int bexport(char **args, t_env **env, int fd)
     }
     i++;
   }
+	if (ret)
+	  g_global.last_return = 1;
   return (ret && true);
 }

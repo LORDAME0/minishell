@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:39:59 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/12 11:30:41 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 18:13:49 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void	print_seq(t_seq *seq)
 
 static void	eval_out_redirection(t_seq *seq, char *rederiction_type, char *file)
 {
-	BEGIN
 	int	fd;
 
 	panic(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
@@ -114,7 +113,6 @@ static void	eval_out_redirection(t_seq *seq, char *rederiction_type, char *file)
 			perror("Error :");
 		seq->out = fd;
 	}
-	END
 }
 
 static int	heredoc(char *delimiter)
@@ -143,7 +141,6 @@ static int	heredoc(char *delimiter)
 
 static void	eval_in_redirection(t_seq *seq, char *rederiction_type, char *file)
 {
-	BEGIN
 	int	fd;
 
 	panic(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
@@ -159,12 +156,10 @@ static void	eval_in_redirection(t_seq *seq, char *rederiction_type, char *file)
 			perror("Error :");
 		seq->in = fd;
 	}
-	END
 }
 
 static t_token	*eval_redirection(t_seq *seq, t_token *token)
 {
-	BEGIN
 	char	*rederiction_type;
 	
 	rederiction_type = token->elem;
@@ -178,7 +173,6 @@ static t_token	*eval_redirection(t_seq *seq, t_token *token)
 		free_2d_array(seq->args);
 		seq->args = NULL;
 	}
-	END
 	return (token);
 }
 
@@ -218,7 +212,6 @@ static void	eval_pipes(t_seq *seq)
 
 t_seq	*parser(t_token *list)
 {
-	BEGIN
 	size_t	num;
 	t_seq	*head;
 	t_seq	*tmp;
@@ -247,6 +240,5 @@ t_seq	*parser(t_token *list)
 #ifdef DEBUG
 	print_seq(head);
 #endif
-	END
 	return (head);
 }

@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 22:22:16 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/11 17:03:16 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 18:14:04 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_seq	*parsing(char *line, t_env *denv)
 {
-	BEGIN
 	t_token	*list;
 	t_seq	*seq;
 
@@ -31,6 +30,5 @@ t_seq	*parsing(char *line, t_env *denv)
 			seq = parser(list);
 	}
 	free_tokens(list);
-	END
 	return (seq);
 }

@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 21:52:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/11 22:26:29 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 18:15:02 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_env *remove_variable(t_env *env, char *variable)
 {
-  BEGIN
   t_env *new_env;
   t_env *tmp;
 
@@ -34,13 +33,11 @@ t_env *remove_variable(t_env *env, char *variable)
       add_variable_back(&new_env, env);
     env = tmp;
   }
-  END
   return (new_env); 
 }
 
 int bunset(char **args, t_env **env)
 {
-  BEGIN
   size_t i;
 
   i = 0;
@@ -51,6 +48,5 @@ int bunset(char **args, t_env **env)
     *env = remove_variable(*env, args[i]);
     i++;
   }
-  END
   return (0);
 }

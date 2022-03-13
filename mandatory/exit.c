@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 22:55:52 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/11 23:08:45 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 20:06:07 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	bexit(t_seq *seq, t_env *denv)
 {
+	rl_clear_history();
 	free_seq(seq);
 	free_env(denv);
 	exit(1);
