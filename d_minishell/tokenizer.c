@@ -6,12 +6,11 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:13:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/26 17:27:35 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/13 20:10:25 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-#include "tokenizer.h"
 #define LINE_END 0
 #define RESET_STATIC 0
 
@@ -42,29 +41,49 @@ bool	is_inside_quotes(char c)
 	return (true);
 }
 
-char	*chop_word(t_token **tokens, char *current)
+char	*chop_key(t_token **tokens, char *current)
 {
 	char	*start;
-	t_token	*last_token;
+
+	start = current;
+	if (*current == '?')
+		current++;
+	else
+	{
+		while (ft_isalnum(*current) || *current == '_')
+			current++;
+	}
+	if (start != current)
+		add_key_token(tokens, start, current);
+	else
+		add_word_token(tokens, start - 1, current);
+	return (current);
+}
+
+char	*chop_word(t_token **tokens, char *current, bool open, bool heredoc)
+{
+	char	*start;
 	char	quote;
 
 	quote = -1;
 	start = current;
-	if (*tokens)
-	{
-		last_token = get_last_token(*tokens);
-		if (last_token->type == s_quote)
-			quote = '\'';
-		if (last_token->type == d_quote)
-			quote = '\"';
-	}
+	if (open && *tokens && get_last_token(*tokens)->type == s_quote)
+		quote = '\'';
+	else if (open && *tokens && get_last_token(*tokens)->type == d_quote)
+		quote = '\"';
 	while (*current)
 	{
-		if (is_keyword(*current, *(current + 1)) == true && quote == -1)
+		if (*current == '$' && (quote != '\'' || !open) && !heredoc)
+		{
+			add_word_token(tokens, start, current);
+			current = chop_key(tokens, ++current);
+			start = current;
+		}
+		else if ((is_keyword(*current) == true && open == false)
+			|| quote == *current)
 			break ;
-		if (quote == *current)
-			break ;
-		current++;
+		else
+			current++;
 	}
 	add_word_token(tokens, start, current);
 	return (current);
@@ -72,21 +91,27 @@ char	*chop_word(t_token **tokens, char *current)
 
 void	tokenizer(t_token **tokens, char *s)
 {
-	char		*start;
 	char		*current;
+	bool		heredoc;
+	bool		open_quote;
 
-	start = s;
-	current = start;
+	panic(s == NULL, "PARAM IS NULL", __func__);
+	current = s;
+	open_quote = false;
 	while (*current)
 	{
-		if (is_keyword(*current, *(current + 1))
+		if (is_quote(*current))
+			open_quote = !open_quote;
+		if (*current == '<' && *(current + 1) == '<')
+			heredoc = true;
+		else if (heredoc == true && *tokens
+			&& get_last_token(*tokens)->type == word)
+			heredoc = false;
+		if (is_keyword(*current)
 			&& is_inside_quotes(*current) == false)
-		{
-			current = add_keyword_token(tokens, current);
-			start = current;
-		}
+			current = add_keyword_token(tokens, current, !open_quote);
 		else
-			current = chop_word(tokens, current);
+			current = chop_word(tokens, current, open_quote, heredoc);
 	}
 	is_inside_quotes(RESET_STATIC);
 }

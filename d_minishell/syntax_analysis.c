@@ -6,30 +6,24 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 00:32:48 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/25 19:01:02 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/12 18:13:05 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-bool	check_quotes_and_parens(t_token *token)
+bool	check_quotes(t_token *token)
 {
 	bool		open_quotes;
-	int			matching_paren;
 
 	open_quotes = false;
-	matching_paren = 0;
 	while (token)
 	{
 		if (token->type == d_quote || token->type == s_quote)
 			open_quotes = !open_quotes;
-		if (token->type == o_parenthesis)
-			matching_paren++;
-		if (token->type == c_parenthesis)
-			matching_paren--;
 		token = token->next;
 	}
-	if (matching_paren || open_quotes)
+	if (open_quotes)
 		return (true);
 	return (false);
 }
@@ -43,7 +37,8 @@ bool	check_redirection(t_token *token)
 	{
 		if (token->type == redirection && unfulfilled == false)
 			unfulfilled = true;
-		else if (token->type == word)
+		else if (token->type == word || token->type == key
+			|| token->type == d_quote || token->type == s_quote)
 			unfulfilled = false;
 		else if (token->type != space && unfulfilled == true)
 			return (true);
@@ -63,16 +58,14 @@ bool	check_first_and_last(t_token *token)
 		return (true);
 	first = token;
 	last = get_last_token(token);
-	if (first->type == and_if || first->type == or_if
-		|| first->type == pip)
+	if (first->type == pip)
 		return (true);
-	if (last->type == and_if || last->type == or_if
-		|| last->type == pip)
+	if (last->type == pip)
 		return (true);
 	return (false);
 }
 
-bool	check_pip_or_and(t_token *token)
+bool	check_pip(t_token *token)
 {
 	size_t	words;
 	size_t	type;
@@ -83,10 +76,9 @@ bool	check_pip_or_and(t_token *token)
 	while (token)
 	{
 		type = token->type;
-		if (type == word)
+		if (type == word || type == key)
 			words++;
-		else if (type == and_if || type == or_if
-			|| type == pip)
+		else if (type == pip)
 		{
 			if (words == 0)
 				return (true);
@@ -100,12 +92,13 @@ bool	check_pip_or_and(t_token *token)
 
 bool	syntax_analysis(t_token *tokens)
 {
-	if (check_quotes_and_parens(tokens)
+	if (check_quotes(tokens)
 		|| check_redirection(tokens)
 		|| check_first_and_last(tokens)
-		|| check_pip_or_and(tokens))
+		|| check_pip(tokens))
 	{
 		printf ("MiniSHELL :: syntax error\n");
+		return (true);
 	}
 	return (false);
 }

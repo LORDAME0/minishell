@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/22 00:42:53 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/26 17:30:33 by orahmoun         ###   ########.fr       */
+/*   Created: 2022/03/11 22:33:23 by orahmoun          #+#    #+#             */
+/*   Updated: 2022/03/11 22:35:17 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
-# include "tokenizer.h"
+#include "main.h"
 
-bool	syntax_analysis(t_token	*tokens);
-void	expander(t_token *tokens);
-#endif
+void  bpwd(int fd)
+{
+  char  cwd[PATH_MAX];
+
+  getcwd(cwd, sizeof(cwd));
+  ft_putstr_fd(cwd, fd);
+}

@@ -6,30 +6,40 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/25 19:05:01 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/13 09:25:03 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	main(void)
+void handler(int sig)
 {
-	t_token	*list;
-	char	*line;
-
-	list = NULL;
-	while (1)
+	if (sig == SIGINT)
 	{
-		line = readline("> ");
-		add_history(line);
-		tokenizer(&list, line);
-		print_tokens(list);
-		/* re_print_command(tok_list); */
-		/* print_tokens_types(tok_list); */
-		/* remove_redondant_space(&tok_list); */
-		syntax_analysis(list);
-		/* re_print_command(tok_list); */
-		line = NULL;
-		list = NULL;
+		write(1, "\n", 1);
+		rl_replace_line("", 1);
+		rl_on_new_line();
+		rl_redisplay();
 	}
+	else if (sig == SIGQUIT)
+		return ;
+}
+
+void	signal_handling(void)
+{
+	signal(SIGINT, handler);
+	signal(SIGQUIT, handler);
+}
+
+int	main(int n, char **args, char **env)
+{
+	t_env		*denv;
+
+	(void)n;
+	(void)args;
+	signal_handling();
+	denv = dup_env(env); 
+	g_last_return = 0;
+	shell_loop(&denv);
+	free_env(denv);
 }

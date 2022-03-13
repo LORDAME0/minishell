@@ -6,42 +6,35 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/02/26 17:30:21 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:21:58 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "main.h"
 
 char	*return_token_type(int type)
 {
-	if (type == 0)
+	if (type == redirection)
 		return ("redirection");
-	else if (type == 1)
+	else if (type == word)
 		return ("word");
-	else if (type == 2)
-		return ("pip");
-	else if (type == 3)
-		return ("and_if");
-	else if (type == 4)
-		return ("or_if");
-	else if (type == 5)
+	else if (type == pip)
+		return ("pipe");
+	else if (type == space)
 		return ("space");
-	else if (type == 6)
+	else if (type == d_quote)
 		return ("d_quote");
-	else if (type == 7)
+	else if (type == s_quote)
 		return ("s_quote");
-	else if (type == 8)
-		return ("o_parenthesis");
-	else if (type == 9)
-		return ("c_parenthesis");
+	else if (type == key)
+		return ("key");
 	return (NULL);
 }
 
-bool	is_keyword(char c, char n)
+bool	is_keyword(char c)
 {
-	if ((c == '(' || c == ')')
-		|| (c == '>' || c == '<')
-		|| (c == '&' && n == '&')
+	if (c == '>'
+		|| c == '<'
 		|| c == '|'
 		|| c == ' '
 		|| (is_quote(c)))
@@ -56,16 +49,14 @@ bool	is_quote(char c)
 	return (false);
 }
 
-char	*add_keyword_token(t_token **head, char *current)
+char	*add_keyword_token(t_token **head, char *current, bool open)
 {
-	if ((*current == '(' || *current == ')'))
-		parenthesis_token(head, current);
-	else if ((*current == '>' || *current == '<'))
+	if ((*current == '>' || *current == '<'))
 		redirection_token(head, current);
-	else if (((*current == '&' && *(current + 1) == '&') || *current == '|'))
-		and_or_pip_token(head, current);
+	else if (*current == '|')
+		pip_token(head);
 	else if (is_quote(*current))
-		quote_token(head, current);
+		quote_token(head, current, open);
 	else if (*current == ' ')
 	{
 		while (*(current + 1) == ' ')
@@ -74,8 +65,7 @@ char	*add_keyword_token(t_token **head, char *current)
 			space_token(head);
 	}
 	if (*current == *(current + 1)
-		&& ((*current == '|' || *current == '&')
-			|| (*current == '>' || *current == '<')))
+		&& (*current == '>' || *current == '<'))
 		current += 2;
 	else
 		current++;

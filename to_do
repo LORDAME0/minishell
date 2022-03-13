@@ -1,13 +1,5 @@
-! fix syntax_analysis bugs in bonus {> ""} and {> key}
-!! CLEAN THIS TRASH
-!! parse --> eval redirection --> override with pipes -> exec
-!! adding all the builtins
-!!!! t_env * to char ** env 
-!!!! Default ENV 
-
-!!!!!! some subprocesses are not closing 
 !!!!!! LEAKS
-// absolute path cmd :: fixed
-
-
-
+!!!!!! space is leaking ?? == fixed
+!!!!!! expander leaks
+!!!!!! norm
+!!!!!! if u are USING FN % pls check if (a % b) b is NULLLLLL !!!
