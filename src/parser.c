@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:39:59 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/14 03:25:22 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/15 22:34:53 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	eval_io(t_seq *seq, char *rederiction_type, char *file)
 	panic(rederiction_type == NULL || file == NULL, "NULL PARAM", __func__);
 	if (rederiction_type[0] == '<')
 	{
-		safe_close(seq->in, 0);
+		safe_close(seq->in);
 		if (rederiction_type[1])
 			seq->in = heredoc(file);
 		else
@@ -51,7 +51,7 @@ static void	eval_io(t_seq *seq, char *rederiction_type, char *file)
 	}
 	else
 	{
-		safe_close(seq->out, 1);
+		safe_close(seq->out);
 		if (rederiction_type[1])
 			seq->out = open (file, O_APPEND | O_WRONLY | O_CREAT, 0777);
 		else
@@ -90,12 +90,12 @@ static void	eval_pipes(t_seq *seq)
 	{
 		if (first == false)
 		{
-			safe_close(seq->in, 0);
+			safe_close(seq->in);
 			seq->in = fd[0];
 		}
 		if (last == false)
 		{
-			safe_close(seq->out, 1);
+			safe_close(seq->out);
 			pipe(fd);
 			seq->out = fd[1];
 			first = false;

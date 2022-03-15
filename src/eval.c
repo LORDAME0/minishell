@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:13:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/15 20:00:53 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/15 20:33:54 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static pid_t	exec_cmd(char *cmd, t_seq *seq, char **env, t_env **denv)
 		}
 		exit (0);
 	}
-	safe_close(seq->in, 0);
-	safe_close(seq->out, 1);
+	safe_close(seq->in);
+	safe_close(seq->out);
 	return (pid);
 }
 

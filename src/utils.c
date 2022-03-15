@@ -6,15 +6,15 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:01:57 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/14 00:59:18 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/15 20:33:45 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	safe_close(int fd, int type)
+void	safe_close(int fd)
 {
-	if (fd != type)
+	if (fd != 0 && fd != 1)
 		close (fd);
 }
 

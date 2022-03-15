@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/15 19:51:06 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/15 20:34:22 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char		**t_env_to_2d_array(t_env *denv);
 
 void		free_env(t_env *env);
 void		ft_add_history(char *cmd);
-void		safe_close(int fd, int type);
+void		safe_close(int fd);
 void		add_variable_back(t_env **list, t_env *new_var);
 
 t_env		*dup_env(char **env);

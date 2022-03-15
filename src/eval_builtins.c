@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 09:42:10 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/14 01:11:19 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/15 22:34:02 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ void	exec_builtin(t_env **env, t_seq *seq, int builtin)
 		benv(*env, seq->out);
 	else if (builtin == e_pwd)
 		bpwd(seq->out);
-	safe_close(seq->in, 0);
-	safe_close(seq->out, 1);
+	safe_close(seq->in);
+	safe_close(seq->out);
 }

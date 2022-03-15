@@ -6,13 +6,19 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 22:37:11 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/13 23:13:16 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/15 22:50:47 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 #define MAX_NAME 256
 #define PROMPT_SIZE 8
+#define RED "\033[0;31m"
+#define RED_LENGHT sizeof("\033[0;31m")
+#define BLUE "\033[0;34m"
+#define BLUE_LENGHT sizeof("\033[0;34m")
+#define RESET "\033[0m"
+#define RESET_LENGHT sizeof("\033[0m")
 
 void	cwd_prompt(char *cwd, char prom[])
 {
@@ -23,8 +29,8 @@ void	cwd_prompt(char *cwd, char prom[])
 	tmp = ft_split(cwd, '/');
 	while (tmp && tmp[i] && tmp[i + 1])
 		i++;
-	ft_strlcat(prom, "➦  ",
-		ft_strlen("➦  ") + 1 + ft_strlen(prom));
+	ft_strlcat(prom, "➦ ",
+		ft_strlen("➦ ") + 1 + ft_strlen(prom));
 	ft_strlcat(prom, tmp[i],
 		ft_strlen(tmp[i]) + 1 + ft_strlen(prom));
 	ft_strlcat(prom, " : ",
@@ -69,7 +75,12 @@ void	shell_loop(t_env **denv)
 
 	while (1337)
 	{
+		if (g_last_return == 0)
+			write (1, BLUE, BLUE_LENGHT);
+		else
+			write (1, RED, RED_LENGHT);
 		line = readline(prompt(*denv, prom));
+		write (1, RESET, RESET_LENGHT);
 		if (line == NULL || is_equal_str("exit", line))
 			bexit(NULL, *denv);
 		if (*line == '\0')

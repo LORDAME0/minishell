@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 00:30:04 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/14 00:59:15 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/15 22:35:39 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	free_seq(t_seq *seq)
 		tmp = seq->next;
 		free_2d_array(seq->args);
 		free(seq);
-		safe_close(seq->in, 0);
-		safe_close(seq->out, 1);
+		safe_close(seq->in);
+		safe_close(seq->out);
 		seq = tmp;
 	}
 }
