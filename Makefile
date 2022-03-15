@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 17:52:43 by orahmoun          #+#    #+#              #
-#    Updated: 2022/03/13 22:59:05 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/03/15 20:17:05 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME				=	minishell
 
 CC					=	cc
 
-FLAGS				=	-Wall -Wextra -Werror -I libft
+FLAGS				=	-Wall -Wextra -I libft
 
 READLINE			=	-lreadline
 
@@ -30,40 +30,41 @@ READLINE_FIX	=	-I .brew/opt/readline/include \
 
 DEBUG				=	-g -D DEBUG
 
-HEADER			=	d_minishell/main.h
+HEADER			=	src/main.h
 
 LIBFT 			=	libft/libft.a
 
 MAKE_LIBFT 		=	libft/
 
-SRC 				=	d_minishell/main.c \
-						d_minishell/tokenizer.c \
-						d_minishell/print_logo.c \
-						d_minishell/tokenizer_utils.c \
-						d_minishell/tokenizer_utils_2.c \
-						d_minishell/add_token.c \
-						d_minishell/add_token_2.c \
-						d_minishell/utils.c \
-						d_minishell/syntax_analysis.c \
-						d_minishell/env.c \
-						d_minishell/env_utils.c \
-						d_minishell/expander.c \
-						d_minishell/corrector.c \
-						d_minishell/parser.c \
-						d_minishell/parsing.c \
-						d_minishell/eval.c \
-						d_minishell/eval_builtins.c \
-						d_minishell/shell_loop.c \
-						d_minishell/exec.c \
-						d_minishell/echo.c \
-						d_minishell/pwd.c \
-						d_minishell/cd.c \
-						d_minishell/export.c \
-						d_minishell/exit.c \
-						d_minishell/unset.c \
-						d_minishell/add_history.c \
-						d_minishell/2d_array_utils.c \
-						d_minishell/2d_array_utils_2.c \
+SRC 				=	src/main.c \
+						src/tokenizer.c \
+						src/tokenizer_utils.c \
+						src/tokenizer_utils_2.c \
+						src/add_token.c \
+						src/add_token_2.c \
+						src/utils.c \
+						src/syntax_analysis.c \
+						src/env.c \
+						src/env_utils.c \
+						src/expander.c \
+						src/corrector.c \
+						src/parser.c \
+						src/parser_utils.c \
+						src/parsing.c \
+						src/eval.c \
+						src/eval_utils.c \
+						src/eval_builtins.c \
+						src/shell_loop.c \
+						src/exec.c \
+						src/echo.c \
+						src/pwd.c \
+						src/cd.c \
+						src/export.c \
+						src/exit.c \
+						src/unset.c \
+						src/add_history.c \
+						src/2d_array_utils.c \
+						src/2d_array_utils_2.c \
 						# d_minishell/print_tokens.c \
 
 OBJDIR 			=	obj
