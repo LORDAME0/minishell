@@ -6,16 +6,16 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 22:33:23 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/11 22:35:17 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/14 00:13:53 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void  bpwd(int fd)
+void	bpwd(int fd)
 {
-  char  cwd[PATH_MAX];
+	char	cwd[PATH_MAX];
 
-  getcwd(cwd, sizeof(cwd));
-  ft_putstr_fd(cwd, fd);
+	getcwd(cwd, sizeof(cwd));
+	ft_putstr_fd(cwd, fd);
 }

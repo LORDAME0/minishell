@@ -6,45 +6,47 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 01:42:37 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/13 09:52:07 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/14 03:28:36 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
+t_token	*join_adjacent_words(t_token **new, t_token *token)
+{
+	char	*str;
+	t_token	*tmp;
+
+	str = ft_strdup("");
+	while (token && token->type == word)
+	{
+		tmp = token->next;
+		str = ft_strjoin_free(str, token->elem);
+		free_token(token);
+		token = tmp;
+	}
+	add_token_back(new, create_token(str, word));
+	free (str);
+	return (token);
+}
 
 t_token	*joiner(t_token *token)
 {
 	t_token	*new;
 	t_token	*tmp;
-	char	*str;
 
 	new = NULL;
-	panic(token == NULL, "NULL PARAM", __func__);
 	while (token)
 	{
-		tmp = token->next;
 		if (token->type == word)
-		{
-			str = ft_strdup("");
-			while (token && token->type == word)
-			{
-				tmp = token->next;
-				str = ft_strjoin_free(str, token->elem);
-				free(token->elem);
-				free(token);
-				token = tmp;
-			}
-			add_token_back(&new, create_token(str, word));
-			free (str);
-		}
+			token = join_adjacent_words(&new, token);
 		if (token)
 		{
 			tmp = token->next;
 			token->next = NULL;
 			add_token_back(&new, token);
+			token = tmp;
 		}
-		token = tmp;
 	}
 	return (new);
 }

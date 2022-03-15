@@ -6,27 +6,13 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 18:45:31 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/12 10:59:35 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/14 01:03:21 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-char	*find_value(t_env *env, char *key)
-{
-	if (*key == '?')
-		return (ft_itoa(g_global.last_return));
-	while (env)
-	{
-		if (ft_strncmp(env->key, key, ft_strlen(key)) == 0
-			&& (ft_strlen(key) == ft_strlen(env->key)))
-			return (env->value);
-		env = env->next;
-	}
-	return (NULL);
-}
-
-t_token	*split_value(char *value)
+static t_token	*split_value(char *value)
 {
 	int		i;
 	char	**sp;
@@ -45,25 +31,42 @@ t_token	*split_value(char *value)
 		free(sp[i]);
 		i++;
 	}
+	free(sp);
 	return (tokens);
 }
 
-void	expand_key(t_token **token, t_token *key, t_env *env)
+static void	expand_key(t_token **token, t_token *key, t_env *env, bool open)
 {
 	char	*value;
+	char	*rt_value;
 
 	value = find_value(env, key->elem);
-	if (get_last_token(*token)->type != d_quote)
-		add_token_back(token,
-			split_value(value));
-	else
-		add_token_back(token,
-			create_token(value, word));
+	if (is_equal_str(key->elem, "?"))
+	{
+		rt_value = ft_itoa(g_last_return);
+		add_token_back(token, create_token(rt_value, word));
+		free(rt_value);
+	}
+	else if (value)
+	{
+		if (value == NULL)
+			return ;
+		if (get_last_token(*token)->type != d_quote)
+			add_token_back(token,
+				split_value(value));
+		else
+			add_token_back(token,
+				create_token(value, word));
+	}
+	else if (open)
+		add_token_back(token, create_token("", word));
+	free(key->elem);
+	free(key);
 }
 
 t_token	*expander(t_token *token, t_env *env)
 {
-	bool		open;
+	bool	open;
 	t_token	*tmp;
 	t_token	*new;
 
@@ -76,13 +79,7 @@ t_token	*expander(t_token *token, t_env *env)
 		if (token->type == d_quote)
 			open = !open;
 		if (token->type == key)
-		{
-			if (find_value(env, token->elem))
-				expand_key(&new, token, env);
-			else if (open)
-				add_token_back(&new, create_token("", word));
-			free_token(token);
-		}
+			expand_key(&new, token, env, open);
 		else
 			add_token_back(&new, token);
 		token = tmp;

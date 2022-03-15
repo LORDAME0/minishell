@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/13 22:53:02 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:51:06 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 
-
 /******* GENERAL  UTILS ********/
 
 char		*ft_strjoin_free(char *s1, char *s2);
@@ -39,10 +38,11 @@ bool		is_equal_str(const char *s1, const char *s2);
 
 /******* 2D_ARRAY *******/
 
-char		**init_2d_array(void);
 void		free_2d_array(char **array);
-size_t	size_of_2d_array(char **array);
-int		find_in_2d_array(char **array, char *str);
+size_t		size_of_2d_array(char **array);
+int			find_in_2d_array(char **array, char *str);
+
+char		**init_2d_array(void);
 char		**add_element_2d_array_last(char **array, char *elem);
 char		**add_element_2d_array(char **array, char *elem, size_t index);
 
@@ -52,7 +52,7 @@ typedef struct s_env
 {
 	char				*key;
 	char				*value;
-	struct s_env	*next;
+	struct s_env		*next;
 }	t_env;
 
 int	g_last_return;
@@ -60,9 +60,9 @@ int	g_last_return;
 char		*find_value(t_env *env, char *key);
 char		**t_env_to_2d_array(t_env *denv);
 
-void		print_logo();
 void		free_env(t_env *env);
 void		ft_add_history(char *cmd);
+void		safe_close(int fd, int type);
 void		add_variable_back(t_env **list, t_env *new_var);
 
 t_env		*dup_env(char **env);
@@ -101,8 +101,8 @@ void		add_word_token(t_token **head, char *start, char *end);
 void		add_key_token(t_token **head, char *start, char *end);
 void		tokenizer(t_token **head, char *line);
 
-t_token	*create_token(char *elem, int type);
-t_token	*get_last_token(t_token *token);
+t_token		*create_token(char *elem, int type);
+t_token		*get_last_token(t_token *token);
 
 /******* PARSER	*****/
 
@@ -110,39 +110,46 @@ typedef struct s_seq
 {
 	int				in;
 	int				out;
-	char				**args;
+	char			**args;
 	struct s_seq	*next;
 }	t_seq;
 
 void		free_seq(t_seq *seq);
+void		add_seq_back(t_seq **list, t_seq *new_seq);
 bool		syntax_analysis(t_token *tokens);
 
 t_seq		*parser(t_token *list);
+t_seq		*get_last_seq(t_seq *seq);
 t_seq		*parsing(char *line, t_env *denv);
+t_seq		*create_seq(char **args, int in, int out);
 
-t_token	*corrector(t_token *token);
-t_token	*expander(t_token *token, t_env *env);
+t_token		*corrector(t_token *token);
+t_token		*expander(t_token *token, t_env *env);
 
 /******* EVAL ********/
 
-#define PID_BUFFER_SIZE 1024
+# define PID_BUFFER_SIZE 1024
 
 enum	e_builtins {e_echo, e_env, e_export, e_unset, e_cd, e_pwd, e_exit};
 
-int	is_builtin(char *cmd);
+int			is_builtin(char *cmd);
 
-void	shell_loop(t_env **denv);
-void	eval_seq(t_seq *list, t_env **env);
-void	exec_builtin(t_env **env, t_seq *seq, int builtin);
+char		**ft_split_paths(char **env);
+char		*test_paths(char *cmd, char **paths);
+char		*find_in_path(char *cmd, char **env);
+
+void		shell_loop(t_env **denv);
+void		eval_seq(t_seq *list, t_env **env);
+void		exec_builtin(t_env **env, t_seq *seq, int builtin);
 
 /******* BUILTINS ********/
 
-void	becho(char **args, int fd);
-void	bcd(char *path, t_env **env);
-void	bexport(char **args, t_env **env, int fd);
-void	bunset(char **args, t_env **env);
-void  benv(t_env *env, int fd);
-void  bpwd(int fd);
-void  bexit(t_seq *seq, t_env *denv);
+void		becho(char **args, int fd);
+void		bcd(char *path, t_env **env);
+void		bexport(char **args, t_env **env, int fd);
+void		bunset(char **args, t_env **env);
+void		benv(t_env *env, int fd);
+void		bpwd(int fd);
+void		bexit(t_seq *seq, t_env *denv);
 
 #endif

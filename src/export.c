@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:45:05 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/13 23:35:50 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/14 01:53:38 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,21 @@ void	bexport(char **args, t_env **env, int fd)
 {
 	char	*tmp;
 	size_t	i;
-	bool		error;
+	bool	error;
 
 	i = 0;
 	error = false;
-	if (args == NULL || *args == NULL)
+	if (*args == NULL)
 		benv(*env, fd);
 	while (args[i])
 	{
-		if (ft_strchr(args[i], '=') == NULL)
-		{
-			if (is_valid_key(args[i]) == false)
-				error = printf ("export: not an identifier: %s\n", args[i]);
-		}
-		else
-		{
-			tmp = ft_strchr(args[i], '=');
+		tmp = ft_strchr(args[i], '=');
+		if (tmp)
 			tmp[0] = '\0';
-			if (is_valid_key(args[i]))
-				add_key(env, args[i], tmp + 1);
-			else
-				error = printf ("export: not an identifier: %s\n", args[i]);
-		}
+		if (is_valid_key(args[i]) && tmp)
+			add_key(env, args[i], tmp + 1);
+		else if (is_valid_key(args[i]) == false)
+			error = printf ("export: not an identifier: %s\n", args[i]);
 		i++;
 	}
 	if (error)

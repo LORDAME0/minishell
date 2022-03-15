@@ -6,15 +6,21 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:01:57 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/13 22:56:24 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/14 00:59:18 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
+void	safe_close(int fd, int type)
+{
+	if (fd != type)
+		close (fd);
+}
+
 char	*ft_strjoin_free(char *s1, char *s2)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = ft_strjoin(s1, s2);
 	free(s1);
@@ -41,7 +47,6 @@ bool	is_equal_str(const char *s1, const char *s2)
 		return (false);
 	return (ft_strncmp(s1, s2, s1_len) == 0);
 }
-
 // int	skip_char(char *str, int *i, char c)
 // {
 	// while (str[*i] && str[*i] == c)
@@ -73,4 +78,3 @@ bool	is_equal_str(const char *s1, const char *s2)
 	// }
 	// va_end(args);
 // }
-
