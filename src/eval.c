@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:13:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/15 20:33:54 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/16 18:40:41 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ static void	complex_cmd(t_seq *list, t_env **denv)
 	{
 		if (list->args != NULL)
 			pid[i++] = exec_cmd(list->args[0], list, env, denv);
+		else
+		{
+			safe_close(list->out);
+			safe_close(list->in);
+		}
 		list = list->next;
 	}
 	while (j < i)

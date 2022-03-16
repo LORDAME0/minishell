@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/15 20:34:22 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/16 19:17:32 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,13 @@ typedef struct s_seq
 	struct s_seq	*next;
 }	t_seq;
 
-void		free_seq(t_seq *seq);
-void		add_seq_back(t_seq **list, t_seq *new_seq);
+int			heredoc(char *delimiter);
 bool		syntax_analysis(t_token *tokens);
+
+void		eval_io(t_seq *seq, char *rederiction_type, char *file);
+void		free_seq(t_seq *seq);
+void		eval_pipes(t_seq *seq);
+void		add_seq_back(t_seq **list, t_seq *new_seq);
 
 t_seq		*parser(t_token *list);
 t_seq		*get_last_seq(t_seq *seq);
@@ -125,6 +129,7 @@ t_seq		*create_seq(char **args, int in, int out);
 
 t_token		*corrector(t_token *token);
 t_token		*expander(t_token *token, t_env *env);
+t_token		*eval_redirection(t_seq *seq, t_token *token);
 
 /******* EVAL ********/
 
