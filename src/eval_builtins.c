@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 09:42:10 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/16 19:26:50 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/16 19:41:38 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_builtin(char *cmd)
 	panic(cmd == NULL, "PARAM IS NULL", __func__);
 	while (cmd[i])
 	{
-		cmd[i] = ft_toupper(cmd[i]);
+		cmd[i] = ft_tolower(cmd[i]);
 		i++;
 	}
 	if (is_equal_str(cmd, "echo"))

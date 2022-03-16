@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 17:52:43 by orahmoun          #+#    #+#              #
-#    Updated: 2022/03/16 17:52:34 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/03/16 19:32:27 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,6 @@ SRC 				=	src/main.c \
 						src/add_history.c \
 						src/2d_array_utils.c \
 						src/2d_array_utils_2.c \
-						# d_minishell/print_tokens.c \
 
 OBJDIR 			=	obj
 
