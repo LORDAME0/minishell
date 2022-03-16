@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/18 15:27:34 by orahmoun          #+#    #+#              #
-#    Updated: 2022/02/22 20:58:03 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/03/12 12:10:59 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,18 +38,18 @@ CC	=	cc
 all	:	$(TARGET) bonus
 
 $(TARGET)	:	$(OBJS) $(HEAD)
-	ar rcs	$@	$^
+	@ar rcs	$@	$^
 
 bonus:	$(OBJS) $(OBJSB) $(HEAD)
-	ar rcs $(TARGET) $(OBJS) $(OBJSB)
+	@ar rcs $(TARGET) $(OBJS) $(OBJSB)
 
 %.o	:	%.c
-	$(CC) $(FLAGS) -c $<
+	@$(CC) $(FLAGS) -c $<
 
 clean:
-	rm -rf $(OBJS) $(OBJSB)
+	@rm -rf $(OBJS) $(OBJSB)
 
 fclean:	clean
-	rm	-rf	$(TARGET)
+	@rm	-rf	$(TARGET)
 
 re: fclean all
