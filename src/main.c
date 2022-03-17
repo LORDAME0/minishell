@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/14 01:04:54 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/17 16:04:31 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	handler(int sig)
 {
 	if (sig == SIGINT)
 	{
+		g_last_return = 1;
 		write(1, "\n", 1);
 		rl_replace_line("", 1);
 		rl_on_new_line();
@@ -41,5 +42,4 @@ int	main(int n, char **args, char **env)
 	denv = dup_env(env);
 	g_last_return = 0;
 	shell_loop(&denv);
-	free_env(denv);
 }

@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 09:42:10 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/16 19:41:38 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/17 16:06:56 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	exec_builtin(t_env **env, t_seq *seq, int builtin)
 	else if (builtin == e_unset)
 		bunset(seq->args + 1, env);
 	else if (builtin == e_exit)
-		bexit (seq, *env);
+		bexit (seq, *env, NULL, NULL);
 	else if (builtin == e_env)
 		benv(*env, seq->out);
 	else if (builtin == e_pwd)

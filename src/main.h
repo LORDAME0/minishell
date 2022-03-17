@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/16 19:17:32 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/17 16:06:55 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@
 /******* GENERAL  UTILS ********/
 
 char		*ft_strjoin_free(char *s1, char *s2);
-// int		skip_char(char *str, int *i, char c);
-// void		init_indexs(int amount, int value, ...);
-// int		skip_until_char(char *str, int *i, char c);
 void		panic(bool con, char *msg, const char *func);
 bool		is_equal_str(const char *s1, const char *s2);
 
@@ -57,11 +54,11 @@ typedef struct s_env
 
 int	g_last_return;
 
+char		*ft_add_history(char *cmd);
 char		*find_value(t_env *env, char *key);
 char		**t_env_to_2d_array(t_env *denv);
 
 void		free_env(t_env *env);
-void		ft_add_history(char *cmd);
 void		safe_close(int fd);
 void		add_variable_back(t_env **list, t_env *new_var);
 
@@ -155,6 +152,6 @@ void		bexport(char **args, t_env **env, int fd);
 void		bunset(char **args, t_env **env);
 void		benv(t_env *env, int fd);
 void		bpwd(int fd);
-void		bexit(t_seq *seq, t_env *denv);
+void		bexit(t_seq *seq, t_env *denv, char *line, char *last_cmd);
 
 #endif

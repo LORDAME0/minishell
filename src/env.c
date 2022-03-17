@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 01:28:05 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/13 23:14:33 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/17 15:06:41 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ char	**t_env_to_2d_array(t_env *denv)
 
 void	benv(t_env *env, int fd)
 {
+	panic(env == NULL, "environment is NULL", __func__);
 	while (env)
 	{
 		ft_putstr_fd (env->key, fd);

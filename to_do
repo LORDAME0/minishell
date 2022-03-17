@@ -1,2 +1,3 @@
-!!!!!! LEAKS
-!!!!!! $? is incomplete
+!! make the error "command not found" come from perror of execve.
+!! weird leak that disappear (TF?!?!?!?!)
+!! protecting fork() in eval 
