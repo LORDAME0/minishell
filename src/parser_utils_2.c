@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 17:49:47 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/16 19:13:56 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/18 23:13:32 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	heredoc(char *delimiter)
 	while (1)
 	{
 		line = readline("heredoc> ");
-		if ((ft_strncmp(line, delimiter, ft_strlen (delimiter)) == 0
-				&& ft_strlen(delimiter) == ft_strlen(line)))
+		if (line == NULL
+			||is_equal_str(delimiter, line))
 			break ;
 		total = ft_strjoin_free(total, line);
 		total = ft_strjoin_free(total, "\n");
@@ -32,6 +32,7 @@ int	heredoc(char *delimiter)
 	}
 	write (fd[1], total, ft_strlen(total));
 	free(total);
+	free(line);
 	close (fd[1]);
 	return (fd[0]);
 }

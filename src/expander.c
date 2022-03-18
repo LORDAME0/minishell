@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 18:45:31 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/14 01:03:21 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/18 23:09:31 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	expand_key(t_token **token, t_token *key, t_env *env, bool open)
 	{
 		if (value == NULL)
 			return ;
-		if (get_last_token(*token)->type != d_quote)
+		if (*token && get_last_token(*token)->type != d_quote)
 			add_token_back(token,
 				split_value(value));
 		else
