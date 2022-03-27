@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 17:58:08 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/08 01:11:01 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 11:48:54 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ t_token	*create_token(char *elem, int type)
 	t_token	*token;
 
 	token = malloc (sizeof(t_token));
+	if (token == NULL)
+	{
+		perror ("Error : ");
+		exit (1);
+	}
 	token->elem = ft_strdup(elem);
 	token->type = type;
 	token->next = NULL;

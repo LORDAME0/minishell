@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 17:52:43 by orahmoun          #+#    #+#              #
-#    Updated: 2022/03/16 19:32:27 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/03/27 11:59:01 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC 				=	src/main.c \
 						src/add_token.c \
 						src/add_token_2.c \
 						src/utils.c \
+						src/utils_2.c \
 						src/syntax_analysis.c \
 						src/env.c \
 						src/env_utils.c \
@@ -55,6 +56,7 @@ SRC 				=	src/main.c \
 						src/eval.c \
 						src/eval_utils.c \
 						src/eval_builtins.c \
+						src/sort_env.c \
 						src/shell_loop.c \
 						src/echo.c \
 						src/pwd.c \

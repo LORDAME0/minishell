@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 22:37:11 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/17 16:14:16 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 12:05:30 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*prompt(t_env *env, char prom[])
 	prom[0] = '\0';
 	if (env == NULL)
 	{
-		printf ("minishell :: pls set environment\n");
+		printf ("MINIShell : pls set environment\n");
 		exit (1);
 	}
 	cwd_ptr = getcwd(cwd, sizeof(cwd));

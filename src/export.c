@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:45:05 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/14 01:53:38 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 10:55:20 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	bexport(char **args, t_env **env, int fd)
 	i = 0;
 	error = false;
 	if (*args == NULL)
-		benv(*env, fd);
+		print_a_sorted_env(*env, fd);
 	while (args[i])
 	{
 		tmp = ft_strchr(args[i], '=');

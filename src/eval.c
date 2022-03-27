@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:13:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 10:37:47 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 11:58:42 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static void	complex_cmd(t_seq *list, t_env **denv)
 	j = 0;
 	env = t_env_to_2d_array(*denv);
 	pid = malloc(sizeof(t_seq) * seq_size(list));
+	if (pid == NULL)
+		perror_exit();
 	while (list)
 	{
 		if (list->args != NULL)

@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 09:06:08 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/13 12:47:54 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 11:47:31 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ t_env	*create_variable(char *key, char *value)
 	t_env	*variable;
 
 	variable = malloc (sizeof(t_env));
+	if (variable == NULL)
+	{
+		perror ("Error : ");
+		exit(1);
+	}
 	variable->key = key;
 	variable->value = value;
 	variable->next = NULL;
