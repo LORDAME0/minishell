@@ -33,7 +33,7 @@ int	is_builtin(char *cmd)
 		return (e_unset);
 	else if (is_equal_str(cmd, "cd"))
 		return (e_cd);
-	else if (is_equal_str(cmd, "pwq"))
+	else if (is_equal_str(cmd, "pwd"))
 		return (e_pwd);
 	else if (is_equal_str(cmd, "exit"))
 		return (e_exit);
@@ -51,7 +51,7 @@ void	exec_builtin(t_env **env, t_seq *seq, int builtin)
 	else if (builtin == e_unset)
 		bunset(seq->args + 1, env);
 	else if (builtin == e_exit)
-		bexit (seq, *env, NULL, NULL);
+		bexit (seq->args + 1, seq, *env, NULL, NULL);
 	else if (builtin == e_env)
 		benv(*env, seq->out);
 	else if (builtin == e_pwd)

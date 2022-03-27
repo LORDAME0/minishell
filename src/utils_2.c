@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:56:59 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 12:06:13 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 13:04:58 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	perror_exit(void)
 {
-	perror ("Error : ");
+	perror ("Error ");
 	exit(1);
 }

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "main.h"
-#include <stddef.h>
 
 static pid_t	exec_cmd(char *cmd, t_seq *seq, char **env, t_env **denv)
 {
@@ -19,7 +18,9 @@ static pid_t	exec_cmd(char *cmd, t_seq *seq, char **env, t_env **denv)
 	int		builtin;
 
 	pid = fork();
-	if (pid == 0)
+  if (pid < 0)
+    perror("Error ");
+  else if (pid == 0)
 	{
 		if (seq && seq->args && seq->args[0])
 		{
@@ -37,8 +38,7 @@ static pid_t	exec_cmd(char *cmd, t_seq *seq, char **env, t_env **denv)
 		}
 		exit (0);
 	}
-	safe_close(seq->in);
-	safe_close(seq->out);
+  safe_close_2(seq->in, seq->out);
 	return (pid);
 }
 

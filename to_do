@@ -1,4 +1,6 @@
-!! make the error "command not found" come from perror of execve.
-!! weird leak that disappear (TF?!?!?!?!)
-!! protecting fork() in eval 
-!!!!! the delimiter leaks
+!!! protecting fork() in eval : done
+!!!!!!!! exit (long) : done
+!!!!!!!!!!!! pwd \n  : done
+!!!!!!!!!!!!!!! empty variable > < >> << : done
+!!!!!!!!!!!!!!!!!!! export x y z maybe 
+!!!!!!!!!!!!!!!!!!! env -i minishell : done

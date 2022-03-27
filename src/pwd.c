@@ -18,4 +18,5 @@ void	bpwd(int fd)
 
 	getcwd(cwd, sizeof(cwd));
 	ft_putstr_fd(cwd, fd);
+	ft_putstr_fd("\n", fd);
 }

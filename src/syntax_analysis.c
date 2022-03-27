@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 00:32:48 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/12 18:13:05 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 13:05:26 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ bool	syntax_analysis(t_token *tokens)
 		|| check_first_and_last(tokens)
 		|| check_pip(tokens))
 	{
-		printf ("MiniSHELL :: syntax error\n");
+		printf ("MiniSHELL : syntax error\n");
 		return (true);
 	}
 	return (false);

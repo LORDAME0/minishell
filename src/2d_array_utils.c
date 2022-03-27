@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 19:40:26 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 11:47:40 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 13:03:37 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**init_2d_array(void)
 	init = malloc(sizeof(char *));
 	if (init == NULL)
 	{
-		perror("Error :");
+		perror("Error ");
 		exit(1);
 	}
 	*init = NULL;

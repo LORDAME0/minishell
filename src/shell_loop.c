@@ -75,7 +75,7 @@ void	shell_loop(t_env **denv)
 		line = NULL;
 		line = readline(prompt(*denv, prom));
 		if (line == NULL || is_equal_str("exit", line))
-			bexit(NULL, *denv, line, his);
+			bexit(NULL, NULL, *denv, line, his);
 		if (*line == '\0')
 		{
 			free(line);

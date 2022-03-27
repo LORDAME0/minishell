@@ -155,6 +155,6 @@ void		bexport(char **args, t_env **env, int fd);
 void		bunset(char **args, t_env **env);
 void		benv(t_env *env, int fd);
 void		bpwd(int fd);
-void		bexit(t_seq *seq, t_env *denv, char *line, char *last_cmd);
+void		bexit(char **args, t_seq *seq, t_env *denv, char *line, char *last_cmd);
 
 #endif
