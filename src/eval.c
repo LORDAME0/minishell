@@ -6,11 +6,12 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:13:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/17 16:34:05 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 10:37:47 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+#include <stddef.h>
 
 static pid_t	exec_cmd(char *cmd, t_seq *seq, char **env, t_env **denv)
 {
@@ -46,20 +47,18 @@ static void	complex_cmd(t_seq *list, t_env **denv)
 	int		i;
 	int		j;
 	char	**env;
-	pid_t	pid[PID_BUFFER_SIZE];
+	pid_t	*pid;
 
 	i = 0;
 	j = 0;
 	env = t_env_to_2d_array(*denv);
+	pid = malloc(sizeof(t_seq) * seq_size(list));
 	while (list)
 	{
 		if (list->args != NULL)
 			pid[i++] = exec_cmd(list->args[0], list, env, denv);
 		else
-		{
-			safe_close(list->out);
-			safe_close(list->in);
-		}
+			safe_close_2(list->in, list->out);
 		list = list->next;
 	}
 	while (j < i)
@@ -67,6 +66,7 @@ static void	complex_cmd(t_seq *list, t_env **denv)
 	if (g_last_return != 127)
 		g_last_return = WEXITSTATUS(g_last_return);
 	free_2d_array(env);
+	free(pid);
 }
 
 void	eval_seq(t_seq *list, t_env	**denv)

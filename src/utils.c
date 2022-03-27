@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:01:57 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/17 15:16:00 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 10:36:28 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ void	safe_close(int fd)
 {
 	if (fd != 0 && fd != 1 && fd != -1)
 		close (fd);
+}
+
+void	safe_close_2(int in, int out)
+{
+	safe_close(in);
+	safe_close(out);
 }
 
 char	*ft_strjoin_free(char *s1, char *s2)

@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/17 16:06:55 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 10:38:22 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char		**t_env_to_2d_array(t_env *denv);
 
 void		free_env(t_env *env);
 void		safe_close(int fd);
+void		safe_close_2(int in, int out);
 void		add_variable_back(t_env **list, t_env *new_var);
 
 t_env		*dup_env(char **env);
@@ -128,9 +129,9 @@ t_token		*corrector(t_token *token);
 t_token		*expander(t_token *token, t_env *env);
 t_token		*eval_redirection(t_seq *seq, t_token *token);
 
-/******* EVAL ********/
+size_t		seq_size(t_seq *seq);
 
-# define PID_BUFFER_SIZE 1024
+/******* EVAL ********/
 
 enum	e_builtins {e_echo, e_env, e_export, e_unset, e_cd, e_pwd, e_exit};
 

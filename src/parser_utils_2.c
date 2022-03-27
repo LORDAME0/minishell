@@ -6,11 +6,12 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 17:49:47 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/18 23:13:32 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 10:34:27 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+#include <stddef.h>
 
 int	heredoc(char *delimiter)
 {
@@ -102,4 +103,19 @@ void	eval_pipes(t_seq *seq)
 		seq = seq->next;
 		last = (seq && seq->next == NULL);
 	}
+}
+
+size_t	seq_size(t_seq *seq)
+{
+	size_t	size;
+
+	size = 0;
+	if (seq == NULL)
+		return (0);
+	while (seq)
+	{
+		size++;
+		seq = seq->next;
+	}
+	return (size);
 }

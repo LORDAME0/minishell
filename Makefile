@@ -56,7 +56,6 @@ SRC 				=	src/main.c \
 						src/eval_utils.c \
 						src/eval_builtins.c \
 						src/shell_loop.c \
-						src/exec.c \
 						src/echo.c \
 						src/pwd.c \
 						src/cd.c \
