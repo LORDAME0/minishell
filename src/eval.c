@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:13:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 11:58:42 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 12:24:12 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static pid_t	exec_cmd(char *cmd, t_seq *seq, char **env, t_env **denv)
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(seq->in, 0);
-		dup2(seq->out, 1);
 		if (seq && seq->args && seq->args[0])
 		{
 			builtin = is_builtin(seq->args[0]);
@@ -31,6 +29,8 @@ static pid_t	exec_cmd(char *cmd, t_seq *seq, char **env, t_env **denv)
 			else
 			{
 				cmd = find_in_path(cmd, env);
+				dup2(seq->in, 0);
+				dup2(seq->out, 1);
 				if (execve(cmd, seq->args, env) == -1)
 					exit (127);
 			}

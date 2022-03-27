@@ -6,16 +6,13 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 22:37:11 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 12:05:30 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 12:21:17 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 #define MAX_NAME 256
 #define PROMPT_SIZE 8
-#define RED "\033[0;31m"
-#define GREEN "\033[0;32m"
-#define RESET "\033[0m"
 
 void	cwd_prompt(char *cwd, char prom[])
 {

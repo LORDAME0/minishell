@@ -6,7 +6,7 @@
 #    By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 17:52:43 by orahmoun          #+#    #+#              #
-#    Updated: 2022/03/27 11:59:01 by orahmoun         ###   ########.fr        #
+#    Updated: 2022/03/27 12:10:48 by orahmoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@ FLAGS				=	-Wall -Wextra -I libft
 
 READLINE			=	-lreadline
 
-LDFLAGS			=	-L /goinfre/orahmoun/.brew/opt/readline/lib \
+LDFLAGS			=	-L /goinfre/$(USER)/.brew/opt/readline/lib \
 
-CPPFLAGS			=	-I /goinfre/orahmoun/.brew/opt/readline/include
+CPPFLAGS			=	-I /goinfre/$(USER)/.brew/opt/readline/include
 
 READLINE_FIX	=	-I .brew/opt/readline/include \
 						${LDFLAGS} \

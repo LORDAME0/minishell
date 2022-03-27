@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 19:49:12 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 12:03:51 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 12:21:33 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**ft_split_paths(char **env)
 
 	if (env == NULL)
 	{
-		printf ("MINIShell :: set environment\n");
+		printf ("MINIShell : set environment\n");
 		exit(1);
 	}
 	path_key_value = ft_split(env[find_in_2d_array(env, "PATH=")], '=');
