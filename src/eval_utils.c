@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 19:49:12 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/15 22:37:26 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/20 16:31:17 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ char	*find_in_path(char *cmd, char **env)
 	{
 		paths = ft_split_paths(env);
 		if (paths == NULL)
+		{
+			printf ("MINIShell : command not found\n");
 			return (cmd);
+		}
 		ret = test_paths(cmd, paths);
 		free_2d_array(paths);
 		if (ret == NULL)
