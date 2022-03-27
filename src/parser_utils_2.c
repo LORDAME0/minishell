@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 17:49:47 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 13:04:19 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 20:33:05 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ t_token	*eval_redirection(t_seq *seq, t_token *token)
 
 	rederiction_type = token->elem;
 	token = token->next;
-  if (token == NULL)
-    printf("MINIShell: ambiguous redirect\n");
-  if (token != NULL)
-	  eval_io(seq, rederiction_type, token->elem);
+	if (token == NULL)
+		printf("MINIShell: ambiguous redirect\n");
+	if (token != NULL)
+		eval_io(seq, rederiction_type, token->elem);
 	if (token == NULL || seq->in < 0 || seq->out < 0)
 	{
 		while (token && token->type != pip)

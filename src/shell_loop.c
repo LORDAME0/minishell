@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 22:37:11 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 12:21:17 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 20:05:47 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,22 @@ void	shell_loop(t_env **denv)
 {
 	t_seq		*seq;
 	char		*line;
-	char		*his;
 	char		prom[MAX_NAME + PROMPT_SIZE];
 
-	his = NULL;
 	while (1337)
 	{
 		seq = NULL;
 		line = NULL;
 		line = readline(prompt(*denv, prom));
 		if (line == NULL || is_equal_str("exit", line))
-			bexit(NULL, NULL, *denv, line, his);
+			bexit(NULL, NULL, *denv, line);
 		if (*line == '\0')
 		{
 			free(line);
 			line = NULL;
 			continue ;
 		}
-		his = ft_add_history(line);
+		ft_add_history(line);
 		seq = parsing(line, *denv);
 		eval_seq(seq, denv);
 		free(line);

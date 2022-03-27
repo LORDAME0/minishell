@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 19:49:12 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 12:21:33 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 20:34:42 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*find_in_path(char *cmd, char **env)
 			printf ("MINIShell : command not found\n");
 		}
 	}
-  else
-			printf ("MINIShell : command not found\n");
+	else
+		printf ("MINIShell : command not found\n");
 	return (ret);
 }

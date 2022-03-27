@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/17 16:04:31 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 20:02:18 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,20 @@ void	signal_handling(void)
 
 int	main(int n, char **args, char **env)
 {
-  char    *tmp;
+	char		*tmp;
 	t_env		*denv;
 
 	(void)n;
 	(void)args;
-  if (env == NULL || *env == NULL)
-  {
-    tmp = getcwd(NULL, 0);
-    env = init_2d_array();
-    env = add_element_2d_array_last(env, ft_strjoin_free(ft_strjoin("PWD", "="), tmp));
-    env = add_element_2d_array_last(env, ft_strjoin_free(ft_strjoin("SHLVL", "="), "1"));
-  }
+	if (env == NULL || *env == NULL)
+	{
+		tmp = getcwd(NULL, 0);
+		env = init_2d_array();
+		env = add_element_2d_array_last(env,
+				ft_strjoin_free(ft_strjoin("PWD", "="), tmp));
+		env = add_element_2d_array_last(env,
+				ft_strjoin_free(ft_strjoin("SHLVL", "="), "1"));
+	}
 	signal_handling();
 	denv = dup_env(env);
 	g_last_return = 0;

@@ -6,7 +6,7 @@
 /*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 11:58:05 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 20:06:48 by orahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_env
 
 int	g_last_return;
 
-char		*ft_add_history(char *cmd);
+void		ft_add_history(char *cmd);
 char		*find_value(t_env *env, char *key);
 char		**t_env_to_2d_array(t_env *denv);
 
@@ -155,6 +155,6 @@ void		bexport(char **args, t_env **env, int fd);
 void		bunset(char **args, t_env **env);
 void		benv(t_env *env, int fd);
 void		bpwd(int fd);
-void		bexit(char **args, t_seq *seq, t_env *denv, char *line, char *last_cmd);
+void		bexit(char **args, t_seq *seq, t_env *denv, char *line);
 
 #endif
