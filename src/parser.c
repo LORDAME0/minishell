@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-hamd <ael-hamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 13:39:59 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/16 19:22:29 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 21:40:47 by ael-hamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,36 +59,3 @@ t_seq	*parser(t_token *list)
 	}
 	return (head);
 }
-// #ifdef DEBUG
-	// print_seq(head);
-// #endif
-// void	print_seq(t_seq *seq)
-// {
-	// int	i;
-//
-	// i = 1;
-	// if (seq == NULL)
-		// return ;
-	// while (seq)
-	// {
-		// if (seq->args)
-		// {
-			// printf ("CMD :: %s\n", seq->args[0]);
-			// if (seq->args[0] && seq->args[1])
-			// {
-				// while (seq->args[i])
-				// {
-					// printf ("ARG[%d] :: %s\n", i, seq->args[i]);
-					// i++;
-				// }
-				// i = 0;
-			// }
-		// }
-		// else
-			// printf ("CMD :: %s\n", NULL);
-		// printf ("IN :: %d\n", seq->in);
-		// printf ("OUT :: %d\n", seq->out);
-		// seq = seq->next;
-	// }
-// }
-//

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eval.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-hamd <ael-hamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 13:13:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 20:32:35 by orahmoun         ###   ########.fr       */
+/*   Created: 2022/03/27 22:00:44 by ael-hamd          #+#    #+#             */
+/*   Updated: 2022/03/27 22:00:57 by ael-hamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	eval_seq(t_seq *list, t_env	**denv)
 	g_last_return = 0;
 	if (denv == NULL)
 	{
-		printf ("MINIShell :: set environment\n");
+		printf ("MINIShell : set environment\n");
 		exit(1);
 	}
 	if (list == NULL)

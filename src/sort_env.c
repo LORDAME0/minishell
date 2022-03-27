@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-hamd <ael-hamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:46:37 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 12:06:25 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 22:03:48 by ael-hamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	print_a_sorted_env(t_env *env, int fd)
 		{
 			if (env->key[0] == c)
 			{
+				ft_putstr_fd("declare -x ", fd);
 				ft_putstr_fd(env->key, fd);
 				ft_putstr_fd("=", fd);
 				ft_putstr_fd(env->value, fd);

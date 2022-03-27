@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-hamd <ael-hamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/11 22:55:52 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 20:37:55 by orahmoun         ###   ########.fr       */
+/*   Created: 2022/03/27 21:23:42 by ael-hamd          #+#    #+#             */
+/*   Updated: 2022/03/27 21:23:43 by ael-hamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-#include <limits.h>
-#include <stddef.h>
-#include <stdlib.h>
 
 bool	is_num(char *s)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-hamd <ael-hamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 20:06:48 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 22:06:06 by ael-hamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,6 @@ void		free_token(t_token *token);
 void		free_tokens(t_token *token);
 void		add_token_back(t_token **list, t_token *elem);
 void		delete_first_token(t_token **list);
-// void		print_tokens_types(t_token *tok_list);
-// void		print_tokens(t_token *tok_list);
-// void		re_print_command(t_token	*tok_list);
 void		pip_token(t_token **head);
 void		redirection_token(t_token **head, char *line);
 void		quote_token(t_token **head, char *current, bool open);

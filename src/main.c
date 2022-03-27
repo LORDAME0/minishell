@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_main.c                                         :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-hamd <ael-hamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 20:02:18 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/03/27 21:17:11 by ael-hamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	handler(int sig)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	else if (sig == SIGQUIT)
-		return ;
 }
 
 void	signal_handling(void)
@@ -46,7 +44,7 @@ int	main(int n, char **args, char **env)
 		env = add_element_2d_array_last(env,
 				ft_strjoin_free(ft_strjoin("PWD", "="), tmp));
 		env = add_element_2d_array_last(env,
-				ft_strjoin_free(ft_strjoin("SHLVL", "="), "1"));
+				ft_strjoin_free(ft_strjoin("SHLVL", "="), "0"));
 	}
 	signal_handling();
 	denv = dup_env(env);
