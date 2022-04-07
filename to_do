@@ -1,6 +1,1 @@
-!!! protecting fork() in eval : done
-!!!!!!!! exit (long) : done
-!!!!!!!!!!!! pwd \n  : done
-!!!!!!!!!!!!!!! empty variable > < >> << : done
-!!!!!!!!!!!!!!!!!!! export x y z maybe 
-!!!!!!!!!!!!!!!!!!! env -i minishell : done
+fix the weird behaviour of "cat | ls" 
