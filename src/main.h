@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-hamd <ael-hamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 16:49:06 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 22:06:06 by ael-hamd         ###   ########.fr       */
+/*   Created: 2022/06/27 16:59:16 by rnaamaou          #+#    #+#             */
+/*   Updated: 2022/06/29 16:34:08 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MAIN_H
 # define MAIN_H

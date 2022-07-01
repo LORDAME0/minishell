@@ -2,11 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
-/*                                               :e      +:+ +:+         +:+  */
-/*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 22:37:11 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 20:05:47 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/06/29 14:13:13 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ void	shell_loop(t_env **denv)
 		ft_add_history(line);
 		seq = parsing(line, *denv);
 		eval_seq(seq, denv);
+		// printf("%d, %d\n",seq->in,seq->out);
+		// int i = 0;
+		// while(seq->args[i])
+		// {
+		// 	printf("%s\n",seq->args[i++]);
+		// }
 		free(line);
 		free_seq(seq);
 	}

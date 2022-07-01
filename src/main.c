@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-hamd <ael-hamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 21:17:11 by ael-hamd         ###   ########.fr       */
+/*   Updated: 2022/06/30 17:13:59 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int n, char **args, char **env)
 
 	(void)n;
 	(void)args;
+	rl_catch_signals = 0;
 	if (env == NULL || *env == NULL)
 	{
 		tmp = getcwd(NULL, 0);
