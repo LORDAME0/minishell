@@ -43,6 +43,8 @@ int	main(int n, char **args, char **env)
 		tmp = getcwd(NULL, 0);
 		env = init_2d_array();
 		env = add_element_2d_array_last(env,
+				ft_strjoin_free(ft_strjoin("PATH", "="), "/usr/bin:/bin:/usr/sbin:/sbin"));
+		env = add_element_2d_array_last(env,
 				ft_strjoin_free(ft_strjoin("PWD", "="), tmp));
 		env = add_element_2d_array_last(env,
 				ft_strjoin_free(ft_strjoin("SHLVL", "="), "0"));
