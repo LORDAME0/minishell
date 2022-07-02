@@ -26,7 +26,14 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 
-int	g_last_return;
+// int	g_last_return;
+typedef struct s_data {
+  int	g_last_return;
+  bool g_forked; 
+} t_data;
+
+t_data g_data;
+
 /******* GENERAL  UTILS ********/
 
 void		perror_exit(void);

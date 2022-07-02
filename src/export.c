@@ -68,5 +68,5 @@ void	bexport(char **args, t_env **env, int fd)
 		i++;
 	}
 	if (error)
-		g_last_return = 1;
+		g_data.g_last_return = 1;
 }

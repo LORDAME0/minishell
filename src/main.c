@@ -14,10 +14,10 @@
 
 void	handler(int sig)
 {
-	if (sig == SIGINT)
+	write(1, "\n", 1);
+	if (sig == SIGINT && g_data.g_forked == false)
 	{
-		g_last_return = 1;
-		write(1, "\n", 1);
+		g_data.g_last_return = 1;
 		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
@@ -49,6 +49,6 @@ int	main(int n, char **args, char **env)
 	}
 	signal_handling();
 	denv = dup_env(env);
-	g_last_return = 0;
+	g_data.g_last_return = 0;
 	shell_loop(&denv);
 }

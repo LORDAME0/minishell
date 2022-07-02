@@ -43,7 +43,7 @@ static void	expand_key(t_token **token, t_token *key, t_env *env, bool open)
 	value = find_value(env, key->elem);
 	if (is_equal_str(key->elem, "?"))
 	{
-		rt_value = ft_itoa(g_last_return);
+		rt_value = ft_itoa(g_data.g_last_return);
 		add_token_back(token, create_token(rt_value, word));
 		free(rt_value);
 	}

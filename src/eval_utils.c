@@ -74,7 +74,7 @@ char	*find_in_path(char *cmd, char **env)
 		free_2d_array(paths);
 		if (ret == NULL)
 		{
-			g_last_return = 127;
+			g_data.g_last_return = 127;
 			printf ("MINIShell : command not found\n");
 		}
 	}

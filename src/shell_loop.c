@@ -71,6 +71,7 @@ void	shell_loop(t_env **denv)
 	{
 		seq = NULL;
 		line = NULL;
+	  rl_catch_signals = 0;
 		line = readline(prompt(*denv, prom));
 		if (line == NULL || is_equal_str("exit", line))
 			bexit(NULL, NULL, *denv, line);
