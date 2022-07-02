@@ -71,10 +71,13 @@ void	benv(t_env *env, int fd)
 	panic(env == NULL, "environment is NULL", __func__);
 	while (env)
 	{
-		ft_putstr_fd (env->key, fd);
-		ft_putstr_fd ("=", fd);
-		ft_putstr_fd (env->value, fd);
-		ft_putstr_fd ("\n", fd);
+    if (env->value[0])
+    {
+      ft_putstr_fd (env->key, fd);
+      ft_putstr_fd ("=", fd);
+      ft_putstr_fd (env->value, fd);
+      ft_putstr_fd ("\n", fd);
+    }
 		env = env->next;
 	}
 }

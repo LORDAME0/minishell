@@ -62,7 +62,9 @@ void	bexport(char **args, t_env **env, int fd)
 		if (tmp)
 			tmp[0] = '\0';
 		if (is_valid_key(args[i]) && tmp)
-			add_key(env, args[i], tmp + 1);
+      add_key(env, args[i], tmp + 1);
+    else if (is_valid_key(args[i]))
+      add_key(env, args[i], ft_strdup(""));
 		else if (is_valid_key(args[i]) == false)
 			error = printf ("export: not an identifier: %s\n", args[i]);
 		i++;

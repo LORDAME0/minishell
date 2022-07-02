@@ -27,7 +27,8 @@ void	print_a_sorted_env(t_env *env, int fd)
 			{
 				ft_putstr_fd("declare -x ", fd);
 				ft_putstr_fd(env->key, fd);
-				ft_putstr_fd("=", fd);
+        if (env->value[0])
+				  ft_putstr_fd("=", fd);
 				ft_putstr_fd(env->value, fd);
 				ft_putstr_fd("\n", fd);
 			}
