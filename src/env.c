@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dup_env.c                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 01:28:05 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/17 15:06:41 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/07/02 20:41:29 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ void	benv(t_env *env, int fd)
 	panic(env == NULL, "environment is NULL", __func__);
 	while (env)
 	{
-    if (env->value[0])
-    {
-      ft_putstr_fd (env->key, fd);
-      ft_putstr_fd ("=", fd);
-      ft_putstr_fd (env->value, fd);
-      ft_putstr_fd ("\n", fd);
-    }
-		env = env->next;
+		if (env->value[0])
+		{
+			ft_putstr_fd (env->key, fd);
+			ft_putstr_fd ("=", fd);
+			ft_putstr_fd (env->value, fd);
+			ft_putstr_fd ("\n", fd);
+		}
+			env = env->next;
 	}
 }

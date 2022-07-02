@@ -6,7 +6,7 @@
 /*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:59:37 by rnaamaou          #+#    #+#             */
-/*   Updated: 2022/07/02 15:20:41 by rnaamaou         ###   ########.fr       */
+/*   Updated: 2022/07/02 21:06:31 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	print_a_sorted_env(t_env *env, int fd)
 			{
 				ft_putstr_fd("declare -x ", fd);
 				ft_putstr_fd(env->key, fd);
-        if (env->value[0])
-				  ft_putstr_fd("=", fd);
+				if (env->value[0])
+					ft_putstr_fd("=", fd);
 				ft_putstr_fd(env->value, fd);
 				ft_putstr_fd("\n", fd);
 			}

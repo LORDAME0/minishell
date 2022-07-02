@@ -6,7 +6,7 @@
 /*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:59:16 by rnaamaou          #+#    #+#             */
-/*   Updated: 2022/07/02 15:20:27 by rnaamaou         ###   ########.fr       */
+/*   Updated: 2022/07/02 20:47:22 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@
 # include <readline/readline.h>
 
 // int	g_last_return;
-typedef struct s_data {
-  int	g_last_return;
-  bool g_forked; 
-} t_data;
+typedef struct s_data{
+	int		g_last_return;
+	bool	g_forked;
+}	t_data;
 
-t_data g_data;
+t_data	g_data;
 
 /******* GENERAL  UTILS ********/
 

@@ -6,27 +6,27 @@
 /*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:58:08 by rnaamaou          #+#    #+#             */
-/*   Updated: 2022/07/02 16:07:27 by rnaamaou         ###   ########.fr       */
+/*   Updated: 2022/07/02 20:43:37 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void close_all(t_seq *head)
+void	close_all(t_seq *head)
 {
-  while (head)
-  {
-    safe_close(head->in);
-    safe_close(head->out);
-    head = head->next;
-  }
+	while (head)
+	{
+		safe_close(head->in);
+		safe_close(head->out);
+		head = head->next;
+	}
 }
 
 static pid_t	exec_cmd(char *cmd, t_seq *seq, char **env, t_env **denv)
 {
 	pid_t		pid;
 
-  g_data.g_forked = true;
+	g_data.g_forked = true;
 	pid = fork();
 	if (pid < 0)
 		perror("Error ");
@@ -40,9 +40,9 @@ static pid_t	exec_cmd(char *cmd, t_seq *seq, char **env, t_env **denv)
 			{
 				cmd = find_in_path(cmd, env);
 				dup2(seq->in, 0);
-            g_data.g_forked = false;
+				g_data.g_forked = false;
 				dup2(seq->out, 1);
-        close_all(seq);
+				close_all(seq);
 				if (execve(cmd, seq->args, env) == -1)
 					exit (127);
 			}
@@ -77,8 +77,8 @@ static void	complex_cmd(t_seq *list, t_env **denv)
 	while (j < i)
 		waitpid(pid[j++], &(g_data.g_last_return), 0);
 	if (g_data.g_last_return != 127)
-      g_data.g_last_return = WEXITSTATUS(g_data.g_last_return);
-  g_data.g_forked = false;
+		g_data.g_last_return = WEXITSTATUS(g_data.g_last_return);
+	g_data.g_forked = false;
 	free_2d_array(env);
 	free(pid);
 }

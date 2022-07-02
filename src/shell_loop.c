@@ -6,7 +6,7 @@
 /*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 22:37:11 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/07/02 15:19:22 by rnaamaou         ###   ########.fr       */
+/*   Updated: 2022/07/02 16:58:26 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	shell_loop(t_env **denv)
 	{
 		seq = NULL;
 		line = NULL;
-	  rl_catch_signals = 0;
+		rl_catch_signals = 0;
 		line = readline(prompt(*denv, prom));
 		if (line == NULL || is_equal_str("exit", line))
 			bexit(NULL, NULL, *denv, line);

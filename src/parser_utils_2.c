@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eval_utils_2.c                                     :+:      :+:    :+:   */
+/*   parser_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 17:49:47 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 20:33:05 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/07/02 21:05:04 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	heredoc(char *delimiter)
 	char	*total;
 	char	*line;
 	int		fd[2];
-  // int pid;
+	// int pid;
 
 	pipe (fd);
   // pid = fork();
@@ -26,20 +26,20 @@ int	heredoc(char *delimiter)
   // {
   //   signal(SIGINT, SIG_DFL);
   //   signal(SIGQUIT, SIG_DFL);
-    total = ft_strdup("");
-    while (1)
-    {
-      line = readline("heredoc> ");
-      if (line == NULL || is_equal_str(delimiter, line))
-        break ;
-      total = ft_strjoin_free(total, line);
-      total = ft_strjoin_free(total, "\n");
-      free(line);
-    }
-    write (fd[1], total, ft_strlen(total));
-    free(total);
-    free(line);
-    safe_close_2(fd[0], fd[1]);
+	total = ft_strdup("");
+	while (1)
+	{
+		line = readline("heredoc> ");
+		if (line == NULL || is_equal_str(delimiter, line))
+			break ;
+		total = ft_strjoin_free(total, line);
+		total = ft_strjoin_free(total, "\n");
+		free(line);
+	}
+	write (fd[1], total, ft_strlen(total));
+	free(total);
+	free(line);
+	safe_close_2(fd[0], fd[1]);
   //   exit (0);
   // }
   // waitpid(pid, NULL, 0);

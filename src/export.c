@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:45:05 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/27 10:55:20 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/07/02 20:45:16 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	bexport(char **args, t_env **env, int fd)
 		if (tmp)
 			tmp[0] = '\0';
 		if (is_valid_key(args[i]) && tmp)
-      add_key(env, args[i], tmp + 1);
-    else if (is_valid_key(args[i]))
-      add_key(env, args[i], ft_strdup(""));
+			add_key(env, args[i], tmp + 1);
+		else if (is_valid_key(args[i]))
+			add_key(env, args[i], ft_strdup(""));
 		else if (is_valid_key(args[i]) == false)
 			error = printf ("export: not an identifier: %s\n", args[i]);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:53:25 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/06/30 17:13:59 by rnaamaou         ###   ########.fr       */
+/*   Updated: 2022/07/02 20:45:48 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	main(int n, char **args, char **env)
 		tmp = getcwd(NULL, 0);
 		env = init_2d_array();
 		env = add_element_2d_array_last(env,
-				ft_strjoin_free(ft_strjoin("PATH", "="), "/usr/bin:/bin:/usr/sbin:/sbin"));
+				ft_strjoin_free(ft_strjoin("PATH", "="),
+					"/usr/bin:/bin:/usr/sbin:/sbin"));
 		env = add_element_2d_array_last(env,
 				ft_strjoin_free(ft_strjoin("PWD", "="), tmp));
 		env = add_element_2d_array_last(env,
