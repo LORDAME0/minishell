@@ -6,7 +6,7 @@
 /*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 22:37:11 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/06/29 14:13:13 by rnaamaou         ###   ########.fr       */
+/*   Updated: 2022/07/02 15:19:22 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,6 @@ void	shell_loop(t_env **denv)
 		ft_add_history(line);
 		seq = parsing(line, *denv);
 		eval_seq(seq, denv);
-		// printf("%d, %d\n",seq->in,seq->out);
-		// int i = 0;
-		// while(seq->args[i])
-		// {
-		// 	printf("%s\n",seq->args[i++]);
-		// }
 		free(line);
 		free_seq(seq);
 	}

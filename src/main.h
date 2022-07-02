@@ -6,15 +6,13 @@
 /*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:59:16 by rnaamaou          #+#    #+#             */
-/*   Updated: 2022/06/29 16:34:08 by rnaamaou         ###   ########.fr       */
+/*   Updated: 2022/07/02 15:20:27 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MAIN_H
 # define MAIN_H
 # include "../libft/libft.h"
-
 # include <fcntl.h>
 # include <errno.h>
 # include <stdio.h>
@@ -28,6 +26,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 
+int	g_last_return;
 /******* GENERAL  UTILS ********/
 
 void		perror_exit(void);
@@ -53,8 +52,6 @@ typedef struct s_env
 	char				*value;
 	struct s_env		*next;
 }	t_env;
-
-int	g_last_return;
 
 void		ft_add_history(char *cmd);
 char		*find_value(t_env *env, char *key);
