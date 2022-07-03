@@ -12,6 +12,12 @@
 
 #include "main.h"
 
+int ft_perror_ret(char *str)
+{
+  perror(str);
+  return 1;
+}
+
 static void	update_paths_env(t_env **env)
 {
 	t_env		*pwd;
@@ -55,17 +61,25 @@ void	bcd(char *path, t_env **env)
 {
 	char	cwd[PATH_MAX];
 
-	if (path == NULL)
+	if (path == NULL || is_equal_str(path, "~"))
 		cd_home(env);
 	else if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
-		perror("Error ");
+		g_data.g_last_return = ft_perror_ret("Error ");
 		cd_home(env);
 	}
 	else
 	{
-		if (chdir(path))
-			perror("Error ");
+    if (is_equal_str(path, "-"))
+    {
+      if (find_key(*env, "OLDPWD")
+          && find_key(*env, "OLDPWD")->value[0])
+        bcd (find_key(*env, "OLDPWD")->value, env);
+      else
+          g_data.g_last_return = printf ("MINIShell :: OLDPWD not set\n") && 1;
+    }
+    else if (chdir(path))
+			g_data.g_last_return = ft_perror_ret("Error ");
 		else
 			update_paths_env(env);
 	}
