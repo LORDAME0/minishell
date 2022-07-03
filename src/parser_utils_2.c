@@ -12,6 +12,14 @@
 
 #include "main.h"
 
+int free_and_exit(char *s1, char *s2, int fd1, int fd2)
+{
+  free(s1);
+  free(s2);
+  safe_close_2(fd1, fd2);
+  return 0;
+}
+
 int	heredoc(char *delimiter)
 {
 	char	*total;
@@ -23,32 +31,22 @@ int	heredoc(char *delimiter)
 	pid = ft_fork();
 	if (pid == 0)
 	{
-		signal(SIGINT, dfl);
-    rl_catch_signals = 1;
 		total = ft_strdup("");
 		while (!g_data.g_heredoc_end)
 		{
 			line = readline("heredoc> ");
 			if (line == NULL || is_equal_str(delimiter, line))
 				break ;
-			total = ft_strjoin_free(total, line);
-			total = ft_strjoin_free(total, "\n");
+			total = ft_strjoin_free(ft_strjoin_free(total, line), "\n");
 			free(line);
 			line = NULL;
 		}
 		write (fd[1], total, ft_strlen(total));
-		free(total);
-		free(line);
-		safe_close_2(fd[0], fd[1]);
-		exit (0);
+		exit (free_and_exit(total, line, fd[0], fd[1]));
 	}
-	safe_close (fd[1]);
   if (ret_wait(pid) == 256)
-  {
-    safe_close(fd[0]);
-    return -2;
-  }
-	return (fd[0]);
+    return safe_close_2(fd[0], fd[1]), -2;
+	return (safe_close (fd[1]), fd[0]);
 }
 
 void	eval_io(t_seq *seq, char *rederiction_type, char *file)
