@@ -6,7 +6,7 @@
 /*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:59:16 by rnaamaou          #+#    #+#             */
-/*   Updated: 2022/07/03 15:46:46 by rnaamaou         ###   ########.fr       */
+/*   Updated: 2022/07/03 20:28:13 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,12 @@ typedef struct s_seq
 	struct s_seq	*next;
 }	t_seq;
 
-int ft_fork();
-int ret_wait(int pid);
+int			ft_fork(void);
+int			ret_wait(int pid);
 int			heredoc(char *delimiter);
 bool		syntax_analysis(t_token *tokens);
-int free_and_exit(char *s1, char *s2, int fd1, int fd2);
-
-void	dfl(int sig);
+int			free_and_exit(char *s1, char *s2, int fd1, int fd2);
+void		dfl(int sig);
 void		eval_io(t_seq *seq, char *rederiction_type, char *file);
 void		free_seq(t_seq *seq);
 void		eval_pipes(t_seq *seq);
@@ -139,7 +138,6 @@ t_token		*expander(t_token *token, t_env *env);
 t_token		*eval_redirection(t_seq *seq, t_token *token);
 
 size_t		seq_size(t_seq *seq);
-
 
 /******* EVAL ********/
 

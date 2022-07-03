@@ -1,45 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils_3.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/03 20:29:11 by rnaamaou          #+#    #+#             */
+/*   Updated: 2022/07/03 20:30:40 by rnaamaou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 void	dfl(int sig)
 {
 	g_data.g_heredoc_end = true;
 	(void)sig;
-  exit(1);
+	exit(1);
 }
 
-int ft_fork()
+int	ft_fork(void)
 {
-  int pid;
+	int	pid;
 
-  g_data.g_forked = true;
-  pid =  fork();
-  if (pid < 0)
-  {
-    perror("Error ");
-    exit (1);
-  }
-  if (pid == 0)
-  {
-    signal(SIGINT, dfl);
-    rl_catch_signals = 1;
-  }
-  return pid;
+	g_data.g_forked = true;
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("Error ");
+		exit (1);
+	}
+	if (pid == 0)
+	{
+		signal(SIGINT, dfl);
+		rl_catch_signals = 1;
+	}
+	return (pid);
 }
 
-int ret_wait(int pid)
+int	ret_wait(int pid)
 {
-  int status;
+	int	status;
 
-  status = 0;
-  waitpid(pid, &status, 0);
-  return status;
+	status = 0;
+	waitpid(pid, &status, 0);
+	return (status);
 }
 
-int free_and_exit(char *s1, char *s2, int fd1, int fd2)
+int	free_and_exit(char *s1, char *s2, int fd1, int fd2)
 {
-  free(s1);
-  free(s2);
-  safe_close_2(fd1, fd2);
-  return 0;
+	free(s1);
+	free(s2);
+	safe_close_2(fd1, fd2);
+	return (0);
 }
-

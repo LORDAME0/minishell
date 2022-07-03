@@ -6,7 +6,7 @@
 /*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 17:49:47 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/07/03 15:52:13 by rnaamaou         ###   ########.fr       */
+/*   Updated: 2022/07/03 20:25:37 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	heredoc(char *delimiter)
 		write (fd[1], total, ft_strlen(total));
 		exit (free_and_exit(total, line, fd[0], fd[1]));
 	}
-  if (ret_wait(pid) == 256)
-    return safe_close_2(fd[0], fd[1]), -2;
+	if (ret_wait(pid) == 256)
+		return (safe_close_2(fd[0], fd[1]), -2);
 	return (safe_close (fd[1]), fd[0]);
 }
 
