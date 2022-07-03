@@ -30,6 +30,7 @@
 typedef struct s_data{
 	int		g_last_return;
 	bool	g_forked;
+  bool  g_heredoc_end;
 }	t_data;
 
 t_data	g_data;
