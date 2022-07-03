@@ -38,6 +38,7 @@ int	main(int n, char **args, char **env)
 	(void)n;
 	(void)args;
 	rl_catch_signals = 0;
+	g_data.g_heredoc_end = false;
 	if (env == NULL || *env == NULL)
 	{
 		tmp = getcwd(NULL, 0);

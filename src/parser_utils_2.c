@@ -16,6 +16,22 @@ void	dfl(int sig)
 {
 	g_data.g_heredoc_end = true;
 	(void)sig;
+  exit(1);
+}
+
+int ft_fork()
+{
+  g_data.g_forked = true;
+  return fork();
+}
+
+int ret_wait(int pid)
+{
+  int status;
+
+  status = 0;
+  waitpid(pid, &status, 0);
+  return status;
 }
 
 int	heredoc(char *delimiter)
@@ -25,12 +41,12 @@ int	heredoc(char *delimiter)
 	int		fd[2];
 	int		pid;
 
-	g_data.g_heredoc_end = false;
 	pipe (fd);
-	pid = fork();
+	pid = ft_fork();
 	if (pid == 0)
 	{
 		signal(SIGINT, dfl);
+    rl_catch_signals = 1;
 		total = ft_strdup("");
 		while (!g_data.g_heredoc_end)
 		{
@@ -48,8 +64,12 @@ int	heredoc(char *delimiter)
 		safe_close_2(fd[0], fd[1]);
 		exit (0);
 	}
-	waitpid(pid, NULL, 0);
 	safe_close (fd[1]);
+  if (ret_wait(pid) == 256)
+  {
+    safe_close(fd[0]);
+    return -2;
+  }
 	return (fd[0]);
 }
 
