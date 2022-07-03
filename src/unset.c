@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 21:52:35 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/03/13 22:51:57 by orahmoun         ###   ########.fr       */
+/*   Updated: 2022/07/03 15:53:30 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ t_env	*remove_variable(t_env *env, char *variable)
 void	bunset(char **args, t_env **env)
 {
 	size_t	i;
-  int     error;
+	int		error;
 
 	i = 0;
-  error = 0;
+	error = 0;
 	if (args == NULL)
 		return ;
 	while (args[i])
 	{
-    if (is_valid_key(args[i]) == false)
+		if (is_valid_key(args[i]) == false)
 			error = printf ("export: not an identifier: %s\n", args[i]);
-    else if (find_key(*env, args[i]))
+		else if (find_key(*env, args[i]))
 			*env = remove_variable(*env, args[i]);
 		i++;
 	}

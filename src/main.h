@@ -6,7 +6,7 @@
 /*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:59:16 by rnaamaou          #+#    #+#             */
-/*   Updated: 2022/07/02 20:47:22 by rnaamaou         ###   ########.fr       */
+/*   Updated: 2022/07/03 15:46:46 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 typedef struct s_data{
 	int		g_last_return;
 	bool	g_forked;
-  bool  g_heredoc_end;
+	bool	g_heredoc_end;
 }	t_data;
 
 t_data	g_data;

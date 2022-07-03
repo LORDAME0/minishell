@@ -6,7 +6,7 @@
 /*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:58:14 by rnaamaou          #+#    #+#             */
-/*   Updated: 2022/07/02 15:18:50 by rnaamaou         ###   ########.fr       */
+/*   Updated: 2022/07/03 15:46:16 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	bexit(char **args, t_seq *seq, t_env *denv, char *line)
 	exit_value = 0;
 	if (args && size_of_2d_array(args) > 1)
 	{
-    g_data.g_last_return = 1;
+		g_data.g_last_return = 1;
 		printf("MINIShell: exit: too many arguments\n");
 		return ;
 	}

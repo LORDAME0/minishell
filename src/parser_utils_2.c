@@ -6,16 +6,16 @@
 /*   By: rnaamaou <rnaamaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 17:49:47 by orahmoun          #+#    #+#             */
-/*   Updated: 2022/07/02 21:05:04 by rnaamaou         ###   ########.fr       */
+/*   Updated: 2022/07/03 15:52:13 by rnaamaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void dfl(int sig)
+void	dfl(int sig)
 {
-  g_data.g_heredoc_end = true;
-  (void)sig;
+	g_data.g_heredoc_end = true;
+	(void)sig;
 }
 
 int	heredoc(char *delimiter)
@@ -23,31 +23,32 @@ int	heredoc(char *delimiter)
 	char	*total;
 	char	*line;
 	int		fd[2];
-	int pid;
-  g_data.g_heredoc_end = false;
+	int		pid;
+
+	g_data.g_heredoc_end = false;
 	pipe (fd);
-  pid = fork();
-  if (pid == 0)
-  {
-    signal(SIGINT, dfl);
-    total = ft_strdup("");
-    while (!g_data.g_heredoc_end)
-    {
-      line = readline("heredoc> ");
-      if (line == NULL || is_equal_str(delimiter, line))
-        break ;
-      total = ft_strjoin_free(total, line);
-      total = ft_strjoin_free(total, "\n");
-      free(line);
-      line = NULL;
-    }
-    write (fd[1], total, ft_strlen(total));
-    free(total);
-    free(line);
-    safe_close_2(fd[0], fd[1]);
-    exit (0);
-  }
-  waitpid(pid, NULL, 0);
+	pid = fork();
+	if (pid == 0)
+	{
+		signal(SIGINT, dfl);
+		total = ft_strdup("");
+		while (!g_data.g_heredoc_end)
+		{
+			line = readline("heredoc> ");
+			if (line == NULL || is_equal_str(delimiter, line))
+				break ;
+			total = ft_strjoin_free(total, line);
+			total = ft_strjoin_free(total, "\n");
+			free(line);
+			line = NULL;
+		}
+		write (fd[1], total, ft_strlen(total));
+		free(total);
+		free(line);
+		safe_close_2(fd[0], fd[1]);
+		exit (0);
+	}
+	waitpid(pid, NULL, 0);
 	safe_close (fd[1]);
 	return (fd[0]);
 }
