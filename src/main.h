@@ -117,9 +117,12 @@ typedef struct s_seq
 	struct s_seq	*next;
 }	t_seq;
 
+int ft_fork();
+int ret_wait(int pid);
 int			heredoc(char *delimiter);
 bool		syntax_analysis(t_token *tokens);
 
+void	dfl(int sig);
 void		eval_io(t_seq *seq, char *rederiction_type, char *file);
 void		free_seq(t_seq *seq);
 void		eval_pipes(t_seq *seq);
@@ -135,6 +138,7 @@ t_token		*expander(t_token *token, t_env *env);
 t_token		*eval_redirection(t_seq *seq, t_token *token);
 
 size_t		seq_size(t_seq *seq);
+
 
 /******* EVAL ********/
 
