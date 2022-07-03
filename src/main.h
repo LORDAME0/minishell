@@ -121,6 +121,7 @@ int ft_fork();
 int ret_wait(int pid);
 int			heredoc(char *delimiter);
 bool		syntax_analysis(t_token *tokens);
+int free_and_exit(char *s1, char *s2, int fd1, int fd2);
 
 void	dfl(int sig);
 void		eval_io(t_seq *seq, char *rederiction_type, char *file);
