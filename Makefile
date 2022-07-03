@@ -52,6 +52,7 @@ SRC 				=	src/main.c \
 						src/parser.c \
 						src/parser_utils.c \
 						src/parser_utils_2.c \
+						src/parser_utils_3.c \
 						src/parsing.c \
 						src/eval.c \
 						src/eval_utils.c \

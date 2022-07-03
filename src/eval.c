@@ -40,7 +40,6 @@ static pid_t	exec_cmd(char *cmd, t_seq *seq, char **env, t_env **denv)
 			{
 				cmd = find_in_path(cmd, env);
 				dup2(seq->in, 0);
-				g_data.g_forked = false;
 				dup2(seq->out, 1);
 				close_all(seq);
 				if (execve(cmd, seq->args, env) == -1)
@@ -49,8 +48,7 @@ static pid_t	exec_cmd(char *cmd, t_seq *seq, char **env, t_env **denv)
 		}
 		exit (0);
 	}
-	safe_close_2(seq->in, seq->out);
-	return (pid);
+	return (safe_close_2(seq->in, seq->out), pid);
 }
 
 static void	complex_cmd(t_seq *list, t_env **denv)
@@ -78,7 +76,6 @@ static void	complex_cmd(t_seq *list, t_env **denv)
 		waitpid(pid[j++], &(g_data.g_last_return), 0);
 	if (g_data.g_last_return != 127)
 		g_data.g_last_return = WEXITSTATUS(g_data.g_last_return);
-	g_data.g_forked = false;
 	free_2d_array(env);
 	free(pid);
 }
